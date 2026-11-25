@@ -26,6 +26,7 @@ const CARD_CONFIG = {
 let lenisInstance = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+  initPersonalizedGuest();
   initLenisSmoothScroll();
   initRealistic3DEnvelope();
   initEnvelopeMagneticTilt();
@@ -40,6 +41,92 @@ document.addEventListener('DOMContentLoaded', () => {
   initMusicPlayer();
   initBottomNavHighlight();
 });
+
+/* 0A. Personalisasi Nama Tetamu (?to=Encik+Ahmad+Sekeluarga) */
+function initPersonalizedGuest() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const raw = (params.get('to') || params.get('kepada') || params.get('tetamu') || '').trim();
+    if (!raw) return;
+    const clean = raw.slice(0, 80);
+    const greeting = document.getElementById('guestGreeting');
+    const greetingName = document.getElementById('guestGreetingName');
+    const nameInput = document.getElementById('guest-name');
+    if (greeting && greetingName) {
+      greetingName.textContent = clean;
+      greeting.hidden = false;
+    }
+    if (nameInput && !nameInput.value) {
+      nameInput.value = clean;
+    }
+  } catch (_) {}
+}
+
+/* 0B. 60fps Canvas Champagne-Gold Stardust Burst (Cop Lilin & Hantar Ucapan) */
+function triggerGoldBurst(originEl) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const canvas = document.getElementById('gold-burst-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  let cx = window.innerWidth / 2;
+  let cy = window.innerHeight / 2;
+  if (originEl) {
+    const r = originEl.getBoundingClientRect();
+    cx = r.left + r.width / 2;
+    cy = r.top + r.height / 2;
+  }
+
+  const colors = ['#F7E6BC', '#E5C682', '#C59F59', '#FFF8E7', '#B58C43'];
+  const particles = Array.from({ length: 34 }, () => {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 1.6 + Math.random() * 4.4;
+    return {
+      x: cx,
+      y: cy,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 1.2,
+      size: 1.8 + Math.random() * 3.2,
+      alpha: 0.95,
+      decay: 0.014 + Math.random() * 0.014,
+      color: colors[Math.floor(Math.random() * colors.length)]
+    };
+  });
+
+  function step() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    let alive = false;
+    for (const p of particles) {
+      if (p.alpha <= 0.01) continue;
+      alive = true;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.965;
+      p.vy = p.vy * 0.965 + 0.05;
+      p.alpha -= p.decay;
+
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    if (alive) {
+      requestAnimationFrame(step);
+    } else {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
+  }
+  requestAnimationFrame(step);
+}
 
 /* 0. Lenis Inertial Smooth Scroll Synced Directly to GSAP Ticker */
 function initLenisSmoothScroll() {
@@ -285,11 +372,12 @@ function initRealistic3DEnvelope() {
   // hingga mendarat pada kad utama. easeInOutSine supaya cop & flap tidak tergesa-gesa.
   function triggerOpenScroll() {
     tryPlayMusic(true);
+    triggerGoldBurst(seal || openBtn);
     const st = tl.scrollTrigger;
     const end = st.end;
     const remaining = Math.max(0, end - window.scrollY);
     const fullSpan = Math.max(1, end - st.start);
-    const duration = 1.4 + 3.0 * (remaining / fullSpan); // ~4.4s dari keadaan tertutup
+    const duration = 1.1 + 1.9 * (remaining / fullSpan); // ~3.0s sinematik dan responsif
 
     if (lenisInstance) {
       lenisInstance.scrollTo(end, { duration, easing: easeInOutSine });
@@ -399,6 +487,25 @@ function initGsapScrollTrigger() {
           scrub: 0.25
         }
       });
+    }
+
+    // A2. Scrubbed Metallic Gold Light-Sheen Across Embossed Mihrab Card (#utama)
+    const foilSheen = document.querySelector('.foil-light-sheen');
+    if (foilSheen) {
+      gsap.fromTo(
+        foilSheen,
+        { xPercent: -45 },
+        {
+          xPercent: 55,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#utama',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.9
+          }
+        }
+      );
     }
 
     // B. Editorial Baseline Mask Reveals for Monumental Names & Headings
@@ -871,6 +978,7 @@ function initWishesOnly() {
     try {
       await sendShared({ name, wish, website: honeypot });
       form.reset();
+      triggerGoldBurst(submitBtn);
       setFeedback('Terima kasih! Ucapan dan doa anda telah sampai kepada keluarga mempelai.');
       showToast('Ucapan dan doa anda berjaya dihantar.');
       await loadShared();
@@ -927,6 +1035,17 @@ function initMusicPlayer() {
   const btn = document.getElementById('music-toggle-btn');
   if (!audio || !btn) return;
 
+  let userMuted = false;
+
+  // Buka kunci audio secara automatik pada sentuhan pertama tetamu (jika belum dimainkan)
+  const unlockOnce = () => {
+    if (!userMuted && audio.paused) {
+      tryPlayMusic(true);
+    }
+    window.removeEventListener('pointerdown', unlockOnce);
+  };
+  window.addEventListener('pointerdown', unlockOnce, { passive: true });
+
   // Butang muzik hanya dipaparkan jika fail lagu benar-benar wujud,
   // supaya tetamu tidak menekan butang yang tidak berfungsi.
   const source = audio.querySelector('source');
@@ -938,10 +1057,13 @@ function initMusicPlayer() {
       .catch(() => {});
   }
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (audio.paused) {
+      userMuted = false;
       tryPlayMusic(false);
     } else {
+      userMuted = true;
       audio.pause();
       btn.classList.remove('is-playing');
       btn.setAttribute('aria-pressed', 'false');

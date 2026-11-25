@@ -34,6 +34,8 @@
   <div class="paper-grain" aria-hidden="true"></div>
   <div class="lattice-backdrop" aria-hidden="true"></div>
   <div id="gold-motes" class="gold-motes" aria-hidden="true"></div>
+  <!-- Canvas 60fps untuk percikan debu emas apabila cop lilin A&E dibuka atau ucapan dihantar -->
+  <canvas id="gold-burst-canvas" class="gold-burst-canvas" aria-hidden="true"></canvas>
 
   <!-- Hairline Gold Scroll Progress Filament -->
   <div class="scroll-progress-track" aria-hidden="true">
@@ -56,7 +58,14 @@
        ========================================================= -->
   <section id="hero" class="hero-envelope-scene" aria-label="Pembukaan Sampul Jemputan">
     <div class="hero-pin">
+      <!-- Cahaya matahari pagi lembut yang bernafas di atas meja linen -->
+      <div class="sunlight-caustic" aria-hidden="true"></div>
+
       <div class="hero-head" id="heroHead">
+        <p class="guest-greeting" id="guestGreeting" hidden>
+          <span class="guest-greeting-label">Khusus Buat</span>
+          <strong class="guest-greeting-name" id="guestGreetingName"></strong>
+        </p>
         <p class="env-kicker">Majlis Kesyukuran Perkahwinan &bull; Pihak Lelaki</p>
         <h1 class="env-couple">
           <span>Dr. Alimin</span>
@@ -130,6 +139,8 @@
     <!-- BAND 1: HERO UTAMA (FRAMED WITH REAL CLIENT CARD-FRAME.JPG) -->
     <header id="utama" class="band band-hero">
       <div class="card-frame-canvas card-mihrab-bg">
+        <!-- Kilauan cahaya foil emas dinamik yang bergerak mengikut skrol (seperti kad sebenar dicondongkan) -->
+        <div class="foil-light-sheen" aria-hidden="true"></div>
         <div class="card-frame-content">
           <p class="arabic-bismillah hero-anim" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
           <p class="bismillah-sub hero-anim">Dengan nama Allah Yang Maha Pemurah lagi Maha Penyayang</p>

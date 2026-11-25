@@ -237,7 +237,7 @@ body.cover-locked {
 .hero-envelope-scene {
   position: relative;
   z-index: 20;
-  height: 225vh;
+  height: 172vh;
   width: 100%;
   /* Latar diletakkan pada .hero-pin (bukan seksyen) supaya bila pin dipudarkan di
      hujung timeline, kad sebenar di Band 1 (yang berada di bawahnya) terserlah. */
@@ -1161,9 +1161,103 @@ body.cover-locked {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gold-motes, .seal-disc::after, .btn-open-envelope::after { display: none; }
+  .gold-motes, .seal-disc::after, .btn-open-envelope::after, .sunlight-caustic, .foil-light-sheen, .gold-burst-canvas { display: none; }
   .itinerary-thread { transform: scaleY(1); }
   .floating-music-btn .eq-bars span { animation: none; }
+}
+
+/* =====================================================================
+   WOW-FACTOR UX UPGRADES:
+   - Canvas Gold Stardust Burst on Seal Break & Wish Submit
+   - Personalized Guest Greeting (?to=Nama+Tetamu)
+   - Living Morning Sunlight Drift over Linen Desk
+   - Scrubbed Metallic Foil Light Sheen on Embossed Mihrab Card
+   ===================================================================== */
+.gold-burst-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 98;
+  pointer-events: none;
+}
+
+.sunlight-caustic {
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 52% 40% at 28% 22%, rgba(255, 250, 236, 0.42) 0%, transparent 70%),
+    radial-gradient(ellipse 46% 36% at 76% 74%, rgba(235, 212, 165, 0.22) 0%, transparent 72%);
+  animation: sunDrift 11s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes sunDrift {
+  0%   { transform: translate3d(-1.5%, -1%, 0) scale(1); opacity: 0.72; }
+  100% { transform: translate3d(1.8%, 1.4%, 0) scale(1.04); opacity: 1; }
+}
+
+.hero-head, .env-3d, .hero-cta {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ucapan Khusus Buat Tetamu (?to=Nama+Tetamu) */
+.guest-greeting {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 14px;
+  padding: 6px 20px 8px;
+  border-top: 1px solid rgba(181, 147, 90, 0.35);
+  border-bottom: 1px solid rgba(181, 147, 90, 0.35);
+  background: rgba(253, 252, 249, 0.52);
+  backdrop-filter: blur(4px);
+}
+
+.guest-greeting[hidden] { display: none; }
+
+.guest-greeting-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.guest-greeting-name {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--sogan-ink);
+  line-height: 1.25;
+}
+
+/* Kilauan Cahaya Foil Emas Dinamik Mengikut Skrol pada Kad Mihrab */
+.card-frame-canvas {
+  position: relative;
+  overflow: hidden;
+}
+
+.foil-light-sheen {
+  position: absolute;
+  inset: -30% -60%;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 248, 225, 0.34) 48%,
+    rgba(235, 208, 148, 0.16) 52%,
+    transparent 62%
+  );
+  transform: translateX(-45%);
+  mix-blend-mode: soft-light;
+  will-change: transform;
 }
 
 .toast-banner { position: fixed; left: 50%; bottom: 84px; transform: translate(-50%, 16px); z-index: 80; max-width: 90vw; padding: 10px 18px; border-radius: 999px; background: var(--sogan-ink); border: 1px solid var(--gold-foil); color: #FAF6EE; font-size: 0.8rem; text-align: center; opacity: 0; pointer-events: none; transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out); }
