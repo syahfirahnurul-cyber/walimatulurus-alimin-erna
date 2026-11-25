@@ -1,0 +1,1030 @@
+/* =====================================================================
+   BESPOKE LUXURY STATIONERY — DR. ALIMIN & ERNA (A & E)
+   Theme: Islamic Soft Beige White with a Hint of Jawa Design
+   Assets: Client Envelope (Closed + Open Batik Sogan) + Gold Filigree Card
+   Motion: GSAP 3.12 + ScrollTrigger Choreography
+   ===================================================================== */
+
+:root {
+  --alabaster-white: #FDFCF9;
+  --soft-beige: #F6F0E6;
+  --sand-beige: #EDE4D5;
+  --outer-desk: #E8DFD1;
+
+  --sogan-ink: #3B2F26;
+  --sogan-deep: #2B2018;
+  --sogan-body: #645649;
+  --sogan-muted: #928273;
+
+  --gold-champagne: #D4BC8B;
+  --gold-foil: #B5935A;
+  --gold-deep: #8D6C3B;
+  --gold-hairline: rgba(181, 147, 90, 0.32);
+
+  --font-script: 'Alex Brush', cursive;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-arabic: 'Amiri', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --sheet-width: 540px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+/* Hairline Champagne-Gold Scroll Progress Filament (GSAP Scrubbed) */
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--sheet-width);
+  height: 2.5px;
+  z-index: 95;
+  pointer-events: none;
+  background: rgba(181, 147, 90, 0.14);
+}
+
+.scroll-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-champagne) 0%, var(--gold-foil) 55%, var(--gold-deep) 100%);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* Editorial Line-Mask Wrapper for Monumental Typography Reveals */
+.reveal-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.reveal-mask > .reveal-line {
+  display: block;
+  will-change: transform;
+}
+
+/* =====================================================================
+   ANIMASI HIASAN:
+   1. Sulur emas Jawa di sudut skrin (bergoyang & mekar ikut skrol)
+   2. Pasangan merapat ikut skrol + halo emas
+   ===================================================================== */
+.side-flora {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  max-width: var(--sheet-width);
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity 700ms var(--ease-out);
+}
+
+.side-flora.is-active {
+  opacity: 1;
+}
+
+.flora-corner {
+  position: absolute;
+  width: 118px;
+  height: 118px;
+  opacity: 0.7;
+  will-change: transform;
+}
+
+.flora-ur {
+  top: 6px;
+  right: 4px;
+  transform-origin: top right;
+  animation: flSwayUR 7.5s ease-in-out infinite;
+}
+
+.flora-bl {
+  bottom: 66px;
+  left: 4px;
+  transform-origin: bottom left;
+  animation: flSwayBL 8.2s ease-in-out infinite;
+}
+
+@keyframes flSwayUR {
+  0%, 100% { transform: rotate(0deg) translate3d(0, 0, 0); }
+  50%      { transform: rotate(1.4deg) translate3d(-1.5px, 1.5px, 0); }
+}
+
+@keyframes flSwayBL {
+  0%, 100% { transform: rotate(0deg) translate3d(0, 0, 0); }
+  50%      { transform: rotate(-1.4deg) translate3d(1.5px, -1.5px, 0); }
+}
+
+/* Scroll-Driven Couple Convergence Stage + Soft Golden Halo */
+.couple-stage {
+  position: relative;
+  padding: 12px 0;
+}
+
+.couple-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 240px;
+  height: 240px;
+  transform: translate(-50%, -50%) scale(0.75);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 188, 139, 0.34) 0%, rgba(212, 188, 139, 0.08) 52%, transparent 74%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.couple-converge-left,
+.couple-converge-right {
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+body {
+  /* Teks badan dalam serif editorial; sans hanya untuk kawalan UI (lihat di bawah). */
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-variant-numeric: lining-nums;
+  background-color: var(--outer-desk);
+  color: var(--sogan-ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-bottom: 72px;
+}
+
+/* Sans (Plus Jakarta) dikhaskan untuk UI: butang, borang, nav, kapsyen kecil */
+button,
+input,
+textarea,
+.field label,
+.nav-link,
+.toast-banner,
+.cd-caption,
+.wishes-counter,
+.rsvp-result p,
+.hero-scroll-hint {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4,
+.env-couple, .host-name, .mempelai-fullname, .band-heading,
+.hero-kicker, .editorial-label, .bismillah-sub, .hero-venue, .connector-phrase {
+  text-wrap: balance;
+}
+
+p, blockquote, li { text-wrap: pretty; }
+
+/* "Dr." sebagai gelaran small caps serif di hadapan nama skrip */
+.name-title {
+  font-family: var(--font-serif);
+  font-size: 0.34em;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  vertical-align: 0.6em;
+  margin-right: 0.1em;
+}
+
+body.cover-locked {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Tactile Cotton Paper Grain */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.024;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Latar kekisi Walasuji Bugis (menggantikan Kawung: Jawa sudah diwakili Batik).
+   Saiz kecil + opacity rendah: tekstur halus, bukan corak yang bersaing dengan kandungan
+   (pada opacity ini, sambungan jubin yang tidak sempurna tidak kelihatan). */
+.lattice-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+  background: url('assets/walasuji.webp') 0 0 / 520px auto repeat;
+}
+
+/* =====================================================================
+   REALISTIC 5-LAYER 3D SCROLL-DRIVEN PHYSICAL ENVELOPE STAGE
+   ===================================================================== */
+.hero-envelope-scene {
+  position: relative;
+  z-index: 20;
+  height: 225vh;
+  width: 100%;
+  /* Latar diletakkan pada .hero-pin (bukan seksyen) supaya bila pin dipudarkan di
+     hujung timeline, kad sebenar di Band 1 (yang berada di bawahnya) terserlah. */
+  background: transparent;
+}
+
+/* Mod statik: reduced-motion / GSAP tidak dimuat — tiada skrol panjang tanpa animasi */
+.hero-envelope-scene.is-static { height: auto; }
+.hero-envelope-scene.is-static .hero-pin { position: relative; }
+
+.hero-pin {
+  position: sticky;
+  top: 0;
+  /* Latar meja linen sebenar dengan bayang daun palma & kekisi geometri Islam.
+     Skrin menegak (telefon): versi menegak khas, bayang membingkai sampul di tengah. */
+  background: #EDE3D5 url('assets/backdrop-portrait.webp') 50% 50% / cover no-repeat;
+  height: 100svh;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 18px 40px;
+  overflow: visible;
+}
+
+.hero-head {
+  text-align: center;
+  margin-bottom: 28px;
+  will-change: transform, opacity;
+}
+
+.env-kicker {
+  font-family: var(--font-serif);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.env-couple {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 6vw, 2.55rem);
+  font-weight: 500;
+  color: var(--sogan-ink);
+  margin-top: 4px;
+  line-height: 1.15;
+}
+
+.serif-amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-deep);
+  margin: 0 6px;
+}
+
+.env-date {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sogan-body);
+  margin-top: 4px;
+}
+
+/* 3D Envelope Container */
+.env-3d {
+  position: relative;
+  width: min(350px, 88vw);
+  /* Nisbah sampul tertutup (envelope-closed.jpg, 952x620). Lapisan dari foto terbuka HD
+     (nisbah 1.72) dimampatkan ~10% secara mendatar supaya flap & cop lilin kekal tepat. */
+  aspect-ratio: 952 / 620;
+  perspective: 1200px;
+  /* flat (bukan preserve-3d): lapisan disusun ikut z-index secara tetap, jadi flap
+     tidak "menembusi" kad semasa berputar. Tiada filter di sini: drop-shadow pada
+     bekas yang anak-anaknya beranimasi memaksa repaint setiap frame. */
+  transform-style: flat;
+  will-change: transform;
+}
+
+/* Bayang lantai sampul (gradien statik, murah, tidak ikut bentuk kad yang naik) */
+.env-shadow {
+  position: absolute;
+  z-index: 0;
+  left: 4%;
+  right: 4%;
+  bottom: -30px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(59, 47, 38, 0.26) 0%, rgba(59, 47, 38, 0.1) 45%, transparent 72%);
+  pointer-events: none;
+}
+
+/* =====================================================================
+   LAPISAN FOTO SEBENAR (dijana dari envelope-open-hd.png & envelope-closed.jpg)
+   env-body.jpg       : badan sampul + liner Batik di bahagian dalam (lapisan belakang)
+   env-pocket.webp     : poket depan berbukaan V (lutsinar)
+   env-flap-front.webp : flap tertutup bertepi emas (lutsinar)
+   env-flap-liner.webp : flap terbuka berliner Batik (lutsinar, disimpan terbalik 180deg)
+   ===================================================================== */
+
+/* Layer 1: Bahagian dalam sampul */
+.env-back {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 2px;
+  background: #E9DCCB url('assets/env-body.jpg') 0 0 / 100% 100% no-repeat;
+}
+
+/* Layer 2: Rising Card Carrier
+   Hanya potong bahagian BAWAH kad (di bibir poket). Atas/kiri/kanan dibiarkan bebas
+   supaya kad tidak "terpenggal" semasa naik keluar dari sampul. */
+.env-carrier {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: visible;
+  clip-path: inset(-400% -30% 4px -30%);
+  pointer-events: none;
+}
+
+/* =====================================================================
+   KAD MIHRAB (3-slice): jalur atas & bawah kekal pada nisbah asal (gerbang, reben Batik,
+   corak geometri tidak herot); jalur tengah (garis lurus + kertas) diregang menegak sahaja.
+   Digunakan oleh kad dalam sampul DAN kad Band 1, supaya peralihan FLIP tepat.
+   ===================================================================== */
+.card-mihrab-bg {
+  background-color: #F1E9DC;
+  background-image:
+    url('assets/card-mihrab-top.jpg'),
+    url('assets/card-mihrab-bottom.jpg'),
+    url('assets/card-mihrab-mid.jpg');
+  background-position: top center, bottom center, center;
+  background-size: 100% auto, 100% auto, 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.env-card {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 86%;            /* selaras dengan CARD_WIDTH_RATIO dalam script.js */
+  aspect-ratio: 2 / 3;   /* nisbah asal kad mihrab */
+  transform: translate3d(-50%, 44%, 0) scale(1);
+  border-radius: 3px;
+  box-shadow: 0 14px 34px rgba(43, 32, 24, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.env-card-surface {
+  width: 100%;
+  padding: 0 15%;        /* kekal di dalam garis gerbang, jauh dari reben di sudut */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.env-card-bismillah {
+  font-family: var(--font-arabic);
+  font-size: 1.05rem;
+  color: var(--sogan-ink);
+  opacity: 0.85;
+}
+
+/* Monogram kaligrafi gaya Arab A&E (assets/monogram-ae.webp, nisbah 1000x599).
+   Ditonasi sedikit ke emas champagne supaya selaras dengan emas kad mihrab. */
+.monogram-img {
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  filter: saturate(0.88) brightness(0.94) drop-shadow(0 1px 1px rgba(110, 80, 30, 0.18));
+}
+
+.env-card-monogram {
+  width: 58%;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.env-card-kicker {
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+}
+
+.env-card-couple {
+  font-family: var(--font-serif);
+  font-size: 1.42rem;
+  font-weight: 500;
+  color: var(--sogan-ink);
+  line-height: 1.15;
+}
+
+.env-card-date {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sogan-body);
+}
+
+/* Layer 3: Poket depan (foto). Bayang halus di bibir V jatuh ke atas kad yang naik. */
+.env-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: url('assets/env-pocket.webp') 0 0 / 100% 100% no-repeat;
+  filter: drop-shadow(0 -1px 1.5px rgba(43, 28, 14, 0.22)) drop-shadow(0 2px 3px rgba(43, 28, 14, 0.12));
+}
+
+/* Layer 4: Flap berengsel 3D. Tinggi = hujung flap dalam foto (79.84% tinggi sampul). */
+.env-flap-hinge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 79.84%;
+  z-index: 6;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.env-flap-hinge.is-behind {
+  z-index: 2;
+}
+
+.env-flap-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flap-photo,
+.flap-shade {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* Muka depan: foto flap tertutup. Bayang di bawah tepi emas dicipta semula dengan CSS
+   (bukan dibakar dalam foto) supaya ia bergerak bersama flap. */
+.env-flap-front .flap-photo {
+  background-image: url('assets/env-flap-front.webp');
+  filter: drop-shadow(0 1.5px 1.5px rgba(59, 40, 20, 0.24)) drop-shadow(0 5px 7px rgba(59, 40, 20, 0.14));
+}
+
+/* Muka belakang: liner Batik dari foto sampul terbuka HD (72.71% / 79.84% = 91.1% tinggi engsel).
+   rotateY (bukan rotateX): bila engsel berputar -180deg, tapak lebar kekal di engsel. */
+.env-flap-back {
+  bottom: auto;
+  height: 91.1%;
+  transform: rotateY(180deg);
+}
+
+.env-flap-back .flap-photo {
+  background-image: url('assets/env-flap-liner.webp');
+}
+
+/* Bayang cahaya ikut sudut: warna gelap bertopeng bentuk foto flap */
+.flap-shade {
+  background-color: #2B2018;
+  opacity: 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+.flap-shade-front { -webkit-mask-image: url('assets/env-flap-front.webp'); mask-image: url('assets/env-flap-front.webp'); }
+.flap-shade-back  { -webkit-mask-image: url('assets/env-flap-liner.webp'); mask-image: url('assets/env-flap-liner.webp'); }
+
+/* Layer 6: Pita sutera Lipa' Sabbe (Bugis) membalut sampul.
+   Sedikit lebih lebar daripada sampul (hujung berlipat terjulur) dan di atas cop lilin
+   supaya tidak menutupnya. Dipacu GSAP: meluncur keluar ke kanan sebelum flap dibuka. */
+.env-band {
+  position: absolute;
+  z-index: 7;
+  left: -2.5%;
+  width: 105%;
+  top: 25%;
+  aspect-ratio: 1400 / 122;
+  background: url('assets/sabbe-band.webp') 0 0 / 100% 100% no-repeat;
+  filter: drop-shadow(0 2px 2px rgba(59, 40, 20, 0.22)) drop-shadow(0 6px 8px rgba(59, 40, 20, 0.12));
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Layer 5: Cop lilin emas A&E (assets/wax-seal-ae.webp — monogram kaligrafi yang sama dengan kad).
+   Anak kepada .env-flap-hinge: ia terangkat bersama flap dan tersembunyi (backface) selepas 90deg.
+   Saiz 24.5% (lilin memenuhi kotak): lebih besar daripada cop lama dalam foto flap (~21%),
+   jadi cop lama sentiasa tertutup sepenuhnya. */
+.wax-seal-btn {
+  position: absolute;
+  left: 49.89%;        /* pusat cop asal dalam envelope-closed.jpg */
+  top: 81.41%;
+  width: 24.5%;
+  aspect-ratio: 1;
+  height: auto;
+  transform: translate(-50%, -50%) translateZ(1px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  pointer-events: auto; /* engsel flap ialah pointer-events: none */
+  will-change: transform;
+}
+
+.wax-seal-btn:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 4px;
+}
+
+.seal-disc {
+  position: absolute;
+  inset: 0;
+  background: url('assets/wax-seal-ae.webp') center / contain no-repeat;
+  /* Bayang mengikut bentuk berkelopak, bukan bulatan */
+  filter: drop-shadow(0 1px 1px rgba(59, 40, 20, 0.28)) drop-shadow(0 4px 6px rgba(59, 40, 20, 0.22));
+}
+
+.seal-pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(181, 147, 90, 0.78);
+  animation: sealPulse 2.1s var(--ease-out) infinite;
+}
+
+@keyframes sealPulse {
+  0% { transform: scale(0.92); opacity: 0.85; }
+  75% { transform: scale(1.32); opacity: 0; }
+  100% { transform: scale(1.32); opacity: 0; }
+}
+
+.hero-cta {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  will-change: opacity;
+}
+
+.btn-open-envelope {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--sogan-ink);
+  background: var(--sogan-ink);
+  color: #FAF6EE;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(59, 47, 38, 0.16);
+  transition: transform 160ms var(--ease-out), background-color 180ms ease;
+}
+
+.btn-open-envelope:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-open-envelope:hover { background: var(--sogan-deep); transform: translateY(-1px); }
+}
+
+.hero-scroll-hint {
+  font-size: 0.76rem;
+  color: var(--sogan-muted);
+  letter-spacing: 0.04em;
+}
+
+/* =====================================================================
+   STATIONERY SHEET & REAL CLIENT CARD-FRAME HERO
+   ===================================================================== */
+.stationery-sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--sheet-width);
+  margin: 0 auto;
+  background-color: var(--alabaster-white);
+  box-shadow: 0 24px 70px rgba(59, 47, 38, 0.1);
+}
+
+@media (min-width: 600px) {
+  .stationery-sheet {
+    margin: 28px auto 40px;
+    border: 1px solid var(--gold-hairline);
+  }
+}
+
+/* Skrin landskap/lebar: versi landskap latar meja, keempat-empat sudut bayang kelihatan */
+@media (min-aspect-ratio: 1/1) {
+  .hero-pin { background-image: url('assets/backdrop.webp'); }
+}
+
+.band { position: relative; overflow: hidden; }
+.band-inner { position: relative; z-index: 2; padding: 58px 30px; text-align: center; }
+
+.band-hero {
+  background-color: var(--soft-beige);
+  padding: 16px;
+}
+
+/* Kad mihrab Band 1: sekurang-kurangnya nisbah asal 2:3; jika kandungan lebih panjang,
+   kad memanjang dan hanya jalur tengah yang diregang (lihat .card-mihrab-bg). */
+.card-frame-canvas {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 14px 36px rgba(59, 47, 38, 0.08);
+}
+
+.card-frame-content {
+  width: 100%;
+  /* Peratus (relatif lebar): mula di bawah bahu gerbang atas (~30%), berhenti di atas
+     bahu gerbang bawah (~27%), dan 14% dari tepi supaya jauh dari garis emas & reben. */
+  padding: 30% 14% 27%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* WebP lutsinar (assets/gold-divider.webp). Tidak bergantung pada mix-blend-mode, yang gagal
+   di dalam .band-inner (z-index mengasingkannya dari latar beige → kotak putih). */
+.gold-divider-img {
+  width: 200px;
+  max-width: 70%;
+  height: auto;
+  display: block;
+  margin: 26px auto;
+  opacity: 0.95;
+}
+
+.band-ivory { background-color: var(--alabaster-white); }
+.band-beige {
+  background-color: var(--soft-beige);
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+
+/* Kekisi Walasuji halus di belakang Butiran Majlis */
+.band-lattice-subtle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background: url('assets/walasuji.webp') 0 0 / 420px auto repeat;
+}
+
+/* HERO TYPOGRAPHY */
+.arabic-bismillah { font-family: var(--font-arabic); font-size: 1.75rem; color: var(--sogan-ink); line-height: 1.6; }
+.bismillah-sub { font-size: 0.9rem; font-style: italic; color: var(--sogan-muted); margin-top: 2px; max-width: 30ch; line-height: 1.45; }
+
+/* Monogram besar di kad Band 1: tumpuan utama selepas Bismillah */
+.inline-crest {
+  width: 62%;
+  max-width: 230px;
+  margin: 16px auto 12px;
+}
+.hero-kicker { font-family: var(--font-serif); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep); }
+.hero-display { margin: 12px 0 6px; display: flex; flex-direction: column; align-items: center; }
+.display-script { font-family: var(--font-script); font-size: 3.45rem; font-weight: 400; line-height: 1.06; color: var(--sogan-ink); }
+.display-amp { font-family: var(--font-serif); font-style: italic; font-size: 1.65rem; color: var(--gold-foil); margin: 2px 0; }
+
+.hero-date-banner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 340px;
+  margin: 6px auto 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+.date-small { font-family: var(--font-serif); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.03em; line-height: 1.35; color: var(--sogan-body); }
+.date-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+  border-left: 1px solid var(--gold-hairline);
+  border-right: 1px solid var(--gold-hairline);
+}
+.date-day-num { font-family: var(--font-serif); font-size: 2.25rem; font-weight: 500; line-height: 0.95; color: var(--sogan-ink); }
+.date-month-year { font-family: var(--font-serif); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-deep); margin-top: 4px; white-space: nowrap; }
+.hero-venue { font-size: 1rem; color: var(--sogan-body); font-weight: 500; line-height: 1.4; }
+
+/* BAND 2: TUAN RUMAH & MEMPELAI */
+.arabic-salam { font-family: var(--font-arabic); font-size: 1.65rem; color: var(--sogan-ink); }
+.salam-latin { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; font-style: italic; color: var(--sogan-ink); margin-top: 4px; }
+.host-header { margin: 24px auto 20px; padding: 18px 0; border-top: 1px solid var(--gold-hairline); border-bottom: 1px solid var(--gold-hairline); }
+.host-name { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 500; color: var(--sogan-ink); line-height: 1.3; }
+.host-amp { font-family: var(--font-serif); font-style: italic; color: var(--gold-foil); font-size: 1.1rem; margin: 2px 0; }
+.editorial-prose { margin: 16px auto 0; max-width: 40ch; font-size: 1.08rem; line-height: 1.6; color: var(--sogan-body); }
+.editorial-label { font-family: var(--font-serif); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 8px; }
+.mempelai-monument { margin: 24px auto 38px; }
+.mempelai-role { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sogan-muted); margin-bottom: 6px; }
+.mempelai-fullname { font-family: var(--font-serif); font-size: 1.95rem; font-weight: 500; color: var(--sogan-ink); letter-spacing: 0.01em; line-height: 1.2; }
+.mempelai-callname { font-family: var(--font-script); font-size: 2.25rem; color: var(--gold-deep); line-height: 1.1; margin-top: 2px; }
+.mempelai-connector { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 22px auto; }
+.connector-line { width: 42px; height: 1px; background: var(--gold-hairline); }
+.connector-phrase { font-family: var(--font-serif); font-style: italic; font-size: 1.12rem; color: var(--gold-deep); white-space: nowrap; }
+.bride-parents-line { margin: 12px auto 0; font-size: 1rem; color: var(--sogan-body); max-width: 36ch; line-height: 1.55; }
+.bride-parents-line strong { color: var(--sogan-ink); font-weight: 600; }
+.turut-editorial { margin-top: 38px; padding-top: 30px; border-top: 1px solid var(--gold-hairline); }
+.turut-title { font-family: var(--font-serif); font-size: 1.42rem; font-weight: 500; color: var(--sogan-ink); }
+.turut-sub { font-size: 0.95rem; font-style: italic; color: var(--sogan-muted); margin: 10px 0 8px; }
+.elders-editorial-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.elders-editorial-list li { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--sogan-ink); }
+
+/* BAND 3: BUTIRAN MAJLIS & COUNTDOWN */
+.band-heading { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 500; color: var(--sogan-ink); line-height: 1.15; }
+
+.countdown-editorial {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px auto 34px;
+  padding: 20px 0;
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+.cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 56px; }
+/* tabular-nums + lebar tetap: digit tidak "bergoyang" setiap saat */
+.cd-value { font-family: var(--font-serif); font-size: 2.35rem; font-weight: 500; line-height: 1; color: var(--sogan-ink); font-variant-numeric: lining-nums tabular-nums; min-width: 2.1ch; text-align: center; }
+.cd-caption { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-deep); margin-top: 8px; font-weight: 600; }
+.cd-sep { font-family: var(--font-serif); font-size: 1.65rem; color: var(--gold-foil); }
+
+.event-specs { text-align: left; max-width: 420px; margin: 0 auto 30px; }
+.spec-row { display: grid; grid-template-columns: 126px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid rgba(181, 147, 90, 0.22); }
+.spec-row:last-child { border-bottom: none; }
+.spec-row dt { font-size: 0.68rem; color: var(--gold-deep); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; padding-top: 5px; }
+.spec-row dd { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--sogan-ink); line-height: 1.35; }
+.spec-row dd strong { font-weight: 600; }
+.spec-address { display: block; font-family: var(--font-serif); font-size: 0.98rem; font-weight: 500; color: var(--sogan-body); margin-top: 4px; line-height: 1.45; }
+
+.action-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 420px; margin: 0 auto; }
+.btn-outline-foil {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(143, 110, 61, 0.45);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--sogan-ink);
+  font-family: var(--font-sans);
+  font-size: 0.83rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 180ms ease;
+}
+.btn-outline-foil:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline-foil:hover { background: #FFFFFF; border-color: var(--gold-deep); }
+}
+
+.itinerary-editorial { margin-top: 42px; padding-top: 34px; border-top: 1px solid var(--gold-hairline); }
+.itinerary-heading { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 500; color: var(--sogan-ink); margin-bottom: 22px; }
+.itinerary-timeline { list-style: none; max-width: 400px; margin: 0 auto; text-align: left; position: relative; padding-left: 22px; border-left: 1px solid rgba(181, 147, 90, 0.45); }
+.itinerary-item { position: relative; padding: 0 0 20px 12px; }
+.itinerary-item:last-child { padding-bottom: 0; }
+.itinerary-item::before { content: ''; position: absolute; left: -27px; top: 6px; width: 9px; height: 9px; background: var(--alabaster-white); border: 1.5px solid var(--gold-deep); transform: rotate(45deg); }
+.itinerary-time { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); }
+.itinerary-title { display: block; font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--sogan-ink); line-height: 1.3; margin-top: 2px; }
+.itinerary-note { display: block; font-size: 0.96rem; font-style: italic; color: var(--sogan-body); margin-top: 2px; line-height: 1.45; }
+
+/* Atur cara berikon emas: gerbang mihrab (ketibaan), bosara Bugis (jamuan), bulan sabit (bersurai).
+   Ikon disambung garis emas halus menggantikan titik berlian. */
+.itinerary-timeline.with-icons { border-left: none; padding-left: 0; }
+.itinerary-item.has-icon {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 16px;
+  align-items: start;
+  padding: 0 0 26px 0;
+}
+.itinerary-item.has-icon:last-child { padding-bottom: 0; }
+.itinerary-item.has-icon::before { display: none; }
+.itinerary-item.has-icon:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 62px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(181, 147, 90, 0.5), rgba(181, 147, 90, 0.12));
+}
+.itinerary-icon { width: 56px; height: 56px; display: block; }
+.itinerary-text { padding-top: 6px; }
+
+/* BAND 4: LOKASI */
+.location-emblem { margin: 20px auto 10px; }
+.venue-display-name { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 500; color: var(--sogan-ink); }
+.venue-full-address { margin-top: 6px; font-size: 1.05rem; color: var(--sogan-body); line-height: 1.5; }
+.venue-coords { margin-top: 10px; font-family: var(--font-serif); font-size: 0.92rem; letter-spacing: 0.1em; color: var(--gold-deep); }
+.location-actions { margin-top: 24px; }
+
+.btn-sogan-solid,
+.btn-sogan-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 18px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 180ms ease;
+}
+.btn-sogan-solid { border: 1px solid var(--sogan-ink); background: var(--sogan-ink); color: #FAF6EE; }
+.btn-sogan-ghost { border: 1px solid var(--sogan-ink); background: transparent; color: var(--sogan-ink); }
+.btn-sogan-solid:active, .btn-sogan-ghost:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-sogan-solid:hover { background: var(--sogan-deep); }
+  .btn-sogan-ghost:hover { background: rgba(59, 47, 38, 0.06); }
+}
+.btn-block { width: 100%; }
+.map-toggle-wrap { margin-top: 18px; }
+.btn-text-link { background: none; border: none; border-bottom: 1px solid var(--gold-foil); padding: 4px 2px; font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--sogan-ink); cursor: pointer; }
+.lazy-map-container { margin-top: 16px; height: 250px; border: 1px solid var(--gold-hairline); background: #EFE7DA; }
+.lazy-map-container iframe { width: 100%; height: 100%; border: 0; }
+
+/* BAND 5: SURAH AR-RUM (bingkai mihrab) & DOA
+   Latar beige dengan Batik Sogan sebagai sentuhan halus (bukan blok gelap penuh),
+   selaras dengan tema "white beige with a hint of Jawa". */
+.band-batik-doa {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--soft-beige);
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+
+.batik-parallax-bg {
+  position: absolute;
+  inset: -18% 0;
+  background-image: url('assets/batik-sogan-pattern.webp');
+  background-size: 360px auto;
+  background-repeat: repeat;
+  opacity: 0.12;
+  z-index: 0;
+  will-change: transform;
+}
+
+.doa-outer-padding {
+  padding: 40px 20px 52px;
+}
+
+/* Bingkai Doa (3-slice, sama seperti kad mihrab): gerbang atas/bawah tidak herot. */
+.frame-doa-bg {
+  background-color: #F2EADC;
+  background-image:
+    url('assets/frame-doa-top.jpg'),
+    url('assets/frame-doa-bottom.jpg'),
+    url('assets/frame-doa-mid.jpg');
+  background-position: top center, bottom center, center;
+  background-size: 100% auto, 100% auto, 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.doa-parchment-card {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 3 / 4;   /* nisbah asal bingkai; memanjang jika teks lebih panjang */
+  /* Peratus relatif lebar: di bawah bahu gerbang atas (~31%), di atas bahu bawah (~27%) */
+  padding: 31% 13% 27%;
+  box-shadow: 0 18px 44px rgba(43, 32, 24, 0.16);
+}
+
+.doa-divider {
+  margin: 30px auto 18px;
+}
+
+.arabic-verse { font-family: var(--font-arabic); font-size: 1.6rem; line-height: 2.05; color: var(--sogan-ink); margin-bottom: 14px; }
+.verse-malay { font-family: var(--font-serif); font-style: italic; font-size: 1.12rem; line-height: 1.7; color: var(--sogan-ink); max-width: 38ch; margin: 0 auto; }
+.verse-ref { margin-top: 12px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-deep); }
+.doa-closing { position: relative; z-index: 2; font-size: 1.08rem; font-style: italic; line-height: 1.7; color: var(--sogan-body); max-width: 34ch; margin: 0 auto; }
+.doa-closing strong { color: var(--sogan-ink); }
+
+/* BAND 6: UCAPAN & DOA */
+.rsvp-intro { margin-bottom: 28px; }
+.editorial-form { text-align: left; max-width: 430px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; color: var(--sogan-body); }
+.field input, .field textarea { width: 100%; padding: 11px 12px; border: 1px solid rgba(181, 147, 90, 0.35); border-radius: 4px; background: #FFFFFF; font-family: var(--font-sans); font-size: 0.92rem; color: var(--sogan-ink); transition: border-color 180ms ease; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--sogan-ink); }
+.field-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.btn-sogan-solid:disabled { opacity: 0.6; cursor: progress; }
+.wish-body { white-space: pre-line; }
+.rsvp-result { padding: 14px 16px; border-top: 1px solid var(--gold-hairline); border-bottom: 1px solid var(--gold-hairline); background: var(--soft-beige); text-align: center; }
+.rsvp-result p { font-size: 0.86rem; color: var(--sogan-ink); font-weight: 500; }
+
+.wishes-section { max-width: 430px; margin: 44px auto 0; padding-top: 30px; border-top: 1px solid var(--gold-hairline); text-align: left; }
+.wishes-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+.wishes-top h4 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 500; color: var(--sogan-ink); }
+.wishes-counter { font-size: 0.78rem; color: var(--gold-deep); font-weight: 600; }
+.wishes-stream { display: flex; flex-direction: column; }
+.wishes-empty { font-family: var(--font-serif); font-style: italic; font-size: 1.05rem; color: var(--sogan-muted); text-align: center; padding: 18px 0; }
+.wish-entry { padding: 15px 0; border-bottom: 1px solid rgba(181, 147, 90, 0.22); }
+.wish-entry:last-child { border-bottom: none; }
+.wish-name { font-family: var(--font-serif); font-size: 1.18rem; font-weight: 600; color: var(--sogan-ink); display: block; margin-bottom: 4px; }
+.wish-body { font-size: 1rem; color: var(--sogan-body); line-height: 1.55; }
+
+/* FOOTER */
+.band-footer { background: var(--soft-beige); border-top: 1px solid var(--gold-hairline); }
+.footer-inner { padding: 38px 26px 52px; }
+.footer-divider { width: 136px; margin-top: 0; margin-bottom: 18px; }
+.footer-crest { width: 128px; margin-top: 4px; margin-bottom: 4px; }
+.footer-couple { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; color: var(--sogan-ink); margin-top: 6px; }
+.footer-meta { font-size: 0.7rem; color: var(--gold-deep); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+.footer-note { margin: 14px auto 0; max-width: 34ch; font-size: 0.98rem; font-style: italic; color: var(--sogan-muted); }
+
+/* FLOATING MUSIC, TOAST & BOTTOM NAV */
+.floating-music-btn { position: fixed; right: 16px; bottom: 78px; z-index: 45; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--gold-foil); background: #FFFFFF; color: var(--sogan-ink); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(59, 47, 38, 0.14); transition: transform 160ms var(--ease-out); }
+.floating-music-btn:active { transform: scale(0.95); }
+.floating-music-btn[hidden] { display: none; }
+.floating-music-btn.is-playing .icon-music { animation: discSpin 4s linear infinite; }
+@keyframes discSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.toast-banner { position: fixed; left: 50%; bottom: 84px; transform: translate(-50%, 16px); z-index: 80; max-width: 90vw; padding: 10px 18px; border-radius: 999px; background: var(--sogan-ink); border: 1px solid var(--gold-foil); color: #FAF6EE; font-size: 0.8rem; text-align: center; opacity: 0; pointer-events: none; transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out); }
+.toast-banner.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--sheet-width);
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: rgba(253, 252, 249, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--gold-hairline);
+  padding: 8px 4px calc(8px + env(safe-area-inset-bottom, 0px));
+}
+.nav-link { display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; color: var(--sogan-muted); font-family: var(--font-sans); font-size: 0.68rem; font-weight: 500; padding: 3px 2px; transition: color 180ms ease; }
+.nav-link.active, .nav-link:hover { color: var(--sogan-ink); }
+
+@media (max-width: 440px) {
+  .band-inner { padding: 48px 22px; }
+  .card-frame-content { padding: 30% 12% 27%; }
+  .spec-row { grid-template-columns: 1fr; gap: 3px; }
+  .action-pair { grid-template-columns: 1fr; }
+  .display-script { font-size: 2.7rem; }
+  .arabic-bismillah { font-size: 1.5rem; }
+  .card-frame-content .gold-divider-img { margin: 10px auto; }
+  .hero-date-banner { gap: 6px; }
+  .date-small { font-size: 0.8rem; }
+  .env-couple { font-size: 1.85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .seal-pulse-ring, .floating-music-btn.is-playing .icon-music, .flora-ur, .flora-bl { animation: none; }
+}

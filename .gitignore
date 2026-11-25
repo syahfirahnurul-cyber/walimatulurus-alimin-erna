@@ -1,0 +1,11 @@
+# Fail sumber asal (foto penuh, PNG sebelum dimampatkan): disimpan di komputer sahaja,
+# tidak dimuat naik ke GitHub / Cloudflare kerana kad tidak menggunakannya.
+_sumber/
+
+# Tetapan alat tempatan
+.claude/
+
+# Fail sistem
+Thumbs.db
+desktop.ini
+.DS_Store
