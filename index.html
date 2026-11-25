@@ -2,7 +2,8 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
   <!-- Kad peribadi: jangan diindeks enjin carian (nama keluarga tidak muncul di Google).
        Tetamu masih boleh membuka kad melalui link yang dikongsi. -->
   <meta name="robots" content="noindex, nofollow" />
@@ -36,7 +37,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 
+  <!-- Pra-muat aset sampul 3D (atas lipatan) supaya muncul serta-merta tanpa kelipan -->
+  <link rel="preload" as="image" href="assets/env-body.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/env-pocket.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/env-flap-front.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/env-flap-liner.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/wax-seal-ae.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/monogram-ae.webp" fetchpriority="high" />
+
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduce');
+      /* Jaring keselamatan 6 saat: kandungan kad tidak akan kekal tersembunyi jika GSAP/CDN gagal dimuatkan */
+      setTimeout(function () {
+        if (!window.__kadReady) d.classList.add('no-engine');
+      }, 6000);
+    })();
+  </script>
 </head>
 <body>
   <!-- Tekstur kertas kapas, kekisi Walasuji Bugis & zarah cahaya emas halus -->
@@ -51,8 +71,8 @@
     <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
   </div>
 
-  <!-- Background Music Player (Klien boleh letakkan MP3 di assets/lagu.mp3 nanti) -->
-  <audio id="bg-music" loop preload="none">
+  <!-- Background Music Player (Nusantara Gamelan & Suling: assets/lagu.mp3) -->
+  <audio id="bg-music" loop preload="none" playsinline>
     <source src="assets/lagu.mp3" type="audio/mpeg" />
   </audio>
 
@@ -407,7 +427,8 @@
 
           <div class="field">
             <label for="guest-wish">Ucapan dan Doa Buat Mempelai</label>
-            <textarea id="guest-wish" name="wish" rows="3" placeholder="Titipkan ucapan tahniah dan doa buat Dr. Alimin dan Erna..." maxlength="500" required></textarea>
+            <textarea id="guest-wish" name="wish" rows="3" placeholder="Titipkan ucapan tahniah dan doa buat Dr. Alimin dan Erna..." maxlength="500" aria-describedby="wish-char-count" required></textarea>
+            <span id="wish-char-count" class="char-counter" aria-live="polite">0 / 500</span>
           </div>
 
           <!-- Perangkap bot (honeypot): tersembunyi daripada tetamu; bot yang mengisinya diabaikan -->

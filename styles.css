@@ -38,6 +38,9 @@
 
 html {
   font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 /* Hairline Champagne-Gold Scroll Progress Filament (Whisper-Quiet) */
@@ -165,8 +168,13 @@ body {
   color: var(--sogan-ink);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: clip;
   padding-bottom: 72px;
+}
+
+button, a {
+  touch-action: manipulation;
 }
 
 /* Sans (Plus Jakarta) dikhaskan untuk UI: butang, borang, nav, kapsyen kecil */
@@ -238,6 +246,7 @@ body.cover-locked {
   position: relative;
   z-index: 20;
   height: 172vh;
+  height: 172svh;
   width: 100%;
   /* Latar diletakkan pada .hero-pin (bukan seksyen) supaya bila pin dipudarkan di
      hujung timeline, kad sebenar di Band 1 (yang berada di bawahnya) terserlah. */
@@ -985,8 +994,11 @@ body.cover-locked {
 .editorial-form { text-align: left; max-width: 430px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; color: var(--sogan-body); }
-.field input, .field textarea { width: 100%; padding: 11px 12px; border: 1px solid rgba(181, 147, 90, 0.35); border-radius: 4px; background: #FFFFFF; font-family: var(--font-sans); font-size: 0.92rem; color: var(--sogan-ink); transition: border-color 180ms ease; }
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--sogan-ink); }
+/* 16px wajib pada iOS Safari supaya skrin tidak auto-zoom apabila tetamu menaip ucapan */
+.field input, .field textarea { width: 100%; padding: 11px 12px; border: 1px solid rgba(181, 147, 90, 0.35); border-radius: 4px; background: #FFFFFF; font-family: var(--font-sans); font-size: 16px; line-height: 1.45; color: var(--sogan-ink); -webkit-appearance: none; appearance: none; transition: border-color 180ms ease, box-shadow 180ms ease; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--sogan-ink); box-shadow: 0 0 0 3px rgba(181, 147, 90, 0.16); }
+.char-counter { font-family: var(--font-sans); font-size: 0.72rem; color: var(--sogan-muted); text-align: right; margin-top: -2px; }
+.char-counter.near-limit { color: var(--gold-deep); font-weight: 600; }
 .field-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .btn-sogan-solid:disabled { opacity: 0.6; cursor: progress; }
 .wish-body { white-space: pre-line; }
@@ -1298,3 +1310,22 @@ body.cover-locked {
   html { scroll-behavior: auto; }
   .seal-pulse-ring, .floating-music-btn.is-playing .icon-music, .flora-ur, .flora-bl { animation: none; }
 }
+
+/* Jaring keselamatan animasi (6 saat): jika GSAP/CDN gagal dimuatkan, pastikan semua kandungan tetap terpapar */
+.no-engine .hero-envelope-scene { height: auto !important; }
+.no-engine .hero-pin { position: relative !important; opacity: 1 !important; visibility: visible !important; }
+.no-engine .hero-anim,
+.no-engine .gsap-up,
+.no-engine .reveal-line,
+.no-engine .couple-converge-left,
+.no-engine .couple-converge-right,
+.no-engine .itinerary-item,
+.no-engine .arabic-verse,
+.no-engine .doa-parchment-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+  clip-path: none !important;
+}
+.no-engine .itinerary-thread { transform: scaleY(1) !important; }

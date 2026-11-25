@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initWishesOnly();
   initMusicPlayer();
   initBottomNavHighlight();
+
+  window.__kadReady = true;
+  document.documentElement.classList.remove('no-engine');
 });
 
 /* 0A. Personalisasi Nama Tetamu (?to=Encik+Ahmad+Sekeluarga) */
@@ -217,6 +220,8 @@ function initRealistic3DEnvelope() {
   }
 
   gsap.registerPlugin(ScrollTrigger);
+  // Elak lompatan skrol apabila bar alamat iOS Safari / Android Chrome / WhatsApp berubah ketinggian
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
   // Kad mihrab: lebar 86% sampul, nisbah 2:3 (selaras dengan .env-card dalam CSS).
   // Dikira dari nisbah, bukan offsetWidth, kerana FLIP menulis width/height inline.
@@ -226,9 +231,19 @@ function initRealistic3DEnvelope() {
 
   // Nilai susun atur yang diukur semula pada setiap ScrollTrigger refresh.
   const L = { envShift: 0, yStart: 44, yEnd: -45, fx: 0, fy: 0, tW: 0, tH: 0, drop: 400 };
+  let cachedVw = window.innerWidth || 390;
+  let cachedVh = window.innerHeight || 800;
 
   function measureEnvelopeLayout() {
-    const vh = window.innerHeight;
+    const newVw = window.innerWidth || cachedVw;
+    const newVh = window.innerHeight || cachedVh;
+    // Abaikan perubahan kecil bar alamat mudah alih (<140px) jika lebar skrin tidak berubah
+    const isMajorResize = Math.abs(newVw - cachedVw) > 2 || Math.abs(newVh - cachedVh) >= 140;
+    if (isMajorResize) {
+      cachedVw = newVw;
+      cachedVh = newVh;
+    }
+    const vh = cachedVh;
 
     // Tarik kandungan utama naik ke bawah lapisan hero: pada penghujung animasi,
     // kad sebenar di Band 1 berada tepat di bawah kad sampul, jadi peralihan tanpa sambungan.
@@ -873,7 +888,27 @@ function initWishesOnly() {
   const listEl = document.getElementById('wishes-list');
   const countEl = document.getElementById('wishes-count');
   const submitBtn = document.getElementById('wish-submit');
+  const wishInput = document.getElementById('guest-wish');
+  const charCountEl = document.getElementById('wish-char-count');
   if (!form || !listEl || !countEl) return;
+
+  function updateCharCount() {
+    if (!wishInput || !charCountEl) return;
+    const len = wishInput.value.length;
+    charCountEl.textContent = `${len} / ${MAX_WISH}`;
+    charCountEl.classList.toggle('near-limit', len >= MAX_WISH - 50);
+  }
+  if (wishInput) {
+    wishInput.addEventListener('input', updateCharCount);
+    updateCharCount();
+  }
+
+  function fetchWithTimeout(url, options = {}, timeoutMs = 10000) {
+    if (typeof AbortController === 'undefined') return fetch(url, options);
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    return fetch(url, { ...options, signal: ctrl.signal }).finally(() => clearTimeout(timer));
+  }
 
   if (!shared) {
     console.warn('[Buku Ucapan] wishesEndpoint kosong: mod pratonton (ucapan disimpan pada peranti ini sahaja).');
@@ -927,24 +962,34 @@ function initWishesOnly() {
   async function loadShared() {
     listEl.innerHTML = '<p class="wishes-empty">Memuatkan ucapan&hellip;</p>';
     try {
-      const res = await fetch(endpoint, { method: 'GET' });
+      const res = await fetchWithTimeout(endpoint, { method: 'GET' }, 10000);
       const data = await res.json();
       if (!data || !data.ok || !Array.isArray(data.wishes)) throw new Error('Respons tidak sah');
+      saveLocal(data.wishes);
       renderWishes(data.wishes);
     } catch (err) {
       console.error('[Buku Ucapan] Gagal memuatkan:', err);
-      countEl.textContent = '';
-      listEl.innerHTML = '<p class="wishes-empty">Ucapan tidak dapat dimuatkan buat masa ini. Sila cuba sebentar lagi.</p>';
-      refreshTriggers();
+      const cached = loadLocal();
+      if (cached.length > 0) {
+        renderWishes(cached);
+      } else {
+        countEl.textContent = '0 Ucapan';
+        listEl.innerHTML = '<p class="wishes-empty">Ucapan tidak dapat dimuatkan buat masa ini. Sila cuba sebentar lagi.</p>';
+        refreshTriggers();
+      }
     }
   }
 
   async function sendShared(payload) {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
-    });
+    const res = await fetchWithTimeout(
+      endpoint,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      },
+      10000
+    );
     const data = await res.json();
     if (!data || !data.ok) throw new Error((data && data.error) || 'Gagal dihantar');
   }
@@ -978,6 +1023,7 @@ function initWishesOnly() {
     try {
       await sendShared({ name, wish, website: honeypot });
       form.reset();
+      updateCharCount();
       triggerGoldBurst(submitBtn);
       setFeedback('Terima kasih! Ucapan dan doa anda telah sampai kepada keluarga mempelai.');
       showToast('Ucapan dan doa anda berjaya dihantar.');
@@ -1036,6 +1082,39 @@ function initMusicPlayer() {
   if (!audio || !btn) return;
 
   let userMuted = false;
+  let resumeAfterHide = false;
+
+  // Pra-muat metadata audio secara senyap selepas halaman selesai dimuatkan
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (audio.preload === 'none') {
+        audio.preload = 'metadata';
+      }
+    }, 400);
+  });
+
+  // Auto-jeda muzik bila tetamu keluar dari WhatsApp/Safari atau tukar tab, dan sambung semula bila kembali
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      resumeAfterHide = !audio.paused;
+      if (!audio.paused) {
+        audio.pause();
+        btn.classList.remove('is-playing');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+    } else if (resumeAfterHide && !userMuted) {
+      resumeAfterHide = false;
+      tryPlayMusic(true);
+    }
+  });
+
+  window.addEventListener('pagehide', () => {
+    if (!audio.paused) {
+      audio.pause();
+      btn.classList.remove('is-playing');
+      btn.setAttribute('aria-pressed', 'false');
+    }
+  });
 
   // Buka kunci audio secara automatik pada sentuhan pertama tetamu (jika belum dimainkan)
   const unlockOnce = () => {
