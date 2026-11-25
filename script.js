@@ -601,12 +601,10 @@ function initGsapScrollTrigger() {
       });
     });
 
-    // B1. Potret Mempelai dalam Bingkai Gerbang Mihrab + Pengapit Bunga Sulaman (GSAP Reveal & Parallax)
+    // B1. Potret Mempelai dalam Bingkai Gerbang Islamik (GSAP Reveal & Parallax)
     const portraitWrap = document.getElementById('couplePortraitWrap');
     const portraitArch = document.getElementById('couplePortraitArch');
     const portraitImg = document.getElementById('couplePortraitImg');
-    const pFloraLeft = document.querySelector('.portrait-flora-left');
-    const pFloraRight = document.querySelector('.portrait-flora-right');
     if (portraitWrap && portraitArch) {
       gsap.from(portraitArch, {
         y: 30,
@@ -625,7 +623,7 @@ function initGsapScrollTrigger() {
       if (portraitImg) {
         gsap.fromTo(
           portraitImg,
-          { scale: 1.1, yPercent: -3 },
+          { scale: 1.09, yPercent: -3 },
           {
             scale: 1,
             yPercent: 3,
@@ -635,47 +633,6 @@ function initGsapScrollTrigger() {
               start: 'top bottom',
               end: 'bottom top',
               scrub: 1.1
-            }
-          }
-        );
-      }
-
-      if (pFloraLeft) {
-        gsap.fromTo(
-          pFloraLeft,
-          { scale: 0.65, rotation: -18, opacity: 0 },
-          {
-            scale: 1,
-            rotation: -12,
-            opacity: 0.94,
-            duration: 1.1,
-            delay: 0.18,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: portraitWrap,
-              start: 'top 82%',
-              once: true
-            }
-          }
-        );
-      }
-
-      if (pFloraRight) {
-        gsap.fromTo(
-          pFloraRight,
-          { scaleX: -0.65, scaleY: 0.65, rotation: 18, opacity: 0 },
-          {
-            scaleX: -1,
-            scaleY: 1,
-            rotation: 12,
-            opacity: 0.94,
-            duration: 1.1,
-            delay: 0.24,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: portraitWrap,
-              start: 'top 82%',
-              once: true
             }
           }
         );
@@ -861,8 +818,8 @@ function initGsapScrollTrigger() {
       );
     }
 
-    // G. Bingkai Gerbang Islamik 3D (Majlis) & Gerbang Mihrab Kertas Kapas (Lokasi) Soft Arch Reveal
-    document.querySelectorAll('.frame-majlis-card, .frame-lokasi-card').forEach((frameCard) => {
+    // G. Babak Klimaks Sogan Velvet & Gerbang Mihrab Kertas Kapas (Lokasi) Soft Reveal
+    document.querySelectorAll('.sogan-climax-card, .frame-lokasi-card').forEach((frameCard) => {
       gsap.from(frameCard, {
         y: 26,
         scale: 0.97,
@@ -877,37 +834,6 @@ function initGsapScrollTrigger() {
         }
       });
     });
-
-    // H. Ornamen Sulur Sogan-Emas di Footer Penutup (Scrubbed Gentle Rise)
-    const footerSoganLeft = document.querySelector('.footer-sogan-left');
-    const footerSoganRight = document.querySelector('.footer-sogan-right');
-    if (footerSoganLeft) {
-      gsap.fromTo(
-        footerSoganLeft,
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 0.24,
-          duration: 1.1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '.band-footer', start: 'top 88%', once: true }
-        }
-      );
-    }
-    if (footerSoganRight) {
-      gsap.fromTo(
-        footerSoganRight,
-        { y: 20, opacity: 0, scaleX: -1 },
-        {
-          y: 0,
-          opacity: 0.24,
-          scaleX: -1,
-          duration: 1.1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '.band-footer', start: 'top 88%', once: true }
-        }
-      );
-    }
   });
 
   ScrollTrigger.refresh();

@@ -32,10 +32,10 @@
   <meta name="twitter:image" content="https://walimatulurus-alimin-erna.pages.dev/assets/og-image.jpg?v=2" />
   <meta name="theme-color" content="#F2EAE0" />
 
-  <!-- Fonts: Refined Calligraphy, Editorial Serif, Classical Arabic Naskh, Clean Sans -->
+  <!-- Fonts: Royal Calligraphy (Pinyon Script), Editorial Serif, Classical Arabic Naskh, Clean Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Pra-muat aset sampul 3D (atas lipatan) supaya muncul serta-merta tanpa kelipan -->
   <link rel="preload" as="image" href="assets/env-body.jpg" fetchpriority="high" />
@@ -255,11 +255,10 @@
 
         <img class="gold-divider-img gsap-up" src="assets/gold-divider.webp" width="900" height="200" alt="" aria-hidden="true" />
 
-        <!-- Potret Rasmi Mempelai dalam Bingkai Gerbang Mihrab Islamik + Pengapit Bunga Sulaman -->
+        <!-- Potret Rasmi Mempelai dalam Bingkai Gerbang Islamik Bermahkota Bintang -->
         <figure class="couple-mihrab-wrap" id="couplePortraitWrap" aria-label="Potret Dr. Alimin dan Erna">
           <div class="couple-arch-halo" aria-hidden="true"></div>
-          <img class="portrait-flora portrait-flora-left" src="assets/flora-embroidered.png" alt="" width="560" height="560" loading="lazy" decoding="async" aria-hidden="true" />
-          <img class="portrait-flora portrait-flora-right" src="assets/flora-embroidered.png" alt="" width="560" height="560" loading="lazy" decoding="async" aria-hidden="true" />
+          <svg class="couple-arch-finial" width="22" height="22" aria-hidden="true"><use href="#islamic-star" /></svg>
           <div class="couple-mihrab-arch" id="couplePortraitArch">
             <div class="couple-mihrab-inner">
               <img
@@ -316,76 +315,61 @@
       </div>
     </section>
 
-    <!-- BAND 3: BUTIRAN MAJLIS, COUNTDOWN & ATUR CARA (DIBINGKAI GERBANG ISLAMIK 3D PAPER-CUT) -->
+    <!-- BAND 3: KLIMAKS SOGAN VELVET (KIRA DETIK & TARIKH) + ATUR CARA MAJLIS -->
     <section id="majlis" class="band band-ivory gsap-section">
       <div class="band-lattice-subtle" aria-hidden="true"></div>
-      <div class="band-inner majlis-framed-outer">
-        <div class="frame-majlis-card">
-          <div class="islamic-ornament-row gsap-up" aria-hidden="true">
-            <span class="orn-line"></span>
-            <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
-            <span class="orn-line"></span>
-          </div>
-          <p class="editorial-label gsap-up">Menghitung Hari</p>
-        <h3 class="band-heading gsap-up">Butiran Majlis</h3>
+      <div class="band-inner majlis-climax-outer">
+        <!-- Babak Kontras Gelap Diraja (Sogan Velvet + Foil Emas, Serasi Busana Pasangan) -->
+        <div class="sogan-climax-card gsap-up">
+          <div class="sogan-card-batik" aria-hidden="true"></div>
+          <div class="sogan-card-content">
+            <div class="islamic-ornament-row sogan-orn" aria-hidden="true">
+              <span class="orn-line"></span>
+              <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
+              <span class="orn-line"></span>
+            </div>
+            <p class="sogan-eyebrow">Menghitung Hari Bahagia</p>
+            <p class="sogan-big-date">
+              <span class="sogan-day">14</span>
+              <span class="sogan-month">Mac 2027</span>
+            </p>
+            <p class="sogan-time-line">Ahad &nbsp;&bull;&nbsp; 10:00 Pagi – 5:00 Petang</p>
+            <p class="sogan-venue-line">Dewan SJK (C) Kung Ming, Tawau</p>
 
-        <!-- Live Countdown -->
-        <div class="countdown-editorial gsap-up" aria-label="Kiraan Detik Menuju Majlis">
-          <div class="cd-unit">
-            <span id="cd-days" class="cd-value">--</span>
-            <span class="cd-caption">Hari</span>
-          </div>
-          <span class="cd-sep" aria-hidden="true">:</span>
-          <div class="cd-unit">
-            <span id="cd-hours" class="cd-value">--</span>
-            <span class="cd-caption">Jam</span>
-          </div>
-          <span class="cd-sep" aria-hidden="true">:</span>
-          <div class="cd-unit">
-            <span id="cd-mins" class="cd-value">--</span>
-            <span class="cd-caption">Minit</span>
-          </div>
-          <span class="cd-sep" aria-hidden="true">:</span>
-          <div class="cd-unit">
-            <span id="cd-secs" class="cd-value">--</span>
-            <span class="cd-caption">Saat</span>
-          </div>
-        </div>
+            <!-- Live Countdown -->
+            <div class="countdown-sogan" aria-label="Kiraan Detik Menuju Majlis">
+              <div class="cd-tile">
+                <span id="cd-days" class="cd-value">--</span>
+                <span class="cd-caption">Hari</span>
+              </div>
+              <div class="cd-tile">
+                <span id="cd-hours" class="cd-value">--</span>
+                <span class="cd-caption">Jam</span>
+              </div>
+              <div class="cd-tile">
+                <span id="cd-mins" class="cd-value">--</span>
+                <span class="cd-caption">Minit</span>
+              </div>
+              <div class="cd-tile">
+                <span id="cd-secs" class="cd-value">--</span>
+                <span class="cd-caption">Saat</span>
+              </div>
+            </div>
 
-        <dl class="event-specs gsap-up">
-          <div class="spec-row">
-            <dt>Tarikh</dt>
-            <dd>Ahad, 14 Mac 2027</dd>
+            <div class="action-pair sogan-cal-actions">
+              <button id="download-ics-btn" class="btn-gold-solid" type="button">
+                Simpan Kalendar (.ics)
+              </button>
+              <a
+                class="btn-gold-ghost"
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis+Kesyukuran+Perkahwinan+Dr.+Alimin+%26+Erna&dates=20270314T020000Z/20270314T090000Z&details=Majlis+Kesyukuran+Perkahwinan+Alimin+bin+Alias+(Dr.+Alimin)+%26+Erna+Hafizah+Erpian+(Erna).+Masa:+10:00+Pagi+-+5:00+Petang.&location=Dewan+SJK+(C)+Kung+Ming,+Tawau,+Sabah"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Calendar
+              </a>
+            </div>
           </div>
-          <div class="spec-row">
-            <dt>Masa Majlis</dt>
-            <dd>10:00 Pagi – 5:00 Petang</dd>
-          </div>
-          <div class="spec-row">
-            <dt>Ketibaan Tetamu</dt>
-            <dd>Bermula 10:00 Pagi</dd>
-          </div>
-          <div class="spec-row">
-            <dt>Tempat</dt>
-            <dd>
-              <strong>Dewan SJK (C) Kung Ming</strong>
-              <span class="spec-address">Taman Megah Jaya, Off Jalan Chong Thien Vun, 91007 Tawau, Sabah</span>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="action-pair gsap-up">
-          <button id="download-ics-btn" class="btn-outline-foil" type="button">
-            Simpan ke Kalendar (.ics)
-          </button>
-          <a
-            class="btn-outline-foil"
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis+Kesyukuran+Perkahwinan+Dr.+Alimin+%26+Erna&dates=20270314T020000Z/20270314T090000Z&details=Majlis+Kesyukuran+Perkahwinan+Alimin+bin+Alias+(Dr.+Alimin)+%26+Erna+Hafizah+Erpian+(Erna).+Masa:+10:00+Pagi+-+5:00+Petang.&location=Dewan+SJK+(C)+Kung+Ming,+Tawau,+Sabah"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Google Calendar
-          </a>
         </div>
 
         <div class="itinerary-editorial gsap-up">
@@ -395,7 +379,6 @@
             <span class="itinerary-thread" id="itinerary-thread" aria-hidden="true"></span>
             <ol id="itinerary-list" class="itinerary-timeline"></ol>
           </div>
-        </div>
         </div>
       </div>
     </section>
@@ -462,28 +445,19 @@
 
         <img class="gold-divider-img doa-divider gsap-up" src="assets/gold-divider.webp" width="900" height="200" alt="" aria-hidden="true" />
 
-        <p class="doa-closing gsap-up">
-          Ya Allah Ya Rahman Ya Rahim, berkatilah Majlis Kesyukuran Perkahwinan <strong>Dr. Alimin</strong> dan <strong>Erna</strong>. Satukanlah hati keduanya dalam ketaatan kepada-Mu, limpahkanlah sakinah, mawaddah dan rahmah dalam mahligai rumah tangga mereka, serta kekalkanlah kebahagiaan ini hingga ke syurga-Mu. Amin Ya Rabbal Alamin.
-        </p>
+        <!-- Doa Pengantin Nabawi disatukan dalam babak kerohanian (elak pengulangan dua babak doa berturut-turut) -->
+        <div class="nabawi-doa-inline gsap-up">
+          <p class="editorial-label">Doa Pengantin Nabawi</p>
+          <p class="arabic-nabawi" lang="ar" dir="rtl">بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+          <p class="nabawi-translit">Barakallahu laka wa baraka &lsquo;alaika wa jama&lsquo;a bainakuma fii khair.</p>
+          <p class="nabawi-meaning">&ldquo;Semoga Allah memberkati kamu, melimpahkan berkat ke atas kamu, dan menghimpunkan kamu berdua dalam kebaikan.&rdquo;</p>
+        </div>
       </div>
     </section>
 
     <!-- BAND 6: BUKU UCAPAN & DOA (FUNGSI TAMBAHAN PILIHAN KLIEN) -->
     <section id="ucapan" class="band band-ivory gsap-section">
       <div class="band-inner">
-        <!-- Doa Pengantin Nabawi (Sisi Islamik) -->
-        <div class="nabawi-doa-card gsap-up">
-          <div class="islamic-ornament-row" aria-hidden="true">
-            <span class="orn-line"></span>
-            <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
-            <span class="orn-line"></span>
-          </div>
-          <p class="editorial-label">Doa Buat Mempelai</p>
-          <p class="arabic-nabawi" lang="ar" dir="rtl">بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
-          <p class="nabawi-translit">Barakallahu laka wa baraka &lsquo;alaika wa jama&lsquo;a bainakuma fii khair.</p>
-          <p class="nabawi-meaning">&ldquo;Semoga Allah memberkati kamu, melimpahkan berkat ke atas kamu, dan menghimpunkan kamu berdua dalam kebaikan.&rdquo;</p>
-        </div>
-
         <p class="editorial-label gsap-up">Titipan Doa</p>
         <h3 class="band-heading gsap-up">Ucapan &amp; Doa</h3>
         <p class="editorial-prose rsvp-intro gsap-up">
@@ -529,8 +503,6 @@
 
     <!-- FOOTER -->
     <footer class="band band-footer">
-      <img class="footer-sogan footer-sogan-left" src="assets/ornament-sogan.png" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
-      <img class="footer-sogan footer-sogan-right" src="assets/ornament-sogan.png" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
       <div class="band-inner footer-inner">
         <img class="gold-divider-img footer-divider" src="assets/gold-divider.webp" width="900" height="200" alt="" aria-hidden="true" />
         <img class="footer-crest monogram-img" src="assets/monogram-ae.webp" width="1000" height="599" alt="A &amp; E" loading="lazy" />
