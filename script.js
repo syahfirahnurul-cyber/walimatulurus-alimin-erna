@@ -28,7 +28,8 @@ let lenisInstance = null;
 document.addEventListener('DOMContentLoaded', () => {
   initLenisSmoothScroll();
   initRealistic3DEnvelope();
-  initSideFlora();
+  initEnvelopeMagneticTilt();
+  initGoldMotes();
   initGsapScrollTrigger();
   initCountdown();
   initItinerary();
@@ -307,6 +308,60 @@ function initSideFlora() {
   if (sideFlora) sideFlora.classList.add('is-active');
 }
 
+/* 1B. Subtle 3D Magnetic Tilt pada Sampul (Desktop hover sahaja — gsap.quickTo) */
+function initEnvelopeMagneticTilt() {
+  if (
+    typeof window.gsap === 'undefined' ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  ) {
+    return;
+  }
+  const pin = document.querySelector('.hero-pin');
+  const env3d = document.getElementById('env3d');
+  if (!pin || !env3d) return;
+
+  const tiltX = gsap.quickTo(env3d, 'rotationX', { duration: 0.55, ease: 'power3.out' });
+  const tiltY = gsap.quickTo(env3d, 'rotationY', { duration: 0.55, ease: 'power3.out' });
+
+  pin.addEventListener('pointermove', (e) => {
+    if (window.scrollY > 40) {
+      tiltX(0);
+      tiltY(0);
+      return;
+    }
+    const r = pin.getBoundingClientRect();
+    const nx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+    const ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    tiltY(nx * 2.6);
+    tiltX(-ny * 2.2);
+  });
+
+  pin.addEventListener('pointerleave', () => {
+    tiltX(0);
+    tiltY(0);
+  });
+}
+
+/* 1C. Micro Gold Dust / Sunbeam Motes (10 zarah bokeh emas lembut) */
+function initGoldMotes() {
+  const host = document.getElementById('gold-motes');
+  if (!host || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (host.childElementCount > 0) return;
+
+  const count = window.innerWidth < 480 ? 8 : 11;
+  for (let i = 0; i < count; i++) {
+    const m = document.createElement('span');
+    m.className = 'gold-mote';
+    m.style.left = `${(Math.random() * 92 + 4).toFixed(1)}%`;
+    m.style.setProperty('--ms', `${(4.5 + Math.random() * 4.5).toFixed(1)}px`);
+    m.style.setProperty('--md', `${(12 + Math.random() * 9).toFixed(1)}s`);
+    m.style.setProperty('--mdelay', `${(-Math.random() * 16).toFixed(1)}s`);
+    m.style.setProperty('--mx', `${(Math.random() * 44 - 22).toFixed(0)}px`);
+    host.appendChild(m);
+  }
+}
+
 /* Helper: Wrap Monumental Headings in Baseline Overflow Masks */
 function prepareEditorialMasks() {
   const selectors = '.band-heading, .mempelai-fullname, .host-name, .venue-display-name';
@@ -393,21 +448,20 @@ function initGsapScrollTrigger() {
       }
     }
 
-    // B3. Scroll-Driven Gentle Bloom Scale on Corner Javanese Sulur Flora
-    const floraCorners = document.querySelectorAll('.flora-corner');
-    if (floraCorners.length) {
+    // B3. Blind-Emboss Monogram A&E Watermark Parallax di Band 2 (#mempelai)
+    const bandWatermark = document.querySelector('.band-watermark');
+    if (bandWatermark) {
       gsap.fromTo(
-        floraCorners,
-        { opacity: 0.32, scale: 0.9 },
+        bandWatermark,
+        { yPercent: -58 },
         {
-          opacity: 0.85,
-          scale: 1.05,
+          yPercent: -42,
           ease: 'none',
           scrollTrigger: {
-            trigger: '#invitation-main',
-            start: 'top top',
-            end: '55% bottom',
-            scrub: 1
+            trigger: '#mempelai',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.2
           }
         }
       );
@@ -450,14 +504,28 @@ function initGsapScrollTrigger() {
       });
     });
 
-    // E. Atur Cara Majlis Timeline Cascade
+    // E. Scroll-Drawn Gold Thread + Atur Cara Majlis Icon & Text Cascade
+    const itineraryThread = document.getElementById('itinerary-thread');
+    if (itineraryThread) {
+      gsap.to(itineraryThread, {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.itinerary-wrap',
+          start: 'top 82%',
+          end: 'bottom 68%',
+          scrub: 0.7
+        }
+      });
+    }
+
     const timelineItems = document.querySelectorAll('.itinerary-item');
     if (timelineItems.length) {
       gsap.from(timelineItems, {
         x: -14,
         opacity: 0,
         duration: 0.72,
-        stagger: 0.14,
+        stagger: 0.16,
         ease: 'power3.out',
         clearProps: 'transform,opacity',
         scrollTrigger: {
@@ -466,6 +534,28 @@ function initGsapScrollTrigger() {
           once: true
         }
       });
+    }
+
+    // E2. Soft Blur-to-Sharp Sacred Reveal untuk Ayat Suci Surah Ar-Rum
+    const arabicVerse = document.querySelector('.arabic-verse');
+    if (arabicVerse) {
+      gsap.fromTo(
+        arabicVerse,
+        { filter: 'blur(4px)', opacity: 0, y: 12 },
+        {
+          filter: 'blur(0px)',
+          opacity: 1,
+          y: 0,
+          duration: 1.15,
+          ease: 'power2.out',
+          clearProps: 'filter,transform,opacity',
+          scrollTrigger: {
+            trigger: '.doa-parchment-card',
+            start: 'top 80%',
+            once: true
+          }
+        }
+      );
     }
 
     // F. Multi-Layer Batik Sogan Scale + Parallax & Doa Card Clip-Path Unfurl
@@ -538,7 +628,13 @@ function initCountdown() {
     daysEl.textContent = String(days).padStart(2, '0');
     hoursEl.textContent = String(hours).padStart(2, '0');
     minsEl.textContent = String(mins).padStart(2, '0');
-    secsEl.textContent = String(secs).padStart(2, '0');
+    const nextSec = String(secs).padStart(2, '0');
+    if (secsEl.textContent !== nextSec) {
+      secsEl.textContent = nextSec;
+      if (typeof window.gsap !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.fromTo(secsEl, { y: 3, opacity: 0.65 }, { y: 0, opacity: 1, duration: 0.22, ease: 'power2.out', overwrite: true });
+      }
+    }
   }
 
   update();
@@ -796,17 +892,26 @@ function initWishesOnly() {
   }
 }
 
-/* 9. Real Background Music Player (assets/lagu.mp3) */
+/* 9. Real Background Music Player (assets/lagu.mp3) dengan Cinematic Audio Fade-In */
 function tryPlayMusic(silent = false) {
   const audio = document.getElementById('bg-music');
   const btn = document.getElementById('music-toggle-btn');
   if (!audio || !btn) return;
+
+  if (audio.paused && typeof window.gsap !== 'undefined') {
+    audio.volume = 0.01;
+  }
 
   audio
     .play()
     .then(() => {
       btn.classList.add('is-playing');
       btn.setAttribute('aria-pressed', 'true');
+      if (typeof window.gsap !== 'undefined') {
+        gsap.to(audio, { volume: 0.85, duration: 2.2, ease: 'power2.out', overwrite: true });
+      } else {
+        audio.volume = 0.85;
+      }
     })
     .catch(() => {
       btn.classList.remove('is-playing');

@@ -30,9 +30,10 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Tekstur kertas kapas & latar kekisi Walasuji Bugis -->
+  <!-- Tekstur kertas kapas, kekisi Walasuji Bugis & zarah cahaya emas halus -->
   <div class="paper-grain" aria-hidden="true"></div>
   <div class="lattice-backdrop" aria-hidden="true"></div>
+  <div id="gold-motes" class="gold-motes" aria-hidden="true"></div>
 
   <!-- Hairline Gold Scroll Progress Filament -->
   <div class="scroll-progress-track" aria-hidden="true">
@@ -166,6 +167,7 @@
 
     <!-- BAND 2: UNDANGAN RASMI PIHAK LELAKI, TUAN RUMAH & MEMPELAI -->
     <section id="mempelai" class="band band-beige gsap-section">
+      <img class="band-watermark" src="assets/monogram-ae.webp" alt="" aria-hidden="true" loading="lazy" />
       <div class="band-inner">
         <p class="arabic-salam gsap-up" lang="ar" dir="rtl">السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
         <p class="salam-latin gsap-up">Assalamualaikum Warahmatullahi Wabarakatuh</p>
@@ -292,7 +294,10 @@
         <div class="itinerary-editorial gsap-up">
           <p class="editorial-label">Susunan Masa</p>
           <h4 class="itinerary-heading">Atur Cara Majlis</h4>
-          <ol id="itinerary-list" class="itinerary-timeline"></ol>
+          <div class="itinerary-wrap">
+            <span class="itinerary-thread" id="itinerary-thread" aria-hidden="true"></span>
+            <ol id="itinerary-list" class="itinerary-timeline"></ol>
+          </div>
         </div>
       </div>
     </section>
@@ -300,42 +305,44 @@
     <!-- BAND 4: LOKASI & PETA -->
     <section id="lokasi" class="band band-beige gsap-section">
       <div class="band-inner">
-        <p class="editorial-label gsap-up">Panduan Arah</p>
-        <h3 class="band-heading gsap-up">Lokasi Dewan</h3>
+        <div class="letterpress-panel">
+          <p class="editorial-label gsap-up">Panduan Arah</p>
+          <h3 class="band-heading gsap-up">Lokasi Dewan</h3>
 
-        <img class="gold-divider-img gsap-up" src="assets/gold-divider.webp" width="900" height="200" alt="" aria-hidden="true" />
+          <img class="gold-divider-img gsap-up" src="assets/gold-divider.webp" width="900" height="200" alt="" aria-hidden="true" />
 
-        <h4 class="venue-display-name gsap-up">Dewan SJK (C) Kung Ming</h4>
-        <p class="venue-full-address gsap-up">
-          Taman Megah Jaya, Off Jalan Chong Thien Vun<br />
-          91007 Tawau, Sabah, Malaysia
-        </p>
-        <p class="venue-coords gsap-up">4°15&prime;32&Prime;N &nbsp;&bull;&nbsp; 117°55&prime;37&Prime;E</p>
+          <h4 class="venue-display-name gsap-up">Dewan SJK (C) Kung Ming</h4>
+          <p class="venue-full-address gsap-up">
+            Taman Megah Jaya, Off Jalan Chong Thien Vun<br />
+            91007 Tawau, Sabah, Malaysia
+          </p>
+          <p class="venue-coords gsap-up">4°15&prime;32&Prime;N &nbsp;&bull;&nbsp; 117°55&prime;37&Prime;E</p>
 
-        <div class="action-pair location-actions gsap-up">
-          <a
-            class="btn-sogan-solid"
-            href="https://www.google.com/maps/search/?api=1&query=Dewan+SJK+(C)+Kung+Ming+Tawau+Sabah"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Buka di Google Maps
-          </a>
-          <a
-            class="btn-sogan-ghost"
-            href="https://waze.com/ul?ll=4.2589,117.9269&navigate=yes"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Buka di Waze
-          </a>
-        </div>
+          <div class="action-pair location-actions gsap-up">
+            <a
+              class="btn-sogan-solid"
+              href="https://www.google.com/maps/search/?api=1&query=Dewan+SJK+(C)+Kung+Ming+Tawau+Sabah"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buka di Google Maps
+            </a>
+            <a
+              class="btn-sogan-ghost"
+              href="https://waze.com/ul?ll=4.2589,117.9269&navigate=yes"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buka di Waze
+            </a>
+          </div>
 
-        <div class="map-toggle-wrap gsap-up">
-          <button id="toggle-map-btn" class="btn-text-link" type="button" aria-expanded="false">
-            Paparkan Peta Interaktif
-          </button>
-          <div id="lazy-map-container" class="lazy-map-container" hidden></div>
+          <div class="map-toggle-wrap gsap-up">
+            <button id="toggle-map-btn" class="btn-text-link" type="button" aria-expanded="false">
+              Paparkan Peta Interaktif
+            </button>
+            <div id="lazy-map-container" class="lazy-map-container" hidden></div>
+          </div>
         </div>
       </div>
     </section>
@@ -372,7 +379,7 @@
           Kesudian Tuan/Puan menitipkan ucapan tahniah dan doa restu buat kedua-dua mempelai amatlah kami hargai.
         </p>
 
-        <form id="wish-form" class="editorial-form gsap-up" novalidate>
+        <form id="wish-form" class="editorial-form letterpress-panel gsap-up" novalidate>
           <div class="field">
             <label for="guest-name">Nama Penuh / Keluarga</label>
             <input id="guest-name" name="name" type="text" placeholder="Contoh: Encik Ahmad sekeluarga" maxlength="80" autocomplete="name" required />
@@ -422,13 +429,16 @@
     </footer>
   </main>
 
-  <!-- Floating Music Button (Sedia untuk assets/lagu.mp3 nanti) -->
+  <!-- Floating Music Button dengan 3 Bar Equalizer Emas -->
   <button id="music-toggle-btn" class="floating-music-btn" type="button" aria-label="Mainkan atau hentikan lagu latar" aria-pressed="false" title="Lagu Latar">
-    <svg class="icon-music" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <svg class="icon-music" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M9 18V5l12-2v13"/>
       <circle cx="6" cy="18" r="3"/>
       <circle cx="18" cy="16" r="3"/>
     </svg>
+    <span class="eq-bars" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
   </button>
 
   <div id="toast-banner" class="toast-banner" role="status" aria-live="polite"></div>
