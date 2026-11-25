@@ -434,19 +434,20 @@ body.cover-locked {
 }
 
 /* =====================================================================
-   KAD MIHRAB (3-slice): jalur atas & bawah kekal pada nisbah asal (gerbang, reben Batik,
-   corak geometri tidak herot); jalur tengah (garis lurus + kertas) diregang menegak sahaja.
-   Digunakan oleh kad dalam sampul DAN kad Band 1, supaya peralihan FLIP tepat.
+   SATU TONA KERTAS MEWAH WHITE BEIGE (.luxury-paper-card)
+   Menggantikan semua bingkai Mihrab & Batik dalaman dengan satu bahasa
+   reka bentuk kertas kapas White Beige (#FBF8F2) + garisan foil emas kembar.
+   Digunakan seragam pada kad sampul, Band 1, Band 3, Band 4 & Band 5.
    ===================================================================== */
-.card-mihrab-bg {
-  background-color: #F1E9DC;
-  background-image:
-    url('assets/card-mihrab-top.jpg'),
-    url('assets/card-mihrab-bottom.jpg'),
-    url('assets/card-mihrab-mid.jpg');
-  background-position: top center, bottom center, center;
-  background-size: 100% auto, 100% auto, 100% 100%;
-  background-repeat: no-repeat;
+.luxury-paper-card {
+  position: relative;
+  background: linear-gradient(180deg, #FDFBF7 0%, #F9F4EA 100%);
+  border: 1px solid rgba(168, 132, 70, 0.42);
+  border-radius: 6px;
+  box-shadow:
+    0 16px 38px rgba(42, 32, 24, 0.08),
+    inset 0 0 0 6px #FBF8F2,
+    inset 0 0 0 7px rgba(168, 132, 70, 0.24);
 }
 
 .env-card {
@@ -759,26 +760,22 @@ body.cover-locked {
 .band-inner { position: relative; z-index: 2; padding: 58px 30px; text-align: center; }
 
 .band-hero {
-  background-color: var(--soft-beige);
-  padding: 16px;
+  background-color: var(--alabaster-white);
+  padding: 20px 18px 24px;
 }
 
-/* Kad mihrab Band 1: sekurang-kurangnya nisbah asal 2:3; jika kandungan lebih panjang,
-   kad memanjang dan hanya jalur tengah yang diregang (lihat .card-mihrab-bg). */
+/* Kad Band 1: satu tona kertas kapas White Beige dengan ruang bernafas lega */
 .card-frame-canvas {
   width: 100%;
-  aspect-ratio: 2 / 3;
+  min-height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 14px 36px rgba(59, 47, 38, 0.08);
 }
 
 .card-frame-content {
   width: 100%;
-  /* Peratus (relatif lebar): mula di bawah bahu gerbang atas (~30%), berhenti di atas
-     bahu gerbang bawah (~27%), dan 14% dari tepi supaya jauh dari garis emas & reben. */
-  padding: 30% 14% 27%;
+  padding: 46px 26px 44px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -798,7 +795,7 @@ body.cover-locked {
 
 .band-ivory { background-color: var(--alabaster-white); }
 .band-beige {
-  background-color: var(--soft-beige);
+  background-color: var(--alabaster-white);
   border-top: 1px solid var(--gold-hairline);
   border-bottom: 1px solid var(--gold-hairline);
 }
@@ -996,36 +993,20 @@ body.cover-locked {
 .lazy-map-container iframe { width: 100%; height: 100%; border: 0; }
 
 /* =====================================================================
-   BABAK KLIMAKS SOGAN VELVET + EMAS (BAND 3 KIRA DETIK)
-   & BINGKAI GERBANG MIHRAB KERTAS KAPAS (BAND 4 LOKASI)
+   KAD TARIKH & KIRA DETIK (BAND 3) & KAD LOKASI (BAND 4)
+   SATU TONA KERTAS WHITE BEIGE TANPA BATIK
    ===================================================================== */
 .majlis-climax-outer,
 .lokasi-framed-outer {
-  padding: 34px 20px 44px;
+  padding: 30px 18px 36px;
 }
 
-/* Band 3: Kad Kontras Gelap Diraja Sogan Velvet (Serasi Busana Baldu Hitam-Emas Pasangan) */
 .sogan-climax-card {
   position: relative;
   overflow: hidden;
-  border-radius: 14px;
-  padding: 38px 24px 34px;
-  background: linear-gradient(160deg, #37281F 0%, #241913 58%, #1C130E 100%);
-  border: 1px solid rgba(212, 188, 139, 0.56);
-  box-shadow:
-    0 26px 56px rgba(35, 24, 18, 0.28),
-    inset 0 1px 0 rgba(255, 248, 232, 0.22);
-  color: #FAF6EE;
+  padding: 40px 24px 36px;
+  color: var(--sogan-ink);
   margin-bottom: 42px;
-}
-
-.sogan-card-batik {
-  position: absolute;
-  inset: 0;
-  background: url('assets/batik-sogan-pattern.webp') center / 340px auto repeat;
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 0;
 }
 
 .sogan-card-content {
@@ -1037,18 +1018,13 @@ body.cover-locked {
   text-align: center;
 }
 
-.sogan-orn {
-  color: var(--gold-champagne);
-  margin-bottom: 6px;
-}
-
 .sogan-eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold-champagne);
+  color: var(--gold-deep);
   margin-bottom: 8px;
 }
 
@@ -1062,36 +1038,36 @@ body.cover-locked {
 
 .sogan-day {
   font-family: var(--font-serif);
-  font-size: clamp(3.4rem, 13vw, 4.6rem);
+  font-size: clamp(3.2rem, 12vw, 4.4rem);
   font-weight: 600;
   line-height: 0.95;
-  color: #FFFDF8;
+  color: var(--sogan-ink);
   letter-spacing: -0.02em;
 }
 
 .sogan-month {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(1.55rem, 5.5vw, 2.05rem);
-  font-weight: 500;
-  color: var(--gold-champagne);
+  font-size: clamp(1.5rem, 5.2vw, 2rem);
+  font-weight: 600;
+  color: var(--gold-deep);
 }
 
 .sogan-time-line {
   font-family: var(--font-sans);
   font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.09em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(250, 246, 238, 0.9);
-  margin-top: 2px;
+  color: var(--sogan-body);
+  margin-top: 4px;
 }
 
 .sogan-venue-line {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 1.15rem;
-  color: rgba(250, 246, 238, 0.88);
+  color: var(--sogan-ink);
   margin-top: 4px;
 }
 
@@ -1106,9 +1082,9 @@ body.cover-locked {
 
 .countdown-sogan .cd-tile {
   padding: 12px 4px;
-  border-radius: 10px;
-  background: rgba(255, 250, 240, 0.08);
-  border: 1px solid rgba(212, 188, 139, 0.42);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(168, 132, 70, 0.36);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1116,18 +1092,19 @@ body.cover-locked {
 
 .countdown-sogan .cd-value {
   font-family: var(--font-serif);
-  font-size: clamp(1.55rem, 5.5vw, 2.05rem);
+  font-size: clamp(1.5rem, 5.2vw, 2rem);
   font-weight: 600;
   line-height: 1;
-  color: #FFFDF8;
+  color: var(--sogan-ink);
 }
 
 .countdown-sogan .cd-caption {
   font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-champagne);
+  color: var(--gold-deep);
   margin-top: 5px;
+  font-weight: 600;
 }
 
 .sogan-cal-actions {
@@ -1136,52 +1113,11 @@ body.cover-locked {
   margin-top: 0;
 }
 
-.btn-gold-solid,
-.btn-gold-ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 14px;
-  border-radius: 6px;
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 160ms var(--ease-out), background-color 180ms ease;
-}
-
-.btn-gold-solid {
-  border: 1px solid var(--gold-champagne);
-  background: linear-gradient(135deg, #D4BC8B 0%, #B5935A 100%);
-  color: #241913;
-}
-
-.btn-gold-ghost {
-  border: 1px solid rgba(212, 188, 139, 0.55);
-  background: rgba(255, 250, 240, 0.06);
-  color: #FAF6EE;
-}
-
-.btn-gold-solid:active,
-.btn-gold-ghost:active { transform: scale(0.97); }
-
-/* Band 4: Bingkai Gerbang Mihrab Kertas Kapas + Corak Damask Beige (3-slice, sifar herotan) */
+/* Band 4: Kad Lokasi dalam tona kertas White Beige seragam */
 .frame-lokasi-card {
   position: relative;
   z-index: 2;
-  background-color: #F4ECE0;
-  background-image:
-    url('assets/frame-lokasi-top.jpg'),
-    url('assets/frame-lokasi-bottom.jpg'),
-    url('assets/frame-lokasi-mid.jpg');
-  background-position: top center, bottom center, center;
-  background-size: 100% auto, 100% auto, 100% 100%;
-  background-repeat: no-repeat;
-  padding: 36% 14% 16%;
-  border-radius: 6px;
-  box-shadow: 0 18px 44px rgba(59, 47, 38, 0.12);
+  padding: 40px 24px 36px;
   will-change: transform, opacity;
 }
 
@@ -1196,61 +1132,31 @@ body.cover-locked {
 @media (max-width: 440px) {
   .majlis-climax-outer,
   .lokasi-framed-outer {
-    padding: 26px 14px 34px;
+    padding: 24px 14px 30px;
   }
-  .sogan-climax-card {
-    padding: 30px 18px 26px;
-  }
+  .sogan-climax-card,
   .frame-lokasi-card {
-    padding: 38% 12% 16%;
+    padding: 32px 18px 28px;
   }
 }
 
-/* BAND 5: SURAH AR-RUM (bingkai mihrab) & DOA
-   Latar beige dengan Batik Sogan sebagai sentuhan halus (bukan blok gelap penuh),
-   selaras dengan tema "white beige with a hint of Jawa". */
+/* BAND 5: SURAH AR-RUM & DOA PENGANTIN NABAWI (SATU TONA KERTAS WHITE BEIGE TANPA BATIK) */
 .band-batik-doa {
   position: relative;
   overflow: hidden;
-  background-color: var(--soft-beige);
+  background-color: var(--alabaster-white);
   border-top: 1px solid var(--gold-hairline);
   border-bottom: 1px solid var(--gold-hairline);
 }
 
-.batik-parallax-bg {
-  position: absolute;
-  inset: -18% 0;
-  background-image: url('assets/batik-sogan-pattern.webp');
-  background-size: 360px auto;
-  background-repeat: repeat;
-  opacity: 0.12;
-  z-index: 0;
-  will-change: transform;
-}
-
 .doa-outer-padding {
-  padding: 40px 20px 52px;
-}
-
-/* Bingkai Doa (3-slice, sama seperti kad mihrab): gerbang atas/bawah tidak herot. */
-.frame-doa-bg {
-  background-color: #F2EADC;
-  background-image:
-    url('assets/frame-doa-top.jpg'),
-    url('assets/frame-doa-bottom.jpg'),
-    url('assets/frame-doa-mid.jpg');
-  background-position: top center, bottom center, center;
-  background-size: 100% auto, 100% auto, 100% 100%;
-  background-repeat: no-repeat;
+  padding: 34px 18px 44px;
 }
 
 .doa-parchment-card {
   position: relative;
   z-index: 2;
-  aspect-ratio: 3 / 4;   /* nisbah asal bingkai; memanjang jika teks lebih panjang */
-  /* Peratus relatif lebar: di bawah bahu gerbang atas (~31%), di atas bahu bawah (~27%) */
-  padding: 31% 13% 27%;
-  box-shadow: 0 18px 44px rgba(43, 32, 24, 0.16);
+  padding: 38px 24px 34px;
 }
 
 .doa-divider {
@@ -1325,7 +1231,7 @@ body.cover-locked {
 .wish-body { font-size: 1rem; color: var(--sogan-body); line-height: 1.55; }
 
 /* FOOTER */
-.band-footer { background: var(--soft-beige); border-top: 1px solid var(--gold-hairline); }
+.band-footer { background: var(--alabaster-white); border-top: 1px solid var(--gold-hairline); }
 .footer-inner { padding: 38px 26px 52px; }
 .footer-divider { width: 136px; margin-top: 0; margin-bottom: 18px; }
 .footer-crest { width: 128px; margin-top: 4px; margin-bottom: 4px; }
@@ -1603,8 +1509,8 @@ body.cover-locked {
 .nav-link.active, .nav-link:hover { color: var(--sogan-ink); }
 
 @media (max-width: 440px) {
-  .band-inner { padding: 44px 20px; }
-  .card-frame-content { padding: 28% 11% 25%; }
+  .band-inner { padding: 40px 18px; }
+  .card-frame-content { padding: 36px 20px 34px; }
   .spec-row { grid-template-columns: 1fr; gap: 3px; }
   .action-pair { grid-template-columns: 1fr; }
   .display-script { font-size: clamp(2.25rem, 9.5vw, 2.75rem); }
@@ -1631,7 +1537,7 @@ body.cover-locked {
   .date-small { font-size: 0.86rem; color: var(--sogan-ink); }
   .hero-venue { font-size: 0.92rem; color: var(--sogan-ink); }
   .env-couple { font-size: 1.85rem; }
-  .doa-parchment-card { padding: 28% 11% 24%; }
+  .doa-parchment-card { padding: 30px 18px 28px; }
   .venue-display-name { font-size: clamp(1.32rem, 5.2vw, 1.6rem); }
   .venue-full-address { font-size: 0.96rem; }
   .sogan-cal-actions { grid-template-columns: 1fr; gap: 10px; }
