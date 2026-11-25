@@ -59,10 +59,20 @@
   </script>
 </head>
 <body>
-  <!-- Tekstur kertas kapas, kekisi Walasuji Bugis & zarah cahaya emas halus -->
+  <!-- Tekstur kertas kapas, latar Batik Sogan Jawa & zarah cahaya emas halus -->
   <div class="paper-grain" aria-hidden="true"></div>
   <div class="lattice-backdrop" aria-hidden="true"></div>
   <div id="gold-motes" class="gold-motes" aria-hidden="true"></div>
+  <!-- Simbol Bintang Geometri Islamik (Rub el Hizb 8-Penjuru) boleh guna semula -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="islamic-star" viewBox="0 0 32 32">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="7" y="7" width="18" height="18" />
+        <rect x="7" y="7" width="18" height="18" transform="rotate(45 16 16)" />
+        <circle cx="16" cy="16" r="2.2" fill="currentColor" stroke="none" />
+      </g>
+    </symbol>
+  </svg>
   <!-- Canvas 60fps untuk percikan debu emas apabila cop lilin A&E dibuka atau ucapan dihantar -->
   <canvas id="gold-burst-canvas" class="gold-burst-canvas" aria-hidden="true"></canvas>
 
@@ -95,6 +105,12 @@
           <span class="guest-greeting-label">Khusus Buat</span>
           <strong class="guest-greeting-name" id="guestGreetingName"></strong>
         </p>
+        <p class="env-bismillah" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+        <div class="islamic-ornament-row" aria-hidden="true">
+          <span class="orn-line"></span>
+          <svg class="islamic-star-ico" width="16" height="16"><use href="#islamic-star" /></svg>
+          <span class="orn-line"></span>
+        </div>
         <p class="env-kicker">Majlis Kesyukuran Perkahwinan &bull; Pihak Lelaki</p>
         <h1 class="env-couple">
           <span>Dr. Alimin</span>
@@ -269,6 +285,11 @@
     <section id="majlis" class="band band-ivory gsap-section">
       <div class="band-lattice-subtle" aria-hidden="true"></div>
       <div class="band-inner">
+        <div class="islamic-ornament-row gsap-up" aria-hidden="true">
+          <span class="orn-line"></span>
+          <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
+          <span class="orn-line"></span>
+        </div>
         <p class="editorial-label gsap-up">Menghitung Hari</p>
         <h3 class="band-heading gsap-up">Butiran Majlis</h3>
 
@@ -413,6 +434,19 @@
     <!-- BAND 6: BUKU UCAPAN & DOA (FUNGSI TAMBAHAN PILIHAN KLIEN) -->
     <section id="ucapan" class="band band-ivory gsap-section">
       <div class="band-inner">
+        <!-- Doa Pengantin Nabawi (Sisi Islamik) -->
+        <div class="nabawi-doa-card gsap-up">
+          <div class="islamic-ornament-row" aria-hidden="true">
+            <span class="orn-line"></span>
+            <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
+            <span class="orn-line"></span>
+          </div>
+          <p class="editorial-label">Doa Buat Mempelai</p>
+          <p class="arabic-nabawi" lang="ar" dir="rtl">بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+          <p class="nabawi-translit">Barakallahu laka wa baraka &lsquo;alaika wa jama&lsquo;a bainakuma fii khair.</p>
+          <p class="nabawi-meaning">&ldquo;Semoga Allah memberkati kamu, melimpahkan berkat ke atas kamu, dan menghimpunkan kamu berdua dalam kebaikan.&rdquo;</p>
+        </div>
+
         <p class="editorial-label gsap-up">Titipan Doa</p>
         <h3 class="band-heading gsap-up">Ucapan &amp; Doa</h3>
         <p class="editorial-prose rsvp-intro gsap-up">
@@ -463,6 +497,7 @@
         <img class="footer-crest monogram-img" src="assets/monogram-ae.webp" width="1000" height="599" alt="A &amp; E" loading="lazy" />
         <p class="footer-couple">Dr. Alimin &amp; Erna</p>
         <p class="footer-meta">Ahad, 14 Mac 2027 &bull; Tawau, Sabah</p>
+        <p class="footer-arabic-thanks" lang="ar" dir="rtl">جَزَاكُمُ اللَّهُ خَيْرًا</p>
         <p class="footer-note">
           Semoga kehadiran serta doa restu Tuan/Puan menyerikan lagi majlis ini dan diberkati Allah SWT. Terima kasih.
         </p>
