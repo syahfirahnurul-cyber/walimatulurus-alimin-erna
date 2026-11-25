@@ -94,7 +94,6 @@ function initRealistic3DEnvelope() {
   if (!hero || !flap || !card) return;
 
   const carrier = document.getElementById('envCarrier');
-  const band = document.getElementById('envBand');
   const pin = env3d ? env3d.offsetParent : null; // .hero-pin (sticky)
   const cardSurface = card.querySelector('.env-card-surface');
   const envParts = env3d ? env3d.querySelectorAll('.env-back, .env-pocket, .env-shadow') : [];
@@ -202,13 +201,12 @@ function initRealistic3DEnvelope() {
 
   // ---------------------------------------------------------------
   // Timeline sinematik (jumlah 1 unit = keseluruhan skrol hero)
-  //  0.01–0.09  pita sutera Lipa' Sabbe (Bugis) meluncur keluar dari sampul
-  //  0.06–0.12  cop lilin ditekan, kemudian "tercabut" sedikit dari poket
-  //  0.00–0.34  tajuk & butang beredar
-  //  0.10–0.43  flap berengsel terbuka membawa cop; bayang cahaya ikut sudut
-  //  0.40–0.67  kad meluncur naik (selepas flap terbuka), sampul turun mengimbangi
-  //  0.68–0.82  sampul dilepaskan ke bawah
-  //  0.72–0.95  FLIP: kad membesar ke kedudukan kad utama Band 1
+  //  0.00–0.08  cop lilin ditekan, kemudian "tercabut" lembut dari poket
+  //  0.00–0.32  tajuk & butang beredar
+  //  0.07–0.41  flap berengsel terbuka membawa cop; bayang cahaya ikut sudut
+  //  0.38–0.66  kad meluncur naik (selepas flap terbuka), sampul turun mengimbangi
+  //  0.67–0.82  sampul dilepaskan ke bawah
+  //  0.71–0.95  FLIP: kad membesar ke kedudukan kad utama Band 1
   //  0.955–0.985 lapisan hero pudar, kad sebenar mengambil alih
   // ---------------------------------------------------------------
   const tl = gsap.timeline({
@@ -228,38 +226,34 @@ function initRealistic3DEnvelope() {
   });
 
   tl.to(cta, { autoAlpha: 0, duration: 0.12 }, 0)
-    .to(head, { autoAlpha: 0, y: -28, duration: 0.28, ease: 'sine.inOut' }, 0.06)
-
-    // Pita Lipa' Sabbe: ditarik keluar ke kanan (sedikit condong), seperti membuka pengikat sampul sebenar.
-    .to(band, { xPercent: 115, rotation: 2.5, autoAlpha: 0, duration: 0.08, ease: 'power2.in' }, 0.01)
+    .to(head, { autoAlpha: 0, y: -28, duration: 0.28, ease: 'sine.inOut' }, 0.05)
 
     // Cop lilin: tekan → tercabut (z naik, condong sedikit) → kekal pada flap.
-    // Tidak dipudarkan: lilin tidak "hilang", ia terangkat bersama flap.
     .to(sealRing, { autoAlpha: 0, duration: 0.03 }, 0)
-    .to(seal, { scale: 0.93, duration: 0.025, ease: 'power2.in' }, 0.06)
-    .to(seal, { scale: 1.02, z: 6, rotationX: 8, duration: 0.035, ease: 'back.out(2)' }, 0.085)
+    .to(seal, { scale: 0.93, duration: 0.025, ease: 'power2.in' }, 0.015)
+    .to(seal, { scale: 1.02, z: 6, rotationX: 8, duration: 0.035, ease: 'back.out(2)' }, 0.04)
 
     // Flap: 0 → -180deg. Cahaya dari atas-depan: muka depan gelap menghampiri 90deg
     // (condong ke bawah), liner pula paling gelap pada 90deg dan cerah bila menghadap kita.
-    .fromTo(flap, { rotationX: 0 }, { rotationX: -180, duration: 0.33, ease: 'power1.inOut' }, 0.1)
-    .fromTo(shadeFront, { opacity: 0 }, { opacity: 0.26, duration: 0.165, ease: 'power1.in' }, 0.1)
-    .fromTo(shadeBack, { opacity: 0.32 }, { opacity: 0, duration: 0.165, ease: 'power1.out' }, 0.265)
+    .fromTo(flap, { rotationX: 0 }, { rotationX: -180, duration: 0.34, ease: 'power1.inOut' }, 0.07)
+    .fromTo(shadeFront, { opacity: 0 }, { opacity: 0.26, duration: 0.17, ease: 'power1.in' }, 0.07)
+    .fromTo(shadeBack, { opacity: 0.32 }, { opacity: 0, duration: 0.17, ease: 'power1.out' }, 0.24)
 
     // Kad hanya ditarik keluar selepas flap hampir terbuka penuh (seperti sampul sebenar),
     // supaya liner Batik pada flap sempat dilihat dahulu.
-    .fromTo(card, { yPercent: () => L.yStart }, { yPercent: () => L.yEnd, duration: 0.27, ease: 'power2.inOut' }, 0.4)
-    .to(card, { scale: CARD_SCALE_END, duration: 0.15, ease: 'sine.inOut' }, 0.52)
-    .fromTo(env3d, { y: 0 }, { y: () => L.envShift, duration: 0.28, ease: 'sine.inOut' }, 0.4)
+    .fromTo(card, { yPercent: () => L.yStart }, { yPercent: () => L.yEnd, duration: 0.28, ease: 'power2.inOut' }, 0.38)
+    .to(card, { scale: CARD_SCALE_END, duration: 0.16, ease: 'sine.inOut' }, 0.50)
+    .fromTo(env3d, { y: 0 }, { y: () => L.envShift, duration: 0.28, ease: 'sine.inOut' }, 0.38)
 
-    .to(envParts, { y: () => L.drop, autoAlpha: 0, duration: 0.14, ease: 'power2.in' }, 0.68)
-    .to(flap, { y: () => L.drop, duration: 0.14, ease: 'power2.in' }, 0.68)
+    .to(envParts, { y: () => L.drop, autoAlpha: 0, duration: 0.14, ease: 'power2.in' }, 0.67)
+    .to(flap, { y: () => L.drop, duration: 0.14, ease: 'power2.in' }, 0.67)
     // Pudar setiap muka flap (bukan engsel): opacity pada elemen preserve-3d merosakkan backface.
-    .to(flapFaces, { autoAlpha: 0, duration: 0.1 }, 0.7)
-    .set(carrier, { zIndex: 7, clipPath: 'none' }, 0.72)
+    .to(flapFaces, { autoAlpha: 0, duration: 0.1 }, 0.69)
+    .set(carrier, { zIndex: 7, clipPath: 'none' }, 0.71)
 
-    .to(cardSurface, { autoAlpha: 0, duration: 0.1 }, 0.72)
+    .to(cardSurface, { autoAlpha: 0, duration: 0.1 }, 0.71)
     // FLIP dengan saiz SEBENAR (width/height), bukan scaleX/scaleY: latar 3-slice kad mihrab
-    // dibentang semula, jadi gerbang & reben tidak herot sepanjang peralihan.
+    // dibentang semula, jadi gerbang & corak tidak herot sepanjang peralihan.
     .to(card, {
       yPercent: 0,
       x: () => L.fx,
@@ -267,9 +261,9 @@ function initRealistic3DEnvelope() {
       width: () => L.tW,
       height: () => L.tH,
       scale: 1,
-      duration: 0.23,
+      duration: 0.24,
       ease: 'power2.inOut'
-    }, 0.72)
+    }, 0.71)
 
     .to(pin, { autoAlpha: 0, duration: 0.03 }, 0.955)
     .to({}, { duration: 0.015 }, 0.985);

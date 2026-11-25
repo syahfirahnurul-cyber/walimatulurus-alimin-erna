@@ -527,26 +527,8 @@ body.cover-locked {
 .flap-shade-front { -webkit-mask-image: url('assets/env-flap-front.webp'); mask-image: url('assets/env-flap-front.webp'); }
 .flap-shade-back  { -webkit-mask-image: url('assets/env-flap-liner.webp'); mask-image: url('assets/env-flap-liner.webp'); }
 
-/* Layer 6: Pita sutera Lipa' Sabbe (Bugis) membalut sampul.
-   Sedikit lebih lebar daripada sampul (hujung berlipat terjulur) dan di atas cop lilin
-   supaya tidak menutupnya. Dipacu GSAP: meluncur keluar ke kanan sebelum flap dibuka. */
-.env-band {
-  position: absolute;
-  z-index: 7;
-  left: -2.5%;
-  width: 105%;
-  top: 25%;
-  aspect-ratio: 1400 / 122;
-  background: url('assets/sabbe-band.webp') 0 0 / 100% 100% no-repeat;
-  filter: drop-shadow(0 2px 2px rgba(59, 40, 20, 0.22)) drop-shadow(0 6px 8px rgba(59, 40, 20, 0.12));
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-
 /* Layer 5: Cop lilin emas A&E (assets/wax-seal-ae.webp — monogram kaligrafi yang sama dengan kad).
-   Anak kepada .env-flap-hinge: ia terangkat bersama flap dan tersembunyi (backface) selepas 90deg.
-   Saiz 24.5% (lilin memenuhi kotak): lebih besar daripada cop lama dalam foto flap (~21%),
-   jadi cop lama sentiasa tertutup sepenuhnya. */
+   Anak kepada .env-flap-hinge: ia terangkat bersama flap dan tersembunyi (backface) selepas 90deg. */
 .wax-seal-btn {
   position: absolute;
   left: 49.89%;        /* pusat cop asal dalam envelope-closed.jpg */
@@ -562,8 +544,9 @@ body.cover-locked {
   background: transparent;
   cursor: pointer;
   padding: 0;
-  pointer-events: auto; /* engsel flap ialah pointer-events: none */
+  pointer-events: auto;
   will-change: transform;
+  transition: filter 200ms var(--ease-out);
 }
 
 .wax-seal-btn:focus-visible {
@@ -574,9 +557,31 @@ body.cover-locked {
 .seal-disc {
   position: absolute;
   inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
   background: url('assets/wax-seal-ae.webp') center / contain no-repeat;
-  /* Bayang mengikut bentuk berkelopak, bukan bulatan */
-  filter: drop-shadow(0 1px 1px rgba(59, 40, 20, 0.28)) drop-shadow(0 4px 6px rgba(59, 40, 20, 0.22));
+  filter: drop-shadow(0 1px 1px rgba(59, 40, 20, 0.28)) drop-shadow(0 5px 8px rgba(59, 40, 20, 0.24));
+}
+
+/* Kilauan foil emas halus melintasi cop lilin A&E */
+.seal-disc::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    115deg,
+    transparent 36%,
+    rgba(255, 248, 224, 0.42) 50%,
+    transparent 64%
+  );
+  transform: translateX(-140%);
+  animation: foilShimmer 5.2s var(--ease-out) 1.2s infinite;
+  pointer-events: none;
+}
+
+@keyframes foilShimmer {
+  0%, 68% { transform: translateX(-140%); }
+  100%    { transform: translateX(140%); }
 }
 
 .seal-pulse-ring {
@@ -602,27 +607,51 @@ body.cover-locked {
   will-change: opacity;
 }
 
+/* Butang Sogan Velvet dengan garisan dalaman emas champagne + kilauan lembut */
 .btn-open-envelope {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 28px;
+  padding: 13px 32px;
   border-radius: 999px;
-  border: 1px solid var(--sogan-ink);
-  background: var(--sogan-ink);
-  color: #FAF6EE;
+  border: 1px solid rgba(212, 188, 139, 0.55);
+  background: linear-gradient(180deg, #43352B 0%, var(--sogan-ink) 100%);
+  color: #FAF4E8;
   font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(59, 47, 38, 0.16);
-  transition: transform 160ms var(--ease-out), background-color 180ms ease;
+  box-shadow:
+    0 12px 26px rgba(59, 47, 38, 0.2),
+    inset 0 0 0 1px rgba(212, 188, 139, 0.24);
+  transition: transform 160ms var(--ease-out), background-color 180ms ease, box-shadow 200ms ease;
 }
 
-.btn-open-envelope:active { transform: scale(0.97); }
+.btn-open-envelope::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgba(235, 212, 165, 0.22) 50%, transparent 65%);
+  transform: translateX(-140%);
+  animation: foilShimmer 6s var(--ease-out) 2.2s infinite;
+  pointer-events: none;
+}
+
+.btn-open-envelope:active {
+  transform: scale(0.97);
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .btn-open-envelope:hover { background: var(--sogan-deep); transform: translateY(-1px); }
+  .btn-open-envelope:hover {
+    background: linear-gradient(180deg, #372B22 0%, var(--sogan-deep) 100%);
+    transform: translateY(-1.5px);
+    box-shadow:
+      0 16px 32px rgba(59, 47, 38, 0.24),
+      inset 0 0 0 1px rgba(212, 188, 139, 0.42);
+  }
 }
 
 .hero-scroll-hint {
