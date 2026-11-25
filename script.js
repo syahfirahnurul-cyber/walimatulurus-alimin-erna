@@ -860,6 +860,54 @@ function initGsapScrollTrigger() {
         }
       );
     }
+
+    // G. Bingkai Gerbang Islamik 3D (Majlis) & Gerbang Mihrab Kertas Kapas (Lokasi) Soft Arch Reveal
+    document.querySelectorAll('.frame-majlis-card, .frame-lokasi-card').forEach((frameCard) => {
+      gsap.from(frameCard, {
+        y: 26,
+        scale: 0.97,
+        opacity: 0,
+        duration: 0.95,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+        scrollTrigger: {
+          trigger: frameCard,
+          start: 'top 84%',
+          once: true
+        }
+      });
+    });
+
+    // H. Ornamen Sulur Sogan-Emas di Footer Penutup (Scrubbed Gentle Rise)
+    const footerSoganLeft = document.querySelector('.footer-sogan-left');
+    const footerSoganRight = document.querySelector('.footer-sogan-right');
+    if (footerSoganLeft) {
+      gsap.fromTo(
+        footerSoganLeft,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 0.24,
+          duration: 1.1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.band-footer', start: 'top 88%', once: true }
+        }
+      );
+    }
+    if (footerSoganRight) {
+      gsap.fromTo(
+        footerSoganRight,
+        { y: 20, opacity: 0, scaleX: -1 },
+        {
+          y: 0,
+          opacity: 0.24,
+          scaleX: -1,
+          duration: 1.1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.band-footer', start: 'top 88%', once: true }
+        }
+      );
+    }
   });
 
   ScrollTrigger.refresh();
