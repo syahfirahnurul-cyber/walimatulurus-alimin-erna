@@ -40,7 +40,7 @@ html {
   font-size: 16px;
 }
 
-/* Hairline Champagne-Gold Scroll Progress Filament (GSAP Scrubbed) */
+/* Hairline Champagne-Gold Scroll Progress Filament (Whisper-Quiet) */
 .scroll-progress-track {
   position: fixed;
   top: 0;
@@ -48,10 +48,11 @@ html {
   transform: translateX(-50%);
   width: 100%;
   max-width: var(--sheet-width);
-  height: 2.5px;
+  height: 1.5px;
   z-index: 95;
   pointer-events: none;
-  background: rgba(181, 147, 90, 0.14);
+  background: transparent;
+  opacity: 0.58;
 }
 
 .scroll-progress-bar {
@@ -199,8 +200,8 @@ p, blockquote, li { text-wrap: pretty; }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold-deep);
-  vertical-align: 0.6em;
-  margin-right: 0.1em;
+  vertical-align: 0.28em;
+  margin-right: 0.12em;
 }
 
 body.cover-locked {
@@ -341,13 +342,13 @@ body.cover-locked {
    env-flap-liner.webp : flap terbuka berliner Batik (lutsinar, disimpan terbalik 180deg)
    ===================================================================== */
 
-/* Layer 1: Bahagian dalam sampul */
+/* Layer 1: Bahagian dalam sampul (cover agar corak Batik Sogan tidak terherot) */
 .env-back {
   position: absolute;
   inset: 0;
   z-index: 1;
   border-radius: 2px;
-  background: #E9DCCB url('assets/env-body.jpg') 0 0 / 100% 100% no-repeat;
+  background: #E9DCCB url('assets/env-body.jpg') center / cover no-repeat;
 }
 
 /* Layer 2: Rising Card Carrier
