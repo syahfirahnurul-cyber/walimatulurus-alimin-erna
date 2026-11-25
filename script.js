@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRealistic3DEnvelope();
   initEnvelopeMagneticTilt();
   initGoldMotes();
+  initSideFlora();
   initGsapScrollTrigger();
   initCountdown();
   initItinerary();
@@ -405,10 +406,69 @@ function initRealistic3DEnvelope() {
   if (openBtn) openBtn.addEventListener('click', triggerOpenScroll);
 }
 
-/* 2B. Sulur emas Jawa di sudut skrin (kelopak bunga gugur dibuang untuk rupa kontemporari) */
+/* 2B. Ornamen Bunga Sulaman Putih-Emas di Sudut Kad (GSAP Scroll-Driven Bloom & Sway) */
 function initSideFlora() {
   const sideFlora = document.getElementById('side-flora');
-  if (sideFlora) sideFlora.classList.add('is-active');
+  const floraUR = document.getElementById('floraUR');
+  const floraBL = document.getElementById('floraBL');
+  if (!sideFlora) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') {
+    sideFlora.classList.add('is-active');
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Muncul secara anggun sebaik sampul dibuka dan tetamu masuk ke helaian kad utama
+  ScrollTrigger.create({
+    trigger: '#invitation-main',
+    start: 'top 55%',
+    onEnter: () => sideFlora.classList.add('is-active'),
+    onLeaveBack: () => sideFlora.classList.remove('is-active')
+  });
+
+  // Pergerakan mekar, hayunan putaran & paralaks lembut dipacu skrol
+  if (floraUR) {
+    gsap.fromTo(
+      floraUR,
+      { scale: 0.78, rotation: -8, y: -10, opacity: 0.78 },
+      {
+        scale: 1.05,
+        rotation: 8,
+        y: 14,
+        opacity: 0.94,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#invitation-main',
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: 1.2
+        }
+      }
+    );
+  }
+
+  if (floraBL) {
+    gsap.fromTo(
+      floraBL,
+      { scale: 0.78, rotation: 8, y: 12, opacity: 0.78 },
+      {
+        scale: 1.05,
+        rotation: -8,
+        y: -14,
+        opacity: 0.94,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#invitation-main',
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: 1.2
+        }
+      }
+    );
+  }
 }
 
 /* 1B. Subtle 3D Magnetic Tilt pada Sampul (Desktop hover sahaja — gsap.quickTo) */
@@ -540,6 +600,87 @@ function initGsapScrollTrigger() {
         }
       });
     });
+
+    // B1. Potret Mempelai dalam Bingkai Gerbang Mihrab + Pengapit Bunga Sulaman (GSAP Reveal & Parallax)
+    const portraitWrap = document.getElementById('couplePortraitWrap');
+    const portraitArch = document.getElementById('couplePortraitArch');
+    const portraitImg = document.getElementById('couplePortraitImg');
+    const pFloraLeft = document.querySelector('.portrait-flora-left');
+    const pFloraRight = document.querySelector('.portrait-flora-right');
+    if (portraitWrap && portraitArch) {
+      gsap.from(portraitArch, {
+        y: 30,
+        opacity: 0,
+        scale: 0.93,
+        duration: 1.05,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+        scrollTrigger: {
+          trigger: portraitWrap,
+          start: 'top 84%',
+          once: true
+        }
+      });
+
+      if (portraitImg) {
+        gsap.fromTo(
+          portraitImg,
+          { scale: 1.1, yPercent: -3 },
+          {
+            scale: 1,
+            yPercent: 3,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: portraitWrap,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.1
+            }
+          }
+        );
+      }
+
+      if (pFloraLeft) {
+        gsap.fromTo(
+          pFloraLeft,
+          { scale: 0.65, rotation: -18, opacity: 0 },
+          {
+            scale: 1,
+            rotation: -12,
+            opacity: 0.94,
+            duration: 1.1,
+            delay: 0.18,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: portraitWrap,
+              start: 'top 82%',
+              once: true
+            }
+          }
+        );
+      }
+
+      if (pFloraRight) {
+        gsap.fromTo(
+          pFloraRight,
+          { scaleX: -0.65, scaleY: 0.65, rotation: 18, opacity: 0 },
+          {
+            scaleX: -1,
+            scaleY: 1,
+            rotation: 12,
+            opacity: 0.94,
+            duration: 1.1,
+            delay: 0.24,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: portraitWrap,
+              start: 'top 82%',
+              once: true
+            }
+          }
+        );
+      }
+    }
 
     // B2. Scroll-Driven Couple Convergence + Golden Halo (Reference: Animasi Pasangan Merapat Mengikut Skrol)
     const coupleStage = document.getElementById('coupleStage');
