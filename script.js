@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initRealistic3DEnvelope();
   initEnvelopeMagneticTilt();
   initGoldMotes();
-  initSideFlora();
   initGsapScrollTrigger();
   initCountdown();
   initItinerary();
@@ -404,71 +403,6 @@ function initRealistic3DEnvelope() {
 
   if (seal) seal.addEventListener('click', triggerOpenScroll);
   if (openBtn) openBtn.addEventListener('click', triggerOpenScroll);
-}
-
-/* 2B. Ornamen Bunga Sulaman Putih-Emas di Sudut Kad (GSAP Scroll-Driven Bloom & Sway) */
-function initSideFlora() {
-  const sideFlora = document.getElementById('side-flora');
-  const floraUR = document.getElementById('floraUR');
-  const floraBL = document.getElementById('floraBL');
-  if (!sideFlora) return;
-
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') {
-    sideFlora.classList.add('is-active');
-    return;
-  }
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Muncul secara anggun sebaik sampul dibuka dan tetamu masuk ke helaian kad utama
-  ScrollTrigger.create({
-    trigger: '#invitation-main',
-    start: 'top 55%',
-    onEnter: () => sideFlora.classList.add('is-active'),
-    onLeaveBack: () => sideFlora.classList.remove('is-active')
-  });
-
-  // Pergerakan mekar, hayunan putaran & paralaks lembut dipacu skrol
-  if (floraUR) {
-    gsap.fromTo(
-      floraUR,
-      { scale: 0.78, rotation: -8, y: -10, opacity: 0.78 },
-      {
-        scale: 1.05,
-        rotation: 8,
-        y: 14,
-        opacity: 0.94,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#invitation-main',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: 1.2
-        }
-      }
-    );
-  }
-
-  if (floraBL) {
-    gsap.fromTo(
-      floraBL,
-      { scale: 0.78, rotation: 8, y: 12, opacity: 0.78 },
-      {
-        scale: 1.05,
-        rotation: -8,
-        y: -14,
-        opacity: 0.94,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#invitation-main',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: 1.2
-        }
-      }
-    );
-  }
 }
 
 /* 1B. Subtle 3D Magnetic Tilt pada Sampul (Desktop hover sahaja — gsap.quickTo) */
