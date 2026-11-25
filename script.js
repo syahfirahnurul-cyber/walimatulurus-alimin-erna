@@ -19,10 +19,8 @@ const CARD_CONFIG = {
   siblings: [],
   relatives: [],
 
-  // Buku Ucapan & Doa dikongsi (Google Sheets milik klien melalui Apps Script).
-  // Ikut langkah dalam ucapan-apps-script.gs, kemudian tampal URL Web App (/exec) di sini.
-  // Jika kosong, kad berjalan dalam "mod pratonton": ucapan hanya disimpan pada peranti itu.
-  wishesEndpoint: ''
+  // Buku Ucapan & Doa dikongsi secara automatik melalui Cloudflare Pages Function + D1 (/api/ucapan).
+  wishesEndpoint: '/api/ucapan'
 };
 
 let lenisInstance = null;
