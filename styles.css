@@ -27,7 +27,17 @@
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --sheet-width: 540px;
+  --sheet-width: 430px;
+
+  /* Kanvas Batik Sogan gelap & zon White Beach */
+  --espresso: #140D08;
+  --charcoal: #0B0705;
+  --antique-gold: #C89D54;
+  --wb-cream: #F7F3EB;
+  --ink-on-cream: #2A1D15;
+  --bronze-on-cream: #9E7632;
+  --sand-on-dark: #F7F3EB;
+  --gold-on-dark: #E5C17B;
 }
 
 *, *::before, *::after {
@@ -191,7 +201,7 @@ body {
   font-family: var(--font-serif);
   font-weight: 500;
   font-variant-numeric: lining-nums;
-  background-color: var(--outer-desk);
+  background-color: var(--charcoal);
   color: var(--sogan-ink);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -254,14 +264,35 @@ body.cover-locked {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Latar Batik Sogan Jawa halus pada meja luar di sekeliling helaian kad */
+/* KANVAS ASAS GELAP: Batik Jawa Sogan (espresso + garis emas antik) memanjang dari atas
+   hingga bawah. Lebih tinggi daripada skrin supaya GSAP boleh menggerakkannya perlahan
+   (parallax) di belakang kad White Beach. Lapisan gradien meredupkan corak supaya teks
+   krim di atasnya kekal jelas. */
 .lattice-backdrop {
   position: fixed;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 170vh;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.11;
-  background: url('assets/batik-sogan-pattern.webp') 0 0 / 380px auto repeat;
+  background-color: var(--espresso);
+  background-image:
+    linear-gradient(180deg, rgba(11, 7, 5, 0.62) 0%, rgba(20, 13, 8, 0.5) 50%, rgba(11, 7, 5, 0.66) 100%),
+    url('assets/batik-sogan-pattern.webp');
+  background-size: 100% 100%, 300px auto;
+  background-repeat: no-repeat, repeat;
+  will-change: transform;
+}
+
+/* Vinyet tetap: menggelapkan tepi skrin, fokus ke tengah (kad) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(5, 3, 2, 0.55) 100%);
 }
 
 /* =====================================================================
@@ -285,15 +316,18 @@ body.cover-locked {
 .hero-pin {
   position: sticky;
   top: 0;
-  /* Latar Batik Sogan Jawa lembut berbingkai vignette beige-putih:
-     menyerlahkan sampul kapas krim & mohor emas A&E tanpa gambar meja/daun */
-  background-color: #F4ECE0;
+  /* Legap & SAMA piksel demi piksel dengan .lattice-backdrop + vinyet body::after (yang
+     tidak bergerak semasa babak sampul), jadi kad Band 1 di belakang tidak kelihatan
+     dan bila pin dipudarkan di hujung animasi, tiada perubahan latar langsung. */
+  background-color: var(--espresso);
   background-image:
-    radial-gradient(ellipse 72% 62% at 50% 48%, rgba(253, 250, 245, 0.93) 0%, rgba(246, 240, 230, 0.72) 56%, rgba(232, 220, 202, 0.78) 100%),
+    radial-gradient(ellipse 70% 52% at 50% 52%, rgba(72, 48, 26, 0.38) 0%, transparent 72%),
+    radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(5, 3, 2, 0.55) 100%),
+    linear-gradient(180deg, rgba(11, 7, 5, 0.62) 0%, rgba(20, 13, 8, 0.5) 50%, rgba(11, 7, 5, 0.66) 100%),
     url('assets/batik-sogan-pattern.webp');
-  background-position: center center, center center;
-  background-size: 100% 100%, 360px auto;
-  background-repeat: no-repeat, repeat;
+  background-size: 100% 100%, 100% 100vh, 100% 170vh, 300px auto;
+  background-position: 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   height: 100svh;
   min-height: 620px;
   display: flex;
@@ -734,26 +768,14 @@ body.cover-locked {
 /* =====================================================================
    STATIONERY SHEET & REAL CLIENT CARD-FRAME HERO
    ===================================================================== */
+/* Satu kanvas menegak berterusan (tiada kotak terpisah), lebar maksimum 430px di tengah */
 .stationery-sheet {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: var(--sheet-width);
   margin: 0 auto;
-  background-color: var(--alabaster-white);
-  box-shadow: 0 24px 70px rgba(59, 47, 38, 0.1);
-}
-
-@media (min-width: 600px) {
-  .stationery-sheet {
-    margin: 28px auto 40px;
-    border: 1px solid var(--gold-hairline);
-  }
-}
-
-/* Latar Batik Sogan pada .hero-pin seragam untuk skrin mudah alih dan desktop */
-@media (min-aspect-ratio: 1/1) {
-  .hero-pin { background-size: 100% 100%, 420px auto; }
+  background: transparent;
 }
 
 .band { position: relative; overflow: hidden; }
@@ -764,18 +786,66 @@ body.cover-locked {
   padding: 20px 18px 24px;
 }
 
-/* Kad Band 1: satu tona kertas kapas White Beige dengan ruang bernafas lega */
+/* =====================================================================
+   BINGKAI KAD FOTO SEBENAR (3-slice: atas & bawah ikut nisbah asal, tengah diregang
+   menegak sahaja, jadi gerbang & reben Batik tidak pernah herot walau kandungan panjang).
+   Aset 1 (kubah emas timbul) = kad di zon gelap: sampul, Band 1, Doa.
+   Aset 2 (kertas gading bersudut emas) = kad kandungan di zon White Beach.
+   ===================================================================== */
+.frame-arch-bg,
+.frame-ivory-bg {
+  background-repeat: no-repeat;
+  background-position: top center, bottom center, center;
+  background-size: 100% auto, 100% auto, 100% 100%;
+  border-radius: 4px;
+}
+
+.frame-arch-bg {
+  background-color: #F8EBDA;
+  background-image:
+    url('assets/frame-arch-top.jpg'),
+    url('assets/frame-arch-bottom.jpg'),
+    url('assets/frame-arch-mid.jpg');
+  /* Di atas Batik gelap: bayang lebih dalam + garis cahaya emas halus di tepi */
+  box-shadow:
+    0 26px 60px rgba(0, 0, 0, 0.5),
+    0 4px 14px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(229, 193, 123, 0.28);
+}
+
+.frame-ivory-bg {
+  background-color: #FAEEE0;
+  background-image:
+    url('assets/frame-ivory-top.jpg'),
+    url('assets/frame-ivory-bottom.jpg'),
+    url('assets/frame-ivory-mid.jpg');
+  /* Kad kandungan boleh sangat panjang (Mempelai ~5x tinggi jalur tengah): jalur tengah
+     diulang menegak, bukan diregang, supaya tekstur kertas & daun timbul tidak kabur. */
+  background-size: 100% auto, 100% auto, 100% auto;
+  background-repeat: no-repeat, no-repeat, repeat-y;
+  background-position: top center, bottom center, top center;
+  box-shadow:
+    0 16px 36px rgba(42, 29, 21, 0.12),
+    0 2px 8px rgba(42, 29, 21, 0.06);
+}
+
+/* Kad Band 1: nisbah asal kad mihrab 2:3 (boleh memanjang jika kandungan lebih) */
 .card-frame-canvas {
   width: 100%;
-  min-height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Padding peratus (ikut lebar kad) = kandungan sentiasa di dalam gerbang mihrab,
+   jauh dari reben Batik di sudut atas-kiri dan bawah-kanan. */
 .card-frame-content {
   width: 100%;
-  padding: 46px 26px 44px;
+  /* Nisbah 2:3 diletak pada anak (bukan .card-frame-canvas yang overflow:hidden untuk
+     kilauan foil), supaya kad memanjang bila kandungan lebih dan tidak terpotong. */
+  aspect-ratio: 2 / 3;
+  justify-content: center;
+  padding: 30% 14% 27%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1156,7 +1226,13 @@ body.cover-locked {
 .doa-parchment-card {
   position: relative;
   z-index: 2;
-  padding: 38px 24px 34px;
+  aspect-ratio: 3 / 4;   /* nisbah asal bingkai Doa; memanjang jika teks lebih */
+  min-height: -webkit-min-content;
+  min-height: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 33% 13% 33%;
 }
 
 .doa-divider {
@@ -1500,9 +1576,11 @@ body.cover-locked {
   z-index: 50;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background: rgba(253, 252, 249, 0.95);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid var(--gold-hairline);
+  background: rgba(253, 250, 244, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(168, 132, 70, 0.42);
+  box-shadow: 0 -6px 24px rgba(20, 13, 8, 0.16);
   padding: 8px 4px calc(8px + env(safe-area-inset-bottom, 0px));
 }
 .nav-link { display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; color: var(--sogan-muted); font-family: var(--font-sans); font-size: 0.68rem; font-weight: 500; padding: 3px 2px; transition: color 180ms ease; }
@@ -1510,34 +1588,46 @@ body.cover-locked {
 
 @media (max-width: 440px) {
   .band-inner { padding: 40px 18px; }
-  .card-frame-content { padding: 36px 20px 34px; }
+  /* Band 1 telefon: susunan padat supaya kad mihrab kekal hampir nisbah asal 2:3 */
+  .card-frame-content { padding: 29% 11% 25%; }
+  .card-frame-content .bismillah-sub { font-size: 0.78rem; max-width: 34ch; }
+  .card-frame-content .hero-kicker { font-size: 0.62rem; letter-spacing: 0.14em; white-space: nowrap; }
+  .card-frame-content .hero-display { margin: 6px 0 2px; }
+  .card-frame-content .display-amp { font-size: 1.35rem; margin: 0; line-height: 1.1; }
   .spec-row { grid-template-columns: 1fr; gap: 3px; }
   .action-pair { grid-template-columns: 1fr; }
   .display-script { font-size: clamp(2.25rem, 9.5vw, 2.75rem); }
   .arabic-bismillah { font-size: 1.38rem; }
   .bismillah-sub { font-size: 0.84rem; }
-  .inline-crest { width: 52%; margin: 10px auto 8px; }
-  .card-frame-content .gold-divider-img { width: 150px; margin: 10px auto; }
+  .inline-crest { width: 44%; margin: 6px auto 4px; }
+  .card-frame-content .gold-divider-img { width: 130px; margin: 4px auto 6px; }
+  /* Tarikh: "14 MAC 2027" sebaris di atas, "Ahad | 10:00 Pagi – 5:00 Petang" sebaris di bawah */
   .hero-date-banner {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    padding: 10px 6px;
-    margin: 6px auto 12px;
+    grid-template-columns: auto auto;
+    grid-template-areas: "c c" "a b";
+    justify-content: center;
+    column-gap: 0;
+    row-gap: 2px;
+    padding: 8px 0;
+    margin: 2px auto 8px;
   }
+  .hero-date-banner .date-col:first-child { grid-area: a; padding-right: 10px; border-right: 1px solid var(--gold-hairline); }
+  .hero-date-banner .date-col:last-child { grid-area: b; padding-left: 10px; }
   .date-center {
+    grid-area: c;
     flex-direction: row;
     justify-content: center;
     align-items: baseline;
     gap: 8px;
-    padding: 4px 0;
+    padding: 0;
     border-left: none;
     border-right: none;
   }
-  .date-day-num { font-size: 1.9rem; }
-  .date-small { font-size: 0.86rem; color: var(--sogan-ink); }
+  .date-day-num { font-size: 1.75rem; }
+  .date-small { font-size: 0.8rem; color: var(--sogan-ink); white-space: nowrap; }
   .hero-venue { font-size: 0.92rem; color: var(--sogan-ink); }
   .env-couple { font-size: 1.85rem; }
-  .doa-parchment-card { padding: 30px 18px 28px; }
+  .doa-parchment-card { padding: 33% 12% 34%; }
   .venue-display-name { font-size: clamp(1.32rem, 5.2vw, 1.6rem); }
   .venue-full-address { font-size: 0.96rem; }
   .sogan-cal-actions { grid-template-columns: 1fr; gap: 10px; }
@@ -1566,3 +1656,197 @@ body.cover-locked {
   clip-path: none !important;
 }
 .no-engine .itinerary-thread { transform: scaleY(1) !important; }
+
+/* =====================================================================
+   KANVAS BERKESINAMBUNGAN: ZON GELAP BATIK SOGAN ↔ ZON WHITE BEACH
+   Satu kanvas menegak: Batik gelap (tetap, parallax) di belakang; zon krim
+   "White Beach" timbul di atasnya dengan pemisah lengkung-S bergaris emas + manik.
+   ===================================================================== */
+
+/* ---------- Zon gelap: lutsinar supaya kanvas Batik kelihatan ---------- */
+.dark-zone,
+.band-hero,
+.band-batik-doa,
+.band-footer {
+  background: transparent;
+  border: 0;
+}
+.band-hero { padding: 20px 18px 34px; }
+.doa-outer-padding { padding: 44px 18px 54px; }
+.footer-inner { padding: 44px 26px 60px; }
+
+/* Cahaya keemasan lembut di belakang kad pada zon gelap (bukan potongan tajam) */
+.band-batik-doa::before,
+.band-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 45% at 50% 50%, rgba(200, 157, 84, 0.12) 0%, transparent 70%);
+}
+
+/* Teks di atas Batik gelap: krim pasir + emas berkilau (kontras tinggi mudah dibaca di bawah cahaya terang) */
+.hero-head .env-bismillah,
+.hero-head .env-couple { color: var(--sand-on-dark); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.65); }
+.hero-head .env-kicker,
+.hero-head .serif-amp { color: var(--gold-on-dark); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65); }
+.hero-head .env-date { color: rgba(247, 243, 235, 0.94); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55); }
+.hero-scroll-hint { color: rgba(247, 243, 235, 0.86); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55); }
+.hero-head .islamic-ornament-row,
+.hero-head .islamic-star-ico { color: var(--gold-on-dark); }
+.hero-head .orn-line { background: linear-gradient(90deg, transparent, var(--gold-on-dark), transparent); }
+
+.guest-greeting {
+  background: rgba(20, 13, 8, 0.55);
+  border-color: rgba(229, 193, 123, 0.4);
+}
+.guest-greeting-label { color: var(--gold-on-dark); }
+.guest-greeting-name { color: var(--sand-on-dark); }
+
+/* Butang emas berkilau (kontras di atas Batik gelap) */
+.btn-open-envelope {
+  background: linear-gradient(180deg, #EBCB8A 0%, var(--antique-gold) 100%);
+  color: var(--ink-on-cream);
+  border-color: rgba(255, 240, 205, 0.6);
+  font-weight: 600;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 248, 225, 0.6);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-open-envelope:hover {
+    background: linear-gradient(180deg, #F0D49A 0%, #CFA65E 100%);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 248, 225, 0.7);
+  }
+}
+
+.env-shadow {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.22) 45%, transparent 72%);
+}
+.sunlight-caustic { opacity: 0.35; }
+
+/* Band Doa (gelap) */
+.band-batik-doa .editorial-label { color: var(--gold-on-dark); }
+.band-batik-doa .arabic-nabawi { color: var(--sand-on-dark); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); }
+.band-batik-doa .nabawi-translit { color: var(--gold-on-dark); }
+.band-batik-doa .nabawi-meaning { color: rgba(247, 243, 235, 0.92); }
+
+/* Penutup (gelap) */
+.band-footer .footer-couple { color: var(--sand-on-dark); }
+.band-footer .footer-meta,
+.band-footer .footer-arabic-thanks { color: var(--gold-on-dark); }
+.band-footer .footer-note { color: rgba(247, 243, 235, 0.88); }
+
+/* ---------- Zon White Beach ---------- */
+.wb-zone {
+  position: relative;
+  z-index: 3;                 /* lengkung & paisley menindih zon gelap selepasnya */
+  margin: 72px 0;             /* ruang untuk lengkung-S di atas & bawah */
+  background: var(--wb-cream);
+  color: var(--ink-on-cream);
+}
+.wb-zone .band { background: transparent; border: 0; }
+.wb-zone .editorial-label,
+.wb-zone .verse-ref { color: var(--bronze-on-cream); }
+
+/* Aset 5: tekstur garis halus Batik krim untuk zon Ucapan */
+.wb-zone-textured {
+  background-color: var(--wb-cream);
+  background-image:
+    /* hujung atas & bawah pudar ke krim penuh = bersambung lancar dengan isian lengkung */
+    linear-gradient(180deg, #F7F3EB 0%, rgba(247, 243, 235, 0.7) 14%, rgba(247, 243, 235, 0.66) 50%, rgba(247, 243, 235, 0.7) 86%, #F7F3EB 100%),
+    url('assets/texture-batik-cream.webp');
+  background-size: 100% 100%, 430px auto;
+  background-repeat: no-repeat, repeat-y;
+  background-position: center, center top;
+}
+
+/* Pemisah lengkung-S: isian krim + garis emas halus + manik emas */
+.wb-curve {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+.wb-curve-top { top: -71px; }
+.wb-curve-bottom { bottom: -71px; transform: scale(-1, -1); }
+.wb-curve-top.wb-curve-flip { transform: scaleX(-1); }
+.wb-curve-bottom.wb-curve-flip { transform: scaleY(-1); }
+.wb-curve-fill { fill: var(--wb-cream); }
+.wb-curve-gold {
+  fill: none;
+  stroke: var(--antique-gold);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.wb-curve-beads circle {
+  fill: url(#beadGold);
+  stroke: rgba(115, 85, 40, 0.45);
+  stroke-width: 0.4;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Kad kandungan Aset 2 (kertas gading bersudut emas): seragam untuk Mempelai, Kira Detik, Atur Cara & Lokasi */
+.ivory-card {
+  position: relative;
+  padding: 25% 11% 23%;
+}
+#mempelai .band-inner.ivory-card { margin: 34px 16px; }
+.sogan-climax-card.ivory-card { padding: 24% 11% 22%; margin-bottom: 28px; }
+.itinerary-editorial.ivory-card { margin-top: 8px; border-top: none; }
+.frame-lokasi-card.ivory-card { padding: 24% 11% 22%; }
+.itinerary-icon { background: #FAEEE0; }
+
+/* Borang Ucapan di atas tekstur krim */
+.wb-zone-textured .letterpress-panel { background: rgba(253, 251, 246, 0.86); }
+
+/* ---------- Ornamen (Terkawal, Bebas-Teks & Serasi Semua Pelayar Mudah Alih) ---------- */
+/* Aset 3: Sulur Paisley — jambatan halus merentasi sempadan gelap ↔ krim tanpa melanggar teks */
+.orn-paisley {
+  position: absolute;
+  z-index: 4;
+  width: clamp(72px, 19vw, 96px);
+  height: auto;
+  opacity: 0.82;
+  pointer-events: none;
+  filter: drop-shadow(0 0 0.6px rgba(229, 193, 123, 0.85)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.24));
+}
+.orn-bridge-tl { left: -24px; top: -108px; }
+.orn-bridge-br { right: -24px; bottom: -108px; }
+.orn-bridge-tr { right: -24px; top: -108px; }
+
+/* Aset 6: Bunga sulaman putih-emas halus pada zon gelap sahaja (serasi iOS/Android) */
+.orn-embroidery {
+  position: absolute;
+  z-index: 1;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.58;
+}
+.orn-hero-tl { width: min(42vw, 196px); top: -4%; left: -12%; transform: rotate(165deg); }
+.orn-hero-br { width: min(42vw, 196px); bottom: -3%; right: -12%; transform: rotate(-15deg); }
+.orn-doa-l { width: 152px; left: -56px; top: 28px; opacity: 0.42; }
+.orn-footer-r { width: 152px; right: -54px; bottom: 36px; opacity: 0.42; }
+
+/* Ayunan perlahan bunga sulaman di skrin pembuka (gabung putaran asal dalam transform supaya serasi iOS lama) */
+.orn-hero-tl { animation: ornSwayTL 9s ease-in-out infinite alternate; }
+.orn-hero-br { animation: ornSwayBR 9s ease-in-out infinite alternate -4.5s; }
+@keyframes ornSwayTL {
+  from { transform: rotate(165deg) translate3d(0, 0, 0); }
+  to   { transform: rotate(167deg) translate3d(6px, -8px, 0); }
+}
+@keyframes ornSwayBR {
+  from { transform: rotate(-15deg) translate3d(0, 0, 0); }
+  to   { transform: rotate(-13deg) translate3d(-6px, 8px, 0); }
+}
+
+@media (min-width: 700px) {
+  .orn-hero-tl { left: 3%; top: 1%; }
+  .orn-hero-br { right: 3%; bottom: 2%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orn-hero-tl, .orn-hero-br { animation: none; }
+}

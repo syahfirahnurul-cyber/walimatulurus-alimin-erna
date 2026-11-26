@@ -1,38 +1,34 @@
 ASET KAD JEMPUTAN DIGITAL — DR. ALIMIN & ERNA
 =============================================
 
-Semua fail dalam folder ini DIGUNAKAN oleh kad. Fail sumber asal (foto penuh,
-PNG sebelum dimampatkan) disimpan dalam folder `_sumber/` di akar projek.
+Semua fail dalam folder ini DIGUNAKAN oleh kad. Fail sumber asal disimpan dalam
+folder `_sumber/` di akar projek (tidak perlu dimuat naik).
+
+Konsep: satu kanvas menegak. Batik Sogan gelap di belakang (parallax), zon krim
+"White Beach" timbul di atasnya dengan pemisah lengkung-S bergaris emas + manik.
+
+Kanvas gelap
+- batik-sogan-pattern.webp  Jubin Batik Sogan (espresso + emas antik), latar seluruh kad
 
 Sampul 3D (lapisan foto sebenar)
-- env-body.jpg          Bahagian dalam sampul + liner Batik (dari envelope-open-hd.png)
-- env-pocket.webp       Poket depan berbukaan V (lutsinar)
-- env-flap-front.webp   Flap tertutup bertepi emas (lutsinar, dari envelope-closed.jpg)
-- env-flap-liner.webp   Flap terbuka berliner Batik (lutsinar, disimpan terbalik 180°)
-- wax-seal-ae.webp      Cop lilin emas A&E, monogram kaligrafi yang sama dengan kad (lutsinar)
+- env-body.jpg / env-pocket.webp / env-flap-front.webp / env-flap-liner.webp
+- wax-seal-ae.webp          Cop lilin emas A&E
 
-Kad mihrab v2: reben Batik Jawa (atas kiri) + Lipa' Sabbe Bugis (bawah kanan)
-(3-slice: atas & bawah tidak diregang, tengah diregang menegak)
-- card-mihrab-top.jpg / card-mihrab-mid.jpg / card-mihrab-bottom.jpg
+Kad (3-slice: atas & bawah tidak diregang)
+- frame-arch-top/mid/bottom.jpg   Aset 1: Bingkai kubah emas timbul (kad sampul, Band 1, Doa)
+- frame-ivory-top/mid/bottom.jpg  Aset 2: Kertas gading bersudut emas (Mempelai, Atur Cara, Lokasi)
+                                  Jalur tengah diulang menegak (bukan diregang)
 
-Bingkai Doa (3-slice)
-- frame-doa-top.jpg / frame-doa-mid.jpg / frame-doa-bottom.jpg
+Ornamen (lutsinar)
+- orn-paisley.webp          Aset 3: Sulur paisley, jambatan merentasi sempadan gelap ↔ krim
+- orn-batik-flower.webp     Aset 4: Bunga Batik di sudut kad krim (marun ditonasi ke Sogan dalam CSS)
+- texture-batik-cream.webp  Aset 5: Corak garis halus Batik krim, tekstur zon Ucapan
+- orn-embroidery.webp       Aset 6: Bunga sulaman putih-emas pada zon gelap (latar hitam dibuang)
 
-Unsur Bugis
-- sabbe-band.webp           Pita sutera Lipa' Sabbe yang membalut sampul (meluncur keluar)
-- walasuji.webp             Kekisi Walasuji, latar halus (menggantikan Kawung)
-- icon-feast.webp           Ikon bosara (jamuan) dalam atur cara
-
-Identiti
-- monogram-ae.webp          Monogram A&E kaligrafi gaya Arab (kad sampul, Band 1, footer)
-
-Lain-lain
-- backdrop.webp            Latar meja linen dengan bayang palma & kekisi Islam (adegan sampul)
-- icon-arrival.webp         Ikon gerbang mihrab (ketibaan)
-- icon-farewell.webp        Ikon bulan sabit (bersurai)
-- gold-divider.webp         Pemisah emas Islamik–Jawa (lutsinar)
-- batik-sogan-pattern.webp  Jubin Batik halus untuk latar seksyen Doa
+Identiti & lain-lain
+- monogram-ae.webp          Monogram A&E kaligrafi
+- couple-portrait.jpg       Potret mempelai
+- gold-divider.webp         Pemisah emas
+- icon-arrival / icon-feast / icon-farewell.webp   Ikon atur cara
 - og-image.jpg              Imej pratonton WhatsApp (1200x630)
-
-Lagu latar: letakkan fail MP3 di `assets/lagu.mp3`.
-Butang muzik hanya muncul bila fail itu wujud.
+- lagu.mp3                  Lagu latar

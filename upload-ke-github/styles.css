@@ -1,0 +1,1858 @@
+/* =====================================================================
+   BESPOKE LUXURY STATIONERY — DR. ALIMIN & ERNA (A & E)
+   Theme: Islamic Soft Beige White with a Hint of Jawa Design
+   Assets: Client Envelope (Closed + Open Batik Sogan) + Gold Filigree Card
+   Motion: GSAP 3.12 + ScrollTrigger Choreography
+   ===================================================================== */
+
+:root {
+  --alabaster-white: #FDFCF9;
+  --soft-beige: #F6F0E6;
+  --sand-beige: #EDE4D5;
+  --outer-desk: #E8DFD1;
+
+  --sogan-ink: #2A2018;
+  --sogan-deep: #1E1610;
+  --sogan-body: #45382E;
+  --sogan-muted: #5F5043;
+
+  --gold-champagne: #EAD4A6;
+  --gold-foil: #A88446;
+  --gold-deep: #735528;
+  --gold-hairline: rgba(168, 132, 70, 0.36);
+
+  --font-script: 'Pinyon Script', 'Cormorant Garamond', cursive;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-arabic: 'Amiri', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --sheet-width: 430px;
+
+  /* Kanvas Batik Sogan gelap & zon White Beach */
+  --espresso: #140D08;
+  --charcoal: #0B0705;
+  --antique-gold: #C89D54;
+  --wb-cream: #F7F3EB;
+  --ink-on-cream: #2A1D15;
+  --bronze-on-cream: #9E7632;
+  --sand-on-dark: #F7F3EB;
+  --gold-on-dark: #E5C17B;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+/* Hairline Champagne-Gold Scroll Progress Filament (Whisper-Quiet) */
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--sheet-width);
+  height: 1.5px;
+  z-index: 95;
+  pointer-events: none;
+  background: transparent;
+  opacity: 0.58;
+}
+
+.scroll-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-champagne) 0%, var(--gold-foil) 55%, var(--gold-deep) 100%);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* Editorial Line-Mask Wrapper for Monumental Typography Reveals */
+.reveal-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.reveal-mask > .reveal-line {
+  display: block;
+  will-change: transform;
+}
+
+/* =====================================================================
+   ANIMASI HIASAN:
+   1. Potret Mempelai dalam Bingkai Gerbang Islamik Bermahkota Bintang
+   2. Pasangan merapat ikut skrol + halo emas
+   ===================================================================== */
+
+/* Potret Pasangan dalam Bingkai Gerbang Mihrab Islamik */
+.couple-mihrab-wrap {
+  position: relative;
+  width: min(76%, 296px);
+  margin: 6px auto 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.couple-arch-halo {
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 188, 139, 0.34) 0%, rgba(212, 188, 139, 0.08) 54%, transparent 74%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.couple-mihrab-arch {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 7px;
+  border-radius: 999px 999px 14px 14px;
+  border: 1px solid var(--gold-foil);
+  background: linear-gradient(160deg, rgba(253, 252, 249, 0.92) 0%, rgba(246, 240, 230, 0.85) 100%);
+  box-shadow:
+    0 18px 40px rgba(59, 47, 38, 0.14),
+    0 3px 10px rgba(181, 147, 90, 0.18);
+  will-change: transform, opacity;
+}
+
+.couple-mihrab-inner {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 999px 999px 9px 9px;
+  overflow: hidden;
+  border: 1px solid rgba(181, 147, 90, 0.45);
+  background: #FAF2EE;
+  position: relative;
+}
+
+.couple-mihrab-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(253, 252, 249, 0) 76%, rgba(246, 240, 230, 0.28) 100%);
+}
+
+.couple-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+  display: block;
+  filter: sepia(0.06) saturate(0.97) contrast(1.02);
+  will-change: transform;
+}
+
+.couple-arch-finial {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  color: var(--gold-foil);
+  background: var(--soft-beige);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* Scroll-Driven Couple Convergence Stage + Soft Golden Halo */
+.couple-stage {
+  position: relative;
+  padding: 12px 0;
+}
+
+.couple-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 240px;
+  height: 240px;
+  transform: translate(-50%, -50%) scale(0.75);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 188, 139, 0.34) 0%, rgba(212, 188, 139, 0.08) 52%, transparent 74%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.couple-converge-left,
+.couple-converge-right {
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+body {
+  /* Teks badan dalam serif editorial; sans hanya untuk kawalan UI (lihat di bawah). */
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-variant-numeric: lining-nums;
+  background-color: var(--charcoal);
+  color: var(--sogan-ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: clip;
+  padding-bottom: 72px;
+}
+
+button, a {
+  touch-action: manipulation;
+}
+
+/* Sans (Plus Jakarta) dikhaskan untuk UI: butang, borang, nav, kapsyen kecil */
+button,
+input,
+textarea,
+.field label,
+.nav-link,
+.toast-banner,
+.cd-caption,
+.wishes-counter,
+.rsvp-result p,
+.hero-scroll-hint {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4,
+.env-couple, .host-name, .mempelai-fullname, .band-heading,
+.hero-kicker, .editorial-label, .bismillah-sub, .hero-venue, .connector-phrase {
+  text-wrap: balance;
+}
+
+p, blockquote, li { text-wrap: pretty; }
+
+/* "Dr." sebagai gelaran small caps serif di hadapan nama skrip */
+.name-title {
+  font-family: var(--font-serif);
+  font-size: 0.34em;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  vertical-align: 0.28em;
+  margin-right: 0.12em;
+}
+
+body.cover-locked {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Tactile Cotton Paper Grain */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.024;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* KANVAS ASAS GELAP: Batik Jawa Sogan (espresso + garis emas antik) memanjang dari atas
+   hingga bawah. Lebih tinggi daripada skrin supaya GSAP boleh menggerakkannya perlahan
+   (parallax) di belakang kad White Beach. Lapisan gradien meredupkan corak supaya teks
+   krim di atasnya kekal jelas. */
+.lattice-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 170vh;
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--espresso);
+  background-image:
+    linear-gradient(180deg, rgba(11, 7, 5, 0.62) 0%, rgba(20, 13, 8, 0.5) 50%, rgba(11, 7, 5, 0.66) 100%),
+    url('assets/batik-sogan-pattern.webp');
+  background-size: 100% 100%, 300px auto;
+  background-repeat: no-repeat, repeat;
+  will-change: transform;
+}
+
+/* Vinyet tetap: menggelapkan tepi skrin, fokus ke tengah (kad) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(5, 3, 2, 0.55) 100%);
+}
+
+/* =====================================================================
+   REALISTIC 5-LAYER 3D SCROLL-DRIVEN PHYSICAL ENVELOPE STAGE
+   ===================================================================== */
+.hero-envelope-scene {
+  position: relative;
+  z-index: 20;
+  height: 172vh;
+  height: 172svh;
+  width: 100%;
+  /* Latar diletakkan pada .hero-pin (bukan seksyen) supaya bila pin dipudarkan di
+     hujung timeline, kad sebenar di Band 1 (yang berada di bawahnya) terserlah. */
+  background: transparent;
+}
+
+/* Mod statik: reduced-motion / GSAP tidak dimuat — tiada skrol panjang tanpa animasi */
+.hero-envelope-scene.is-static { height: auto; }
+.hero-envelope-scene.is-static .hero-pin { position: relative; }
+
+.hero-pin {
+  position: sticky;
+  top: 0;
+  /* Legap & SAMA piksel demi piksel dengan .lattice-backdrop + vinyet body::after (yang
+     tidak bergerak semasa babak sampul), jadi kad Band 1 di belakang tidak kelihatan
+     dan bila pin dipudarkan di hujung animasi, tiada perubahan latar langsung. */
+  background-color: var(--espresso);
+  background-image:
+    radial-gradient(ellipse 70% 52% at 50% 52%, rgba(72, 48, 26, 0.38) 0%, transparent 72%),
+    radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(5, 3, 2, 0.55) 100%),
+    linear-gradient(180deg, rgba(11, 7, 5, 0.62) 0%, rgba(20, 13, 8, 0.5) 50%, rgba(11, 7, 5, 0.66) 100%),
+    url('assets/batik-sogan-pattern.webp');
+  background-size: 100% 100%, 100% 100vh, 100% 170vh, 300px auto;
+  background-position: 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  height: 100svh;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 18px 40px;
+  overflow: visible;
+}
+
+/* Kaligrafi Bismillah pembukaan & ornamen bintang geometri Islamik (Rub el Hizb) */
+.env-bismillah {
+  font-family: var(--font-arabic);
+  font-size: clamp(1.22rem, 4vw, 1.48rem);
+  color: var(--sogan-ink);
+  line-height: 1.55;
+  margin-bottom: 4px;
+}
+
+.islamic-ornament-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 4px auto 10px;
+  color: var(--gold-foil);
+}
+
+.islamic-ornament-row .orn-line {
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-foil), transparent);
+}
+
+.islamic-star-ico {
+  display: block;
+  color: var(--gold-foil);
+  flex-shrink: 0;
+}
+
+.hero-head {
+  text-align: center;
+  margin-bottom: 28px;
+  will-change: transform, opacity;
+}
+
+.env-kicker {
+  font-family: var(--font-serif);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.env-couple {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 6vw, 2.55rem);
+  font-weight: 500;
+  color: var(--sogan-ink);
+  margin-top: 4px;
+  line-height: 1.15;
+}
+
+.serif-amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-deep);
+  margin: 0 6px;
+}
+
+.env-date {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sogan-body);
+  margin-top: 4px;
+}
+
+/* 3D Envelope Container */
+.env-3d {
+  position: relative;
+  width: min(350px, 88vw);
+  /* Nisbah sampul tertutup (envelope-closed.jpg, 952x620). Lapisan dari foto terbuka HD
+     (nisbah 1.72) dimampatkan ~10% secara mendatar supaya flap & cop lilin kekal tepat. */
+  aspect-ratio: 952 / 620;
+  perspective: 1200px;
+  /* flat (bukan preserve-3d): lapisan disusun ikut z-index secara tetap, jadi flap
+     tidak "menembusi" kad semasa berputar. Tiada filter di sini: drop-shadow pada
+     bekas yang anak-anaknya beranimasi memaksa repaint setiap frame. */
+  transform-style: flat;
+  will-change: transform;
+}
+
+/* Bayang lantai sampul (gradien statik, murah, tidak ikut bentuk kad yang naik) */
+.env-shadow {
+  position: absolute;
+  z-index: 0;
+  left: 4%;
+  right: 4%;
+  bottom: -30px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(59, 47, 38, 0.26) 0%, rgba(59, 47, 38, 0.1) 45%, transparent 72%);
+  pointer-events: none;
+}
+
+/* =====================================================================
+   LAPISAN FOTO SEBENAR (dijana dari envelope-open-hd.png & envelope-closed.jpg)
+   env-body.jpg       : badan sampul + liner Batik di bahagian dalam (lapisan belakang)
+   env-pocket.webp     : poket depan berbukaan V (lutsinar)
+   env-flap-front.webp : flap tertutup bertepi emas (lutsinar)
+   env-flap-liner.webp : flap terbuka berliner Batik (lutsinar, disimpan terbalik 180deg)
+   ===================================================================== */
+
+/* Layer 1: Bahagian dalam sampul (cover agar corak Batik Sogan tidak terherot) */
+.env-back {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 2px;
+  background: #E9DCCB url('assets/env-body.jpg') center / cover no-repeat;
+}
+
+/* Layer 2: Rising Card Carrier
+   Hanya potong bahagian BAWAH kad (di bibir poket). Atas/kiri/kanan dibiarkan bebas
+   supaya kad tidak "terpenggal" semasa naik keluar dari sampul. */
+.env-carrier {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: visible;
+  clip-path: inset(-400% -30% 4px -30%);
+  pointer-events: none;
+}
+
+/* =====================================================================
+   SATU TONA KERTAS MEWAH WHITE BEIGE (.luxury-paper-card)
+   Menggantikan semua bingkai Mihrab & Batik dalaman dengan satu bahasa
+   reka bentuk kertas kapas White Beige (#FBF8F2) + garisan foil emas kembar.
+   Digunakan seragam pada kad sampul, Band 1, Band 3, Band 4 & Band 5.
+   ===================================================================== */
+.luxury-paper-card {
+  position: relative;
+  background: linear-gradient(180deg, #FDFBF7 0%, #F9F4EA 100%);
+  border: 1px solid rgba(168, 132, 70, 0.42);
+  border-radius: 6px;
+  box-shadow:
+    0 16px 38px rgba(42, 32, 24, 0.08),
+    inset 0 0 0 6px #FBF8F2,
+    inset 0 0 0 7px rgba(168, 132, 70, 0.24);
+}
+
+.env-card {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 86%;            /* selaras dengan CARD_WIDTH_RATIO dalam script.js */
+  aspect-ratio: 2 / 3;   /* nisbah asal kad mihrab */
+  transform: translate3d(-50%, 44%, 0) scale(1);
+  border-radius: 3px;
+  box-shadow: 0 14px 34px rgba(43, 32, 24, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.env-card-surface {
+  width: 100%;
+  padding: 0 15%;        /* kekal di dalam garis gerbang, jauh dari reben di sudut */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.env-card-bismillah {
+  font-family: var(--font-arabic);
+  font-size: 1.05rem;
+  color: var(--sogan-ink);
+  opacity: 0.85;
+}
+
+/* Monogram kaligrafi gaya Arab A&E (assets/monogram-ae.webp, nisbah 1000x599).
+   Ditonasi sedikit ke emas champagne supaya selaras dengan emas kad mihrab. */
+.monogram-img {
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  filter: saturate(0.88) brightness(0.94) drop-shadow(0 1px 1px rgba(110, 80, 30, 0.18));
+}
+
+.env-card-monogram {
+  width: 58%;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.env-card-kicker {
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+}
+
+.env-card-couple {
+  font-family: var(--font-serif);
+  font-size: 1.42rem;
+  font-weight: 500;
+  color: var(--sogan-ink);
+  line-height: 1.15;
+}
+
+.env-card-date {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sogan-body);
+}
+
+/* Layer 3: Poket depan (foto). Bayang halus di bibir V jatuh ke atas kad yang naik. */
+.env-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: url('assets/env-pocket.webp') 0 0 / 100% 100% no-repeat;
+  filter: drop-shadow(0 -1px 1.5px rgba(43, 28, 14, 0.22)) drop-shadow(0 2px 3px rgba(43, 28, 14, 0.12));
+}
+
+/* Layer 4: Flap berengsel 3D. Tinggi = hujung flap dalam foto (79.84% tinggi sampul). */
+.env-flap-hinge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 79.84%;
+  z-index: 6;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.env-flap-hinge.is-behind {
+  z-index: 2;
+}
+
+.env-flap-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flap-photo,
+.flap-shade {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* Muka depan: foto flap tertutup. Bayang di bawah tepi emas dicipta semula dengan CSS
+   (bukan dibakar dalam foto) supaya ia bergerak bersama flap. */
+.env-flap-front .flap-photo {
+  background-image: url('assets/env-flap-front.webp');
+  filter: drop-shadow(0 1.5px 1.5px rgba(59, 40, 20, 0.24)) drop-shadow(0 5px 7px rgba(59, 40, 20, 0.14));
+}
+
+/* Muka belakang: liner Batik dari foto sampul terbuka HD (72.71% / 79.84% = 91.1% tinggi engsel).
+   rotateY (bukan rotateX): bila engsel berputar -180deg, tapak lebar kekal di engsel. */
+.env-flap-back {
+  bottom: auto;
+  height: 91.1%;
+  transform: rotateY(180deg);
+}
+
+.env-flap-back .flap-photo {
+  background-image: url('assets/env-flap-liner.webp');
+}
+
+/* Bayang cahaya ikut sudut: warna gelap bertopeng bentuk foto flap */
+.flap-shade {
+  background-color: #2B2018;
+  opacity: 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+.flap-shade-front { -webkit-mask-image: url('assets/env-flap-front.webp'); mask-image: url('assets/env-flap-front.webp'); }
+.flap-shade-back  { -webkit-mask-image: url('assets/env-flap-liner.webp'); mask-image: url('assets/env-flap-liner.webp'); }
+
+/* Layer 5: Cop lilin emas A&E (assets/wax-seal-ae.webp — monogram kaligrafi yang sama dengan kad).
+   Anak kepada .env-flap-hinge: ia terangkat bersama flap dan tersembunyi (backface) selepas 90deg. */
+.wax-seal-btn {
+  position: absolute;
+  left: 49.89%;        /* pusat cop asal dalam envelope-closed.jpg */
+  top: 81.41%;
+  width: 24.5%;
+  aspect-ratio: 1;
+  height: auto;
+  transform: translate(-50%, -50%) translateZ(1px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  pointer-events: auto;
+  will-change: transform;
+  transition: filter 200ms var(--ease-out);
+}
+
+.wax-seal-btn:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 4px;
+}
+
+.seal-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: url('assets/wax-seal-ae.webp') center / contain no-repeat;
+  filter: drop-shadow(0 1px 1px rgba(59, 40, 20, 0.28)) drop-shadow(0 5px 8px rgba(59, 40, 20, 0.24));
+}
+
+/* Kilauan foil emas halus melintasi cop lilin A&E */
+.seal-disc::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    115deg,
+    transparent 36%,
+    rgba(255, 248, 224, 0.42) 50%,
+    transparent 64%
+  );
+  transform: translateX(-140%);
+  animation: foilShimmer 5.2s var(--ease-out) 1.2s infinite;
+  pointer-events: none;
+}
+
+@keyframes foilShimmer {
+  0%, 68% { transform: translateX(-140%); }
+  100%    { transform: translateX(140%); }
+}
+
+.seal-pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(181, 147, 90, 0.78);
+  animation: sealPulse 2.1s var(--ease-out) infinite;
+}
+
+@keyframes sealPulse {
+  0% { transform: scale(0.92); opacity: 0.85; }
+  75% { transform: scale(1.32); opacity: 0; }
+  100% { transform: scale(1.32); opacity: 0; }
+}
+
+.hero-cta {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  will-change: opacity;
+}
+
+/* Butang Sogan Velvet dengan garisan dalaman emas champagne + kilauan lembut */
+.btn-open-envelope {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 188, 139, 0.55);
+  background: linear-gradient(180deg, #43352B 0%, var(--sogan-ink) 100%);
+  color: #FAF4E8;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  box-shadow:
+    0 12px 26px rgba(59, 47, 38, 0.2),
+    inset 0 0 0 1px rgba(212, 188, 139, 0.24);
+  transition: transform 160ms var(--ease-out), background-color 180ms ease, box-shadow 200ms ease;
+}
+
+.btn-open-envelope::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgba(235, 212, 165, 0.22) 50%, transparent 65%);
+  transform: translateX(-140%);
+  animation: foilShimmer 6s var(--ease-out) 2.2s infinite;
+  pointer-events: none;
+}
+
+.btn-open-envelope:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-open-envelope:hover {
+    background: linear-gradient(180deg, #372B22 0%, var(--sogan-deep) 100%);
+    transform: translateY(-1.5px);
+    box-shadow:
+      0 16px 32px rgba(59, 47, 38, 0.24),
+      inset 0 0 0 1px rgba(212, 188, 139, 0.42);
+  }
+}
+
+.hero-scroll-hint {
+  font-size: 0.76rem;
+  color: var(--sogan-muted);
+  letter-spacing: 0.04em;
+}
+
+/* =====================================================================
+   STATIONERY SHEET & REAL CLIENT CARD-FRAME HERO
+   ===================================================================== */
+/* Satu kanvas menegak berterusan (tiada kotak terpisah), lebar maksimum 430px di tengah */
+.stationery-sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--sheet-width);
+  margin: 0 auto;
+  background: transparent;
+}
+
+.band { position: relative; overflow: hidden; }
+.band-inner { position: relative; z-index: 2; padding: 58px 30px; text-align: center; }
+
+.band-hero {
+  background-color: var(--alabaster-white);
+  padding: 20px 18px 24px;
+}
+
+/* =====================================================================
+   BINGKAI KAD FOTO SEBENAR (3-slice: atas & bawah ikut nisbah asal, tengah diregang
+   menegak sahaja, jadi gerbang & reben Batik tidak pernah herot walau kandungan panjang).
+   Aset 1 (kubah emas timbul) = kad di zon gelap: sampul, Band 1, Doa.
+   Aset 2 (kertas gading bersudut emas) = kad kandungan di zon White Beach.
+   ===================================================================== */
+.frame-arch-bg,
+.frame-ivory-bg {
+  background-repeat: no-repeat;
+  background-position: top center, bottom center, center;
+  background-size: 100% auto, 100% auto, 100% 100%;
+  border-radius: 4px;
+}
+
+.frame-arch-bg {
+  background-color: #F8EBDA;
+  background-image:
+    url('assets/frame-arch-top.jpg'),
+    url('assets/frame-arch-bottom.jpg'),
+    url('assets/frame-arch-mid.jpg');
+  /* Di atas Batik gelap: bayang lebih dalam + garis cahaya emas halus di tepi */
+  box-shadow:
+    0 26px 60px rgba(0, 0, 0, 0.5),
+    0 4px 14px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(229, 193, 123, 0.28);
+}
+
+.frame-ivory-bg {
+  background-color: #FAEEE0;
+  background-image:
+    url('assets/frame-ivory-top.jpg'),
+    url('assets/frame-ivory-bottom.jpg'),
+    url('assets/frame-ivory-mid.jpg');
+  /* Kad kandungan boleh sangat panjang (Mempelai ~5x tinggi jalur tengah): jalur tengah
+     diulang menegak, bukan diregang, supaya tekstur kertas & daun timbul tidak kabur. */
+  background-size: 100% auto, 100% auto, 100% auto;
+  background-repeat: no-repeat, no-repeat, repeat-y;
+  background-position: top center, bottom center, top center;
+  box-shadow:
+    0 16px 36px rgba(42, 29, 21, 0.12),
+    0 2px 8px rgba(42, 29, 21, 0.06);
+}
+
+/* Kad Band 1: nisbah asal kad mihrab 2:3 (boleh memanjang jika kandungan lebih) */
+.card-frame-canvas {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Padding peratus (ikut lebar kad) = kandungan sentiasa di dalam gerbang mihrab,
+   jauh dari reben Batik di sudut atas-kiri dan bawah-kanan. */
+.card-frame-content {
+  width: 100%;
+  /* Nisbah 2:3 diletak pada anak (bukan .card-frame-canvas yang overflow:hidden untuk
+     kilauan foil), supaya kad memanjang bila kandungan lebih dan tidak terpotong. */
+  aspect-ratio: 2 / 3;
+  justify-content: center;
+  padding: 30% 14% 27%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* WebP lutsinar (assets/gold-divider.webp). Tidak bergantung pada mix-blend-mode, yang gagal
+   di dalam .band-inner (z-index mengasingkannya dari latar beige → kotak putih). */
+.gold-divider-img {
+  width: 200px;
+  max-width: 70%;
+  height: auto;
+  display: block;
+  margin: 26px auto;
+  opacity: 0.95;
+}
+
+.band-ivory { background-color: var(--alabaster-white); }
+.band-beige {
+  background-color: var(--alabaster-white);
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+
+/* Corak geometri bintang Islamik (Rub el Hizb) halus di belakang Butiran Majlis */
+.band-lattice-subtle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.085;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23B5935A' stroke-width='0.9'%3E%3Crect x='18' y='18' width='28' height='28'/%3E%3Crect x='18' y='18' width='28' height='28' transform='rotate(45 32 32)'/%3E%3Ccircle cx='32' cy='32' r='2' fill='%23B5935A' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 72px 72px;
+  background-repeat: repeat;
+}
+
+/* HERO TYPOGRAPHY */
+.arabic-bismillah { font-family: var(--font-arabic); font-size: 1.75rem; color: var(--sogan-ink); line-height: 1.6; }
+.bismillah-sub { font-size: 0.9rem; font-style: italic; color: var(--sogan-muted); margin-top: 2px; max-width: 30ch; line-height: 1.45; }
+
+/* Monogram besar di kad Band 1: tumpuan utama selepas Bismillah */
+.inline-crest {
+  width: 62%;
+  max-width: 230px;
+  margin: 16px auto 12px;
+}
+.hero-kicker { font-family: var(--font-serif); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep); }
+.hero-display { margin: 12px 0 6px; display: flex; flex-direction: column; align-items: center; }
+.display-script { font-family: var(--font-script); font-size: 3.45rem; font-weight: 400; line-height: 1.06; color: var(--sogan-ink); }
+.display-amp { font-family: var(--font-serif); font-style: italic; font-size: 1.65rem; color: var(--gold-foil); margin: 2px 0; }
+
+.hero-date-banner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 340px;
+  margin: 6px auto 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+.date-small { font-family: var(--font-serif); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.03em; line-height: 1.35; color: var(--sogan-body); }
+.date-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+  border-left: 1px solid var(--gold-hairline);
+  border-right: 1px solid var(--gold-hairline);
+}
+.date-day-num { font-family: var(--font-serif); font-size: 2.25rem; font-weight: 500; line-height: 0.95; color: var(--sogan-ink); }
+.date-month-year { font-family: var(--font-serif); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-deep); margin-top: 4px; white-space: nowrap; }
+.hero-venue { font-size: 1rem; color: var(--sogan-body); font-weight: 500; line-height: 1.4; }
+
+/* BAND 2: TUAN RUMAH & MEMPELAI */
+.arabic-salam { font-family: var(--font-arabic); font-size: 1.65rem; color: var(--sogan-ink); }
+.salam-latin { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; font-style: italic; color: var(--sogan-ink); margin-top: 4px; }
+.host-header { margin: 24px auto 20px; padding: 18px 0; border-top: 1px solid var(--gold-hairline); border-bottom: 1px solid var(--gold-hairline); }
+.host-name { font-family: var(--font-serif); font-size: clamp(1.24rem, 4.6vw, 1.5rem); font-weight: 600; color: var(--sogan-ink); line-height: 1.32; }
+.host-amp { font-family: var(--font-serif); font-style: italic; color: var(--gold-foil); font-size: 1.1rem; margin: 2px 0; }
+.editorial-prose { margin: 16px auto 0; max-width: 40ch; font-size: 1.08rem; line-height: 1.6; color: var(--sogan-body); }
+.editorial-label { font-family: var(--font-serif); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 8px; }
+.mempelai-monument { margin: 24px auto 38px; }
+.mempelai-role { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sogan-muted); margin-bottom: 6px; }
+.mempelai-fullname { font-family: var(--font-serif); font-size: clamp(1.5rem, 5.5vw, 1.95rem); font-weight: 600; color: var(--sogan-ink); letter-spacing: 0.01em; line-height: 1.22; }
+.mempelai-callname { font-family: var(--font-script); font-size: clamp(1.95rem, 7vw, 2.35rem); color: var(--gold-deep); line-height: 1.15; margin-top: 2px; }
+.mempelai-connector { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 20px auto; max-width: 320px; }
+.connector-line { flex: 1; max-width: 36px; min-width: 14px; height: 1px; background: var(--gold-hairline); }
+.connector-phrase { font-family: var(--font-serif); font-style: italic; font-size: clamp(0.95rem, 3.6vw, 1.1rem); color: var(--gold-deep); white-space: nowrap; }
+.bride-parents-line { margin: 12px auto 0; font-size: 1rem; color: var(--sogan-body); max-width: 36ch; line-height: 1.55; }
+.bride-parents-line strong { color: var(--sogan-ink); font-weight: 600; }
+.turut-editorial { margin-top: 38px; padding-top: 30px; border-top: 1px solid var(--gold-hairline); }
+.turut-title { font-family: var(--font-serif); font-size: 1.42rem; font-weight: 500; color: var(--sogan-ink); }
+.turut-sub { font-size: 0.95rem; font-style: italic; color: var(--sogan-muted); margin: 10px 0 8px; }
+.elders-editorial-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.elders-editorial-list li { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--sogan-ink); }
+
+/* BAND 3: BUTIRAN MAJLIS & COUNTDOWN */
+.band-heading { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 500; color: var(--sogan-ink); line-height: 1.15; }
+
+.countdown-editorial {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px auto 34px;
+  padding: 20px 0;
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+.cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 56px; }
+/* tabular-nums + lebar tetap: digit tidak "bergoyang" setiap saat */
+.cd-value { font-family: var(--font-serif); font-size: 2.35rem; font-weight: 500; line-height: 1; color: var(--sogan-ink); font-variant-numeric: lining-nums tabular-nums; min-width: 2.1ch; text-align: center; }
+.cd-caption { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-deep); margin-top: 8px; font-weight: 600; }
+.cd-sep { font-family: var(--font-serif); font-size: 1.65rem; color: var(--gold-foil); }
+
+.event-specs { text-align: left; max-width: 420px; margin: 0 auto 30px; }
+.spec-row { display: grid; grid-template-columns: 126px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid rgba(181, 147, 90, 0.22); }
+.spec-row:last-child { border-bottom: none; }
+.spec-row dt { font-size: 0.68rem; color: var(--gold-deep); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; padding-top: 5px; }
+.spec-row dd { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--sogan-ink); line-height: 1.35; }
+.spec-row dd strong { font-weight: 600; }
+.spec-address { display: block; font-family: var(--font-serif); font-size: 0.98rem; font-weight: 500; color: var(--sogan-body); margin-top: 4px; line-height: 1.45; }
+
+.action-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 420px; margin: 0 auto; }
+.btn-outline-foil {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(143, 110, 61, 0.45);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--sogan-ink);
+  font-family: var(--font-sans);
+  font-size: 0.83rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 180ms ease;
+}
+.btn-outline-foil:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline-foil:hover { background: #FFFFFF; border-color: var(--gold-deep); }
+}
+
+.itinerary-editorial { margin-top: 42px; padding-top: 34px; border-top: 1px solid var(--gold-hairline); }
+.itinerary-heading { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 500; color: var(--sogan-ink); margin-bottom: 22px; }
+.itinerary-timeline { list-style: none; max-width: 400px; margin: 0 auto; text-align: left; position: relative; padding-left: 22px; border-left: 1px solid rgba(181, 147, 90, 0.45); }
+.itinerary-item { position: relative; padding: 0 0 20px 12px; }
+.itinerary-item:last-child { padding-bottom: 0; }
+.itinerary-item::before { content: ''; position: absolute; left: -27px; top: 6px; width: 9px; height: 9px; background: var(--alabaster-white); border: 1.5px solid var(--gold-deep); transform: rotate(45deg); }
+.itinerary-time { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); }
+.itinerary-title { display: block; font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--sogan-ink); line-height: 1.3; margin-top: 2px; }
+.itinerary-note { display: block; font-size: 0.96rem; font-style: italic; color: var(--sogan-body); margin-top: 2px; line-height: 1.45; }
+
+/* Atur cara berikon emas: gerbang mihrab (ketibaan), bosara Bugis (jamuan), bulan sabit (bersurai).
+   Ikon disambung garis emas halus menggantikan titik berlian. */
+.itinerary-timeline.with-icons { border-left: none; padding-left: 0; }
+.itinerary-item.has-icon {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 16px;
+  align-items: start;
+  padding: 0 0 26px 0;
+}
+.itinerary-item.has-icon:last-child { padding-bottom: 0; }
+.itinerary-item.has-icon::before { display: none; }
+.itinerary-item.has-icon:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 62px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(181, 147, 90, 0.5), rgba(181, 147, 90, 0.12));
+}
+.itinerary-icon { width: 56px; height: 56px; display: block; }
+.itinerary-text { padding-top: 6px; }
+
+/* BAND 4: LOKASI */
+.location-emblem { margin: 20px auto 10px; }
+.venue-display-name { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 500; color: var(--sogan-ink); }
+.venue-full-address { margin-top: 6px; font-size: 1.05rem; color: var(--sogan-body); line-height: 1.5; }
+.venue-coords { margin-top: 10px; font-family: var(--font-serif); font-size: 0.92rem; letter-spacing: 0.1em; color: var(--gold-deep); }
+.location-actions { margin-top: 24px; }
+
+.btn-sogan-solid,
+.btn-sogan-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 18px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 180ms ease;
+}
+.btn-sogan-solid { border: 1px solid var(--sogan-ink); background: var(--sogan-ink); color: #FAF6EE; }
+.btn-sogan-ghost { border: 1px solid var(--sogan-ink); background: transparent; color: var(--sogan-ink); }
+.btn-sogan-solid:active, .btn-sogan-ghost:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-sogan-solid:hover { background: var(--sogan-deep); }
+  .btn-sogan-ghost:hover { background: rgba(59, 47, 38, 0.06); }
+}
+.btn-block { width: 100%; }
+.map-toggle-wrap { margin-top: 18px; }
+.btn-text-link { background: none; border: none; border-bottom: 1px solid var(--gold-foil); padding: 4px 2px; font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--sogan-ink); cursor: pointer; }
+.lazy-map-container { margin-top: 16px; height: 250px; border: 1px solid var(--gold-hairline); background: #EFE7DA; }
+.lazy-map-container iframe { width: 100%; height: 100%; border: 0; }
+
+/* =====================================================================
+   KAD TARIKH & KIRA DETIK (BAND 3) & KAD LOKASI (BAND 4)
+   SATU TONA KERTAS WHITE BEIGE TANPA BATIK
+   ===================================================================== */
+.majlis-climax-outer,
+.lokasi-framed-outer {
+  padding: 30px 18px 36px;
+}
+
+.sogan-climax-card {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 24px 36px;
+  color: var(--sogan-ink);
+  margin-bottom: 42px;
+}
+
+.sogan-card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.sogan-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 8px;
+}
+
+.sogan-big-date {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.sogan-day {
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 12vw, 4.4rem);
+  font-weight: 600;
+  line-height: 0.95;
+  color: var(--sogan-ink);
+  letter-spacing: -0.02em;
+}
+
+.sogan-month {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.5rem, 5.2vw, 2rem);
+  font-weight: 600;
+  color: var(--gold-deep);
+}
+
+.sogan-time-line {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sogan-body);
+  margin-top: 4px;
+}
+
+.sogan-venue-line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--sogan-ink);
+  margin-top: 4px;
+}
+
+.countdown-sogan {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 340px;
+  margin: 22px auto 24px;
+}
+
+.countdown-sogan .cd-tile {
+  padding: 12px 4px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(168, 132, 70, 0.36);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-sogan .cd-value {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 5.2vw, 2rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--sogan-ink);
+}
+
+.countdown-sogan .cd-caption {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.sogan-cal-actions {
+  width: 100%;
+  max-width: 340px;
+  margin-top: 0;
+}
+
+/* Band 4: Kad Lokasi dalam tona kertas White Beige seragam */
+.frame-lokasi-card {
+  position: relative;
+  z-index: 2;
+  padding: 40px 24px 36px;
+  will-change: transform, opacity;
+}
+
+.nabawi-doa-inline {
+  position: relative;
+  z-index: 2;
+  max-width: 390px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media (max-width: 440px) {
+  .majlis-climax-outer,
+  .lokasi-framed-outer {
+    padding: 24px 14px 30px;
+  }
+  .sogan-climax-card,
+  .frame-lokasi-card {
+    padding: 32px 18px 28px;
+  }
+}
+
+/* BAND 5: SURAH AR-RUM & DOA PENGANTIN NABAWI (SATU TONA KERTAS WHITE BEIGE TANPA BATIK) */
+.band-batik-doa {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--alabaster-white);
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+}
+
+.doa-outer-padding {
+  padding: 34px 18px 44px;
+}
+
+.doa-parchment-card {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 3 / 4;   /* nisbah asal bingkai Doa; memanjang jika teks lebih */
+  min-height: -webkit-min-content;
+  min-height: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 33% 13% 33%;
+}
+
+.doa-divider {
+  margin: 30px auto 18px;
+}
+
+.arabic-verse { font-family: var(--font-arabic); font-size: clamp(1.25rem, 4.6vw, 1.58rem); line-height: 1.95; color: var(--sogan-ink); margin-bottom: 12px; }
+.verse-malay { font-family: var(--font-serif); font-style: italic; font-size: clamp(0.95rem, 3.6vw, 1.1rem); line-height: 1.65; color: var(--sogan-ink); max-width: 36ch; margin: 0 auto; }
+.verse-ref { margin-top: 12px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-deep); }
+.doa-closing { position: relative; z-index: 2; font-size: 1.08rem; font-style: italic; line-height: 1.7; color: var(--sogan-body); max-width: 34ch; margin: 0 auto; }
+.doa-closing strong { color: var(--sogan-ink); }
+
+/* BAND 6: DOA PENGANTIN NABAWI + UCAPAN & DOA */
+.nabawi-doa-card {
+  max-width: 430px;
+  margin: 0 auto 38px;
+  padding: 26px 22px 24px;
+  border-top: 1px solid var(--gold-hairline);
+  border-bottom: 1px solid var(--gold-hairline);
+  background: linear-gradient(180deg, rgba(246, 240, 230, 0.55) 0%, rgba(253, 252, 249, 0.35) 100%);
+  text-align: center;
+}
+.arabic-nabawi {
+  font-family: var(--font-arabic);
+  font-size: clamp(1.38rem, 4.8vw, 1.68rem);
+  line-height: 1.95;
+  color: var(--sogan-ink);
+  margin: 8px 0 8px;
+}
+.nabawi-translit {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--gold-deep);
+  margin-bottom: 6px;
+}
+.nabawi-meaning {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--sogan-body);
+  max-width: 34ch;
+  margin: 0 auto;
+}
+
+.rsvp-intro { margin-bottom: 28px; }
+.editorial-form { text-align: left; max-width: 430px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; color: var(--sogan-body); }
+/* 16px wajib pada iOS Safari supaya skrin tidak auto-zoom apabila tetamu menaip ucapan */
+.field input, .field textarea { width: 100%; padding: 11px 12px; border: 1px solid rgba(181, 147, 90, 0.35); border-radius: 4px; background: #FFFFFF; font-family: var(--font-sans); font-size: 16px; line-height: 1.45; color: var(--sogan-ink); -webkit-appearance: none; appearance: none; transition: border-color 180ms ease, box-shadow 180ms ease; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--sogan-ink); box-shadow: 0 0 0 3px rgba(181, 147, 90, 0.16); }
+.char-counter { font-family: var(--font-sans); font-size: 0.72rem; color: var(--sogan-muted); text-align: right; margin-top: -2px; }
+.char-counter.near-limit { color: var(--gold-deep); font-weight: 600; }
+.field-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.btn-sogan-solid:disabled { opacity: 0.6; cursor: progress; }
+.wish-body { white-space: pre-line; }
+.rsvp-result { padding: 14px 16px; border-top: 1px solid var(--gold-hairline); border-bottom: 1px solid var(--gold-hairline); background: var(--soft-beige); text-align: center; }
+.rsvp-result p { font-size: 0.86rem; color: var(--sogan-ink); font-weight: 500; }
+
+.wishes-section { max-width: 430px; margin: 44px auto 0; padding-top: 30px; border-top: 1px solid var(--gold-hairline); text-align: left; }
+.wishes-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+.wishes-top h4 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 500; color: var(--sogan-ink); }
+.wishes-counter { font-size: 0.78rem; color: var(--gold-deep); font-weight: 600; }
+.wishes-stream { display: flex; flex-direction: column; }
+.wishes-empty { font-family: var(--font-serif); font-style: italic; font-size: 1.05rem; color: var(--sogan-muted); text-align: center; padding: 18px 0; }
+.wish-entry { padding: 15px 0; border-bottom: 1px solid rgba(181, 147, 90, 0.22); }
+.wish-entry:last-child { border-bottom: none; }
+.wish-name { font-family: var(--font-serif); font-size: 1.18rem; font-weight: 600; color: var(--sogan-ink); display: block; margin-bottom: 4px; }
+.wish-body { font-size: 1rem; color: var(--sogan-body); line-height: 1.55; }
+
+/* FOOTER */
+.band-footer { background: var(--alabaster-white); border-top: 1px solid var(--gold-hairline); }
+.footer-inner { padding: 38px 26px 52px; }
+.footer-divider { width: 136px; margin-top: 0; margin-bottom: 18px; }
+.footer-crest { width: 128px; margin-top: 4px; margin-bottom: 4px; }
+.footer-couple { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; color: var(--sogan-ink); margin-top: 6px; }
+.footer-meta { font-size: 0.7rem; color: var(--gold-deep); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+.footer-arabic-thanks { font-family: var(--font-arabic); font-size: 1.35rem; color: var(--gold-deep); margin-top: 14px; line-height: 1.5; }
+.footer-note { margin: 8px auto 0; max-width: 34ch; font-size: 0.98rem; font-style: italic; color: var(--sogan-muted); }
+
+/* FLOATING MUSIC, TOAST & BOTTOM NAV */
+.floating-music-btn { position: fixed; right: 16px; bottom: 78px; z-index: 45; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--gold-foil); background: #FFFFFF; color: var(--sogan-ink); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(59, 47, 38, 0.14); transition: transform 160ms var(--ease-out); }
+.floating-music-btn:active { transform: scale(0.95); }
+.floating-music-btn[hidden] { display: none; }
+/* =====================================================================
+   8 NAIK TARAF PREMIUM:
+   - Micro Gold Dust Motes (Zarah cahaya emas halus)
+   - Blind-Emboss Watermark Monogram A&E
+   - Letterpress Corner Filigree Panel (Lokasi & Ucapan)
+   - Scroll-Drawn Gold Thread (Atur Cara)
+   - Animated Gold Equalizer Bars pada butang muzik
+   ===================================================================== */
+.gold-motes {
+  position: fixed;
+  inset: 0;
+  z-index: 14;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gold-mote {
+  position: absolute;
+  bottom: -4vh;
+  width: var(--ms, 6px);
+  height: var(--ms, 6px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(235, 212, 165, 0.9) 0%, rgba(181, 147, 90, 0.35) 55%, transparent 100%);
+  filter: blur(0.6px);
+  will-change: transform, opacity;
+  animation: moteRise var(--md, 14s) linear var(--mdelay, 0s) infinite;
+}
+
+@keyframes moteRise {
+  0%   { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0; }
+  15%  { opacity: 0.45; }
+  55%  { transform: translate3d(var(--mx, 18px), -55vh, 0) scale(1.05); opacity: 0.32; }
+  90%  { opacity: 0.12; }
+  100% { transform: translate3d(calc(var(--mx, 18px) * -0.6), -110vh, 0) scale(0.8); opacity: 0; }
+}
+
+/* Blind-Emboss Watermark Monogram A&E di belakang Band 2 */
+.band-watermark {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: min(360px, 82%);
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.048;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Hairline Letterpress Corner Brackets (Lokasi & Borang Ucapan) */
+.letterpress-panel {
+  position: relative;
+  padding: 34px 24px;
+  border: 1px solid rgba(181, 147, 90, 0.24);
+  background: rgba(253, 252, 249, 0.62);
+}
+
+.letterpress-panel::before,
+.letterpress-panel::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--gold-foil);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.letterpress-panel::before {
+  top: 7px;
+  left: 7px;
+  border-width: 1px 0 0 1px;
+}
+
+.letterpress-panel::after {
+  bottom: 7px;
+  right: 7px;
+  border-width: 0 1px 1px 0;
+}
+
+/* Scroll-Drawn Gold Thread untuk Atur Cara Majlis */
+.itinerary-wrap {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.itinerary-thread {
+  position: absolute;
+  left: 28px;
+  top: 28px;
+  bottom: 28px;
+  width: 1.5px;
+  background: linear-gradient(180deg, var(--gold-foil) 0%, var(--gold-champagne) 70%, rgba(181, 147, 90, 0.2) 100%);
+  transform-origin: top center;
+  transform: scaleY(0);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.itinerary-item.has-icon:not(:last-child)::after {
+  display: none;
+}
+
+.itinerary-icon {
+  position: relative;
+  z-index: 2;
+  background: var(--alabaster-white);
+  border-radius: 50%;
+}
+
+/* Gold Equalizer Soundbars pada Butang Muzik */
+.floating-music-btn .eq-bars {
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.floating-music-btn .eq-bars span {
+  display: block;
+  width: 2.5px;
+  background: var(--gold-deep);
+  border-radius: 2px;
+  animation: eqPulse 0.9s ease-in-out infinite;
+}
+
+.floating-music-btn .eq-bars span:nth-child(1) { height: 6px; animation-delay: 0s; }
+.floating-music-btn .eq-bars span:nth-child(2) { height: 13px; animation-delay: 0.22s; }
+.floating-music-btn .eq-bars span:nth-child(3) { height: 8px; animation-delay: 0.44s; }
+
+.floating-music-btn.is-playing .icon-music { display: none; }
+.floating-music-btn.is-playing .eq-bars { display: flex; }
+
+@keyframes eqPulse {
+  0%, 100% { transform: scaleY(0.4); }
+  50%      { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gold-motes, .seal-disc::after, .btn-open-envelope::after, .sunlight-caustic, .foil-light-sheen, .gold-burst-canvas { display: none; }
+  .itinerary-thread { transform: scaleY(1); }
+  .floating-music-btn .eq-bars span { animation: none; }
+}
+
+/* =====================================================================
+   WOW-FACTOR UX UPGRADES:
+   - Canvas Gold Stardust Burst on Seal Break & Wish Submit
+   - Personalized Guest Greeting (?to=Nama+Tetamu)
+   - Living Morning Sunlight Drift over Linen Desk
+   - Scrubbed Metallic Foil Light Sheen on Embossed Mihrab Card
+   ===================================================================== */
+.gold-burst-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 98;
+  pointer-events: none;
+}
+
+.sunlight-caustic {
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 52% 40% at 28% 22%, rgba(255, 250, 236, 0.42) 0%, transparent 70%),
+    radial-gradient(ellipse 46% 36% at 76% 74%, rgba(235, 212, 165, 0.22) 0%, transparent 72%);
+  animation: sunDrift 11s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes sunDrift {
+  0%   { transform: translate3d(-1.5%, -1%, 0) scale(1); opacity: 0.72; }
+  100% { transform: translate3d(1.8%, 1.4%, 0) scale(1.04); opacity: 1; }
+}
+
+.hero-head, .env-3d, .hero-cta {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ucapan Khusus Buat Tetamu (?to=Nama+Tetamu) */
+.guest-greeting {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 14px;
+  padding: 6px 20px 8px;
+  border-top: 1px solid rgba(181, 147, 90, 0.35);
+  border-bottom: 1px solid rgba(181, 147, 90, 0.35);
+  background: rgba(253, 252, 249, 0.52);
+  backdrop-filter: blur(4px);
+}
+
+.guest-greeting[hidden] { display: none; }
+
+.guest-greeting-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.guest-greeting-name {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--sogan-ink);
+  line-height: 1.25;
+}
+
+/* Kilauan Cahaya Foil Emas Dinamik Mengikut Skrol pada Kad Mihrab */
+.card-frame-canvas {
+  position: relative;
+  overflow: hidden;
+}
+
+.foil-light-sheen {
+  position: absolute;
+  inset: -30% -60%;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 248, 225, 0.34) 48%,
+    rgba(235, 208, 148, 0.16) 52%,
+    transparent 62%
+  );
+  transform: translateX(-45%);
+  mix-blend-mode: soft-light;
+  will-change: transform;
+}
+
+.toast-banner { position: fixed; left: 50%; bottom: 84px; transform: translate(-50%, 16px); z-index: 80; max-width: 90vw; padding: 10px 18px; border-radius: 999px; background: var(--sogan-ink); border: 1px solid var(--gold-foil); color: #FAF6EE; font-size: 0.8rem; text-align: center; opacity: 0; pointer-events: none; transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out); }
+.toast-banner.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--sheet-width);
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: rgba(253, 252, 249, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--gold-hairline);
+  padding: 8px 4px calc(8px + env(safe-area-inset-bottom, 0px));
+}
+.nav-link { display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; color: var(--sogan-muted); font-family: var(--font-sans); font-size: 0.68rem; font-weight: 500; padding: 3px 2px; transition: color 180ms ease; }
+.nav-link.active, .nav-link:hover { color: var(--sogan-ink); }
+
+@media (max-width: 440px) {
+  .band-inner { padding: 40px 18px; }
+  /* Band 1 telefon: susunan padat supaya kad mihrab kekal hampir nisbah asal 2:3 */
+  .card-frame-content { padding: 29% 11% 25%; }
+  .card-frame-content .bismillah-sub { font-size: 0.78rem; max-width: 34ch; }
+  .card-frame-content .hero-kicker { font-size: 0.62rem; letter-spacing: 0.14em; white-space: nowrap; }
+  .card-frame-content .hero-display { margin: 6px 0 2px; }
+  .card-frame-content .display-amp { font-size: 1.35rem; margin: 0; line-height: 1.1; }
+  .spec-row { grid-template-columns: 1fr; gap: 3px; }
+  .action-pair { grid-template-columns: 1fr; }
+  .display-script { font-size: clamp(2.25rem, 9.5vw, 2.75rem); }
+  .arabic-bismillah { font-size: 1.38rem; }
+  .bismillah-sub { font-size: 0.84rem; }
+  .inline-crest { width: 44%; margin: 6px auto 4px; }
+  .card-frame-content .gold-divider-img { width: 130px; margin: 4px auto 6px; }
+  /* Tarikh: "14 MAC 2027" sebaris di atas, "Ahad | 10:00 Pagi – 5:00 Petang" sebaris di bawah */
+  .hero-date-banner {
+    grid-template-columns: auto auto;
+    grid-template-areas: "c c" "a b";
+    justify-content: center;
+    column-gap: 0;
+    row-gap: 2px;
+    padding: 8px 0;
+    margin: 2px auto 8px;
+  }
+  .hero-date-banner .date-col:first-child { grid-area: a; padding-right: 10px; border-right: 1px solid var(--gold-hairline); }
+  .hero-date-banner .date-col:last-child { grid-area: b; padding-left: 10px; }
+  .date-center {
+    grid-area: c;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px;
+    padding: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .date-day-num { font-size: 1.75rem; }
+  .date-small { font-size: 0.8rem; color: var(--sogan-ink); white-space: nowrap; }
+  .hero-venue { font-size: 0.92rem; color: var(--sogan-ink); }
+  .env-couple { font-size: 1.85rem; }
+  .doa-parchment-card { padding: 33% 12% 34%; }
+  .venue-display-name { font-size: clamp(1.32rem, 5.2vw, 1.6rem); }
+  .venue-full-address { font-size: 0.96rem; }
+  .sogan-cal-actions { grid-template-columns: 1fr; gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .seal-pulse-ring, .floating-music-btn.is-playing .icon-music { animation: none; }
+}
+
+/* Jaring keselamatan animasi (6 saat): jika GSAP/CDN gagal dimuatkan, pastikan semua kandungan tetap terpapar */
+.no-engine .hero-envelope-scene { height: auto !important; }
+.no-engine .hero-pin { position: relative !important; opacity: 1 !important; visibility: visible !important; }
+.no-engine .hero-anim,
+.no-engine .gsap-up,
+.no-engine .reveal-line,
+.no-engine .couple-converge-left,
+.no-engine .couple-converge-right,
+.no-engine .itinerary-item,
+.no-engine .arabic-verse,
+.no-engine .doa-parchment-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+  clip-path: none !important;
+}
+.no-engine .itinerary-thread { transform: scaleY(1) !important; }
+
+/* =====================================================================
+   KANVAS BERKESINAMBUNGAN: ZON GELAP BATIK SOGAN ↔ ZON WHITE BEACH
+   Satu kanvas menegak: Batik gelap (tetap, parallax) di belakang; zon krim
+   "White Beach" timbul di atasnya dengan pemisah lengkung-S bergaris emas + manik.
+   ===================================================================== */
+
+/* ---------- Zon gelap: lutsinar supaya kanvas Batik kelihatan ---------- */
+.dark-zone,
+.band-hero,
+.band-batik-doa,
+.band-footer {
+  background: transparent;
+  border: 0;
+}
+.band-hero { padding: 20px 18px 34px; }
+.doa-outer-padding { padding: 44px 18px 54px; }
+.footer-inner { padding: 44px 26px 60px; }
+
+/* Cahaya keemasan lembut di belakang kad pada zon gelap (bukan potongan tajam) */
+.band-batik-doa::before,
+.band-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 45% at 50% 50%, rgba(200, 157, 84, 0.12) 0%, transparent 70%);
+}
+
+/* Teks di atas Batik gelap: krim pasir + emas berkilau */
+.hero-head .env-bismillah,
+.hero-head .env-couple { color: var(--sand-on-dark); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6); }
+.hero-head .env-kicker,
+.hero-head .serif-amp { color: var(--gold-on-dark); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6); }
+.hero-head .env-date { color: rgba(247, 243, 235, 0.8); }
+.hero-scroll-hint { color: rgba(247, 243, 235, 0.62); }
+.hero-head .islamic-ornament-row,
+.hero-head .islamic-star-ico { color: var(--gold-on-dark); }
+.hero-head .orn-line { background: linear-gradient(90deg, transparent, var(--gold-on-dark), transparent); }
+
+.guest-greeting {
+  background: rgba(20, 13, 8, 0.55);
+  border-color: rgba(229, 193, 123, 0.4);
+}
+.guest-greeting-label { color: var(--gold-on-dark); }
+.guest-greeting-name { color: var(--sand-on-dark); }
+
+/* Butang emas berkilau (kontras di atas Batik gelap) */
+.btn-open-envelope {
+  background: linear-gradient(180deg, #EBCB8A 0%, var(--antique-gold) 100%);
+  color: var(--ink-on-cream);
+  border-color: rgba(255, 240, 205, 0.6);
+  font-weight: 600;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 248, 225, 0.6);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-open-envelope:hover {
+    background: linear-gradient(180deg, #F0D49A 0%, #CFA65E 100%);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 248, 225, 0.7);
+  }
+}
+
+.env-shadow {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.22) 45%, transparent 72%);
+}
+.sunlight-caustic { opacity: 0.35; }
+
+/* Band Doa (gelap) */
+.band-batik-doa .editorial-label { color: var(--gold-on-dark); }
+.band-batik-doa .arabic-nabawi { color: var(--sand-on-dark); }
+.band-batik-doa .nabawi-translit,
+.band-batik-doa .nabawi-meaning { color: rgba(247, 243, 235, 0.84); }
+
+/* Penutup (gelap) */
+.band-footer .footer-couple { color: var(--sand-on-dark); }
+.band-footer .footer-meta,
+.band-footer .footer-arabic-thanks { color: var(--gold-on-dark); }
+.band-footer .footer-note { color: rgba(247, 243, 235, 0.74); }
+
+/* ---------- Zon White Beach ---------- */
+.wb-zone {
+  position: relative;
+  z-index: 3;                 /* lengkung & paisley menindih zon gelap selepasnya */
+  margin: 72px 0;             /* ruang untuk lengkung-S di atas & bawah */
+  background: var(--wb-cream);
+  color: var(--ink-on-cream);
+}
+.wb-zone .band { background: transparent; border: 0; }
+.wb-zone .editorial-label,
+.wb-zone .verse-ref { color: var(--bronze-on-cream); }
+
+/* Aset 5: tekstur garis halus Batik krim untuk zon Ucapan */
+.wb-zone-textured {
+  background-color: var(--wb-cream);
+  background-image:
+    /* hujung atas & bawah pudar ke krim penuh = bersambung lancar dengan isian lengkung */
+    linear-gradient(180deg, #F7F3EB 0%, rgba(247, 243, 235, 0.7) 14%, rgba(247, 243, 235, 0.66) 50%, rgba(247, 243, 235, 0.7) 86%, #F7F3EB 100%),
+    url('assets/texture-batik-cream.webp');
+  background-size: 100% 100%, 430px auto;
+  background-repeat: no-repeat, repeat-y;
+  background-position: center, center top;
+}
+
+/* Pemisah lengkung-S: isian krim + garis emas halus + manik emas */
+.wb-curve {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+.wb-curve-top { top: -71px; }
+.wb-curve-bottom { bottom: -71px; transform: scale(-1, -1); }
+.wb-curve-top.wb-curve-flip { transform: scaleX(-1); }
+.wb-curve-bottom.wb-curve-flip { transform: scaleY(-1); }
+.wb-curve-fill { fill: var(--wb-cream); }
+.wb-curve-gold {
+  fill: none;
+  stroke: var(--antique-gold);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.wb-curve-beads circle {
+  fill: url(#beadGold);
+  stroke: rgba(115, 85, 40, 0.45);
+  stroke-width: 0.4;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Kad kandungan Aset 2 (kertas gading bersudut emas): padding peratus = teks
+   sentiasa di dalam bingkai, jauh dari ornamen sudut. */
+.ivory-card {
+  position: relative;
+  padding: 25% 11% 23%;
+}
+#mempelai .band-inner.ivory-card { margin: 34px 16px; }
+.itinerary-editorial.ivory-card { margin-top: 8px; }
+.frame-lokasi-card.ivory-card { padding: 24% 11% 22%; }
+.itinerary-icon { background: #FAEEE0; }
+
+/* Borang Ucapan di atas tekstur krim */
+.wb-zone-textured .letterpress-panel { background: rgba(253, 251, 246, 0.78); }
+
+/* ---------- Ornamen ---------- */
+/* Aset 3: Sulur Paisley — jambatan bertindih merentasi sempadan gelap ↔ krim */
+.orn-paisley {
+  position: absolute;
+  z-index: 4;
+  width: 118px;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 0 0.7px rgba(229, 193, 123, 0.9)) drop-shadow(0 10px 16px rgba(0, 0, 0, 0.28));
+}
+.orn-bridge-tl { left: -20px; top: -138px; }
+.orn-bridge-br { right: -20px; bottom: -138px; scale: -1 -1; }
+.orn-bridge-tr { right: -20px; top: -138px; scale: -1 1; }
+
+/* Aset 4: Bunga Batik terapung di sudut kad (marun ditonasi ke Sogan supaya tidak bertembung) */
+.orn-batik-flower {
+  position: absolute;
+  z-index: 3;
+  width: 76px;
+  height: auto;
+  pointer-events: none;
+  filter: sepia(0.3) saturate(0.8) drop-shadow(0 5px 8px rgba(42, 29, 21, 0.2));
+}
+.orn-corner-tr { top: -24px; right: -14px; }
+.orn-corner-bl { bottom: -22px; left: -14px; scale: -1 1; }
+
+/* Aset 6: Bunga sulaman putih-emas pada zon gelap (latar hitam sudah dibuang → lutsinar) */
+.orn-embroidery {
+  position: absolute;
+  z-index: 1;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.78;
+}
+.orn-hero-tl { width: min(46vw, 220px); top: -3%; left: -10%; rotate: 165deg; }
+.orn-hero-br { width: min(46vw, 220px); bottom: -2%; right: -10%; rotate: -15deg; }
+.orn-doa-l { width: 170px; left: -58px; top: 30px; rotate: 105deg; opacity: 0.55; }
+.orn-footer-r { width: 170px; right: -56px; bottom: 40px; rotate: -30deg; opacity: 0.5; }
+
+/* Ayunan perlahan bunga sulaman di skrin pembuka (CSS: pin dikawal timeline sampul) */
+.orn-hero-tl,
+.orn-hero-br { animation: ornSway 9s ease-in-out infinite alternate; }
+.orn-hero-br { animation-delay: -4.5s; }
+@keyframes ornSway {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(7px, -9px, 0); }
+}
+
+@media (min-width: 700px) {
+  .orn-hero-tl { left: 4%; top: 2%; }
+  .orn-hero-br { right: 4%; bottom: 3%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orn-hero-tl, .orn-hero-br { animation: none; }
+}

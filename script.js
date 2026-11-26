@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initEnvelopeMagneticTilt();
   initGoldMotes();
   initGsapScrollTrigger();
+  initCanvasMotion();
   initCountdown();
   initItinerary();
   initExtraFamily();
@@ -283,6 +284,9 @@ function initRealistic3DEnvelope() {
     // Kad: left:50% + xPercent:-50 (pusat = pusat sampul + x), bottom:0 (atas = bawah sampul - tinggi + y).
     L.fx = tLeft + L.tW / 2 - (envLeft + envW / 2);
     L.fy = tTop - (envTop + envH - L.tH) - L.envShift;
+    // Jarak skrol keseluruhan babak: digunakan supaya kad sampul "mengikut" kad Band 1 yang
+    // terus bergerak bersama skrol semasa silang-pudar (0.95 → 1.0), tanpa bingkai berganda.
+    L.span = Math.max(0, hero.offsetHeight - vh);
     L.drop = vh * 0.65;
   }
 
@@ -360,13 +364,15 @@ function initRealistic3DEnvelope() {
     .to(card, {
       yPercent: 0,
       x: () => L.fx,
-      y: () => L.fy,
+      y: () => L.fy + 0.05 * L.span,
       width: () => L.tW,
       height: () => L.tH,
       scale: 1,
       duration: 0.24,
       ease: 'power2.inOut'
     }, 0.71)
+    // 0.95 → 1.0: kad bergerak naik selaju skrol, kekal bertindih tepat dengan kad Band 1
+    .to(card, { y: () => L.fy, duration: 0.05, ease: 'none' }, 0.95)
 
     .to(pin, { autoAlpha: 0, duration: 0.03 }, 0.955)
     .to({}, { duration: 0.015 }, 0.985);
@@ -766,6 +772,115 @@ function initGsapScrollTrigger() {
           start: 'top 84%',
           once: true
         }
+      });
+    });
+  });
+
+  ScrollTrigger.refresh();
+}
+
+/* 3b. Kanvas Berkesinambungan: manik emas pada pemisah lengkung-S, parallax Batik gelap,
+   garisan emas terlukis ikut skrol, ornamen terapung merentasi sempadan zon. */
+function initCanvasMotion() {
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const curves = document.querySelectorAll('.wb-curve');
+
+  // Manik emas sepanjang garis lengkung (dibina sekali; kekal kelihatan walau tanpa animasi)
+  curves.forEach((svg) => {
+    const path = svg.querySelector('.wb-curve-gold');
+    const group = svg.querySelector('.wb-curve-beads');
+    if (!path || !group || group.childElementCount) return;
+    const len = path.getTotalLength();
+    const step = 19;
+    let i = 0;
+    for (let d = step; d < len - step / 2; d += step, i++) {
+      const p = path.getPointAtLength(d);
+      const c = document.createElementNS(SVG_NS, 'circle');
+      c.setAttribute('cx', p.x.toFixed(1));
+      c.setAttribute('cy', p.y.toFixed(1));
+      c.setAttribute('r', i % 3 === 1 ? '2.7' : '1.7');
+      group.appendChild(c);
+    }
+  });
+
+  if (typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') return;
+
+  const mm = gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    // A. Parallax kanvas Batik gelap: bergerak lebih perlahan daripada kad di hadapannya.
+    //    Bermula SELEPAS babak sampul: semasa babak itu latar .hero-pin mesti sama piksel
+    //    dengan kanvas ini supaya peralihan pin → Band 1 tidak kelihatan.
+    const backdrop = document.querySelector('.lattice-backdrop');
+    const heroScene = document.getElementById('hero');
+    if (backdrop) {
+      gsap.to(backdrop, {
+        y: () => -Math.max(0, backdrop.offsetHeight - window.innerHeight),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroScene || document.body,
+          start: heroScene ? 'bottom bottom' : 'top top',
+          endTrigger: document.documentElement,
+          end: 'bottom bottom',
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      });
+    }
+
+    // B. Garis emas pemisah terlukis (strokeDashoffset) + manik muncul berturutan
+    curves.forEach((svg) => {
+      const path = svg.querySelector('.wb-curve-gold');
+      const beads = svg.querySelectorAll('.wb-curve-beads circle');
+      if (!path) return;
+      const len = path.getTotalLength();
+      gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: svg, start: 'top 94%', end: 'top 38%', scrub: 0.6 }
+      });
+      tl.to(path, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0);
+      if (beads.length) {
+        tl.fromTo(beads, { opacity: 0 }, { opacity: 1, ease: 'none', duration: 0.12, stagger: 0.85 / beads.length }, 0.05);
+      }
+    });
+
+    // C. Ornamen jambatan & bunga sulaman (drift terkawal supaya bebas teks + orientasi serasi semua iOS/Android)
+    document.querySelectorAll('.orn-float').forEach((el, idx) => {
+      const drift = el.classList.contains('orn-paisley') ? 32 : 28;
+      let baseScaleX = 1;
+      let baseScaleY = 1;
+      let baseRot = 0;
+      if (el.classList.contains('orn-bridge-br')) { baseScaleX = -1; baseScaleY = -1; }
+      else if (el.classList.contains('orn-bridge-tr')) { baseScaleX = -1; }
+      else if (el.classList.contains('orn-doa-l')) { baseRot = 105; }
+      else if (el.classList.contains('orn-footer-r')) { baseRot = -30; }
+
+      gsap.set(el, { scaleX: baseScaleX, scaleY: baseScaleY, rotation: baseRot });
+      gsap.fromTo(
+        el,
+        { y: drift },
+        {
+          y: -drift,
+          ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
+        }
+      );
+      gsap.from(el, {
+        opacity: 0,
+        rotation: baseRot + (idx % 2 ? 7 : -7),
+        duration: 1.2,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true }
+      });
+    });
+
+    // D. Label editorial "bernafas": letter-spacing menguncup lembut ke saiz asal
+    document.querySelectorAll('.editorial-label, .sogan-eyebrow').forEach((label) => {
+      gsap.from(label, {
+        letterSpacing: '0.48em',
+        duration: 1.2,
+        ease: 'power2.out',
+        clearProps: 'letterSpacing',
+        scrollTrigger: { trigger: label, start: 'top 90%', once: true }
       });
     });
   });

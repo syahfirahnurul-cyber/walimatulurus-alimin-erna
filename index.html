@@ -19,8 +19,8 @@
   <meta property="og:description" content="Dengan penuh kesyukuran, kami menjemput Tuan/Puan ke Majlis Kesyukuran Perkahwinan Dr. Alimin &amp; Erna pada Ahad, 14 Mac 2027 (10:00 Pagi – 5:00 Petang) di Dewan SJK (C) Kung Ming, Tawau, Sabah." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://walimatulurus-alimin-erna.pages.dev/" />
-  <meta property="og:image" content="https://walimatulurus-alimin-erna.pages.dev/assets/og-image.jpg?v=2" />
-  <meta property="og:image:secure_url" content="https://walimatulurus-alimin-erna.pages.dev/assets/og-image.jpg?v=2" />
+  <meta property="og:image" content="https://walimatulurus-alimin-erna.pages.dev/assets/og-image.jpg?v=3" />
+  <meta property="og:image:secure_url" content="https://walimatulurus-alimin-erna.pages.dev/assets/og-image.jpg?v=3" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -29,21 +29,19 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Jemputan Majlis Kesyukuran Perkahwinan — Dr. Alimin &amp; Erna" />
   <meta name="twitter:description" content="Ahad, 14 Mac 2027 • 10:00 Pagi – 5:00 Petang • Dewan SJK (C) Kung Ming, Tawau, Sabah" />
-  <meta name="twitter:image" content="https://walimatulurus-alimin-erna.pages.dev/assets/og-image.jpg?v=2" />
-  <meta name="theme-color" content="#F2EAE0" />
+  <meta name="twitter:image" content="https://walimatulurus-alimin-erna.pages.dev/assets/og-image.jpg?v=3" />
+  <meta name="theme-color" content="#140D08" />
 
   <!-- Fonts: Royal Calligraphy (Pinyon Script), Editorial Serif, Classical Arabic Naskh, Clean Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- Pra-muat aset sampul 3D (atas lipatan) supaya muncul serta-merta tanpa kelipan -->
+  <!-- Pra-muat 4 aset kritikal sampul 3D (atas lipatan) supaya FCP pantas di 4G -->
   <link rel="preload" as="image" href="assets/env-body.jpg" fetchpriority="high" />
   <link rel="preload" as="image" href="assets/env-pocket.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="assets/env-flap-front.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/env-flap-liner.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="assets/wax-seal-ae.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/monogram-ae.webp" fetchpriority="high" />
 
   <link rel="stylesheet" href="styles.css" />
   <script>
@@ -65,6 +63,14 @@
   <div id="gold-motes" class="gold-motes" aria-hidden="true"></div>
   <!-- Simbol Bintang Geometri Islamik (Rub el Hizb 8-Penjuru) boleh guna semula -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Manik emas berkilau untuk pemisah lengkung White Beach -->
+      <radialGradient id="beadGold" cx="35%" cy="32%" r="70%">
+        <stop offset="0%" stop-color="#FFF4D6" />
+        <stop offset="45%" stop-color="#E5C17B" />
+        <stop offset="100%" stop-color="#9E7632" />
+      </radialGradient>
+    </defs>
     <symbol id="islamic-star" viewBox="0 0 32 32">
       <g fill="none" stroke="currentColor" stroke-width="1.2">
         <rect x="7" y="7" width="18" height="18" />
@@ -90,15 +96,18 @@
        REALISTIC 3D SCROLL-DRIVEN & TAP-TO-OPEN PHYSICAL ENVELOPE
        5-Layer 3D Anatomy:
        1. Back Interior (Batik Sogan Liner)
-       2. Rising Mihrab Card (assets/card-mihrab-*.jpg, 3-slice) inside pocket carrier
+       2. Rising Arch Card (assets/frame-arch-*.jpg, 3-slice) inside pocket carrier
        3. Front V-Cut Cream Cotton Pocket (masks card cleanly)
        4. 3D Hinged Double-Sided Flap (Front: Cream + Gold Foil, Back: Batik Sogan)
        5. 3D Embossed Gold A&E Wax Seal Button
        ========================================================= -->
   <section id="hero" class="hero-envelope-scene" aria-label="Pembukaan Sampul Jemputan">
     <div class="hero-pin">
-      <!-- Cahaya matahari pagi lembut yang bernafas di atas meja linen -->
+      <!-- Cahaya keemasan lembut di atas kanvas Batik gelap -->
       <div class="sunlight-caustic" aria-hidden="true"></div>
+      <!-- Bunga sulaman putih-emas (assets/orn-embroidery.webp, lutsinar) di sudut kanvas gelap -->
+      <img class="orn-embroidery orn-hero-tl" src="assets/orn-embroidery.webp" width="600" height="600" alt="" aria-hidden="true" />
+      <img class="orn-embroidery orn-hero-br" src="assets/orn-embroidery.webp" width="600" height="600" alt="" aria-hidden="true" />
 
       <div class="hero-head" id="heroHead">
         <p class="guest-greeting" id="guestGreeting" hidden>
@@ -130,7 +139,7 @@
 
         <!-- Layer 2: Rising Card Carrier (Clipped cleanly at envelope pocket rim) -->
         <div class="env-carrier" id="envCarrier">
-          <div class="env-card luxury-paper-card" id="envCard">
+          <div class="env-card frame-arch-bg" id="envCard">
             <div class="env-card-surface">
               <img class="env-card-monogram monogram-img" src="assets/monogram-ae.webp" width="1000" height="599" alt="A &amp; E" />
               <p class="env-card-couple">Dr. Alimin &amp; Erna</p>
@@ -182,16 +191,12 @@
   <main id="invitation-main" class="stationery-sheet">
 
     <!-- BAND 1: HERO UTAMA (SATU TONA KERTAS WHITE BEIGE + BINGKAI FOIL EMAS HALUS) -->
-    <header id="utama" class="band band-hero">
-      <div class="card-frame-canvas luxury-paper-card">
+    <header id="utama" class="band band-hero dark-zone">
+      <!-- Aset 1: Bingkai Kubah Emas Timbul (assets/frame-arch-*.jpg, 3-slice) di atas kanvas Batik gelap -->
+      <div class="card-frame-canvas frame-arch-bg">
         <!-- Kilauan cahaya foil emas dinamik yang bergerak mengikut skrol -->
         <div class="foil-light-sheen" aria-hidden="true"></div>
         <div class="card-frame-content">
-          <div class="islamic-ornament-row hero-anim" aria-hidden="true">
-            <span class="orn-line"></span>
-            <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
-            <span class="orn-line"></span>
-          </div>
           <p class="arabic-bismillah hero-anim" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
           <p class="bismillah-sub hero-anim">Dengan nama Allah Yang Maha Pemurah lagi Maha Penyayang</p>
 
@@ -227,9 +232,23 @@
     </header>
 
     <!-- BAND 2: UNDANGAN RASMI PIHAK LELAKI, TUAN RUMAH & MEMPELAI -->
+    <!-- =========================================================
+         ZON WHITE BEACH 1 (Mempelai, Majlis, Lokasi)
+         Kanvas krim berterusan dengan pemisah lengkung-S bergaris emas + manik (dilukis ikut skrol)
+         ========================================================= -->
+    <div class="wb-zone" id="wbZone1">
+      <svg class="wb-curve wb-curve-top" viewBox="0 0 430 72" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wb-curve-fill" d="M0 72 L0 40 C 70 10, 150 4, 222 28 S 352 66, 430 24 L430 72 Z" />
+        <path class="wb-curve-gold" d="M0 49 C 70 19, 150 13, 222 37 S 352 75, 430 33" />
+        <g class="wb-curve-beads"></g>
+      </svg>
+      <!-- Aset 3: Sulur Paisley merentasi sempadan gelap ↔ krim -->
+      <img class="orn-paisley orn-bridge-tl orn-float" src="assets/orn-paisley.webp" width="520" height="780" alt="" aria-hidden="true" loading="lazy" />
+
     <section id="mempelai" class="band band-beige gsap-section">
       <img class="band-watermark" src="assets/monogram-ae.webp" alt="" aria-hidden="true" loading="lazy" />
-      <div class="band-inner">
+      <!-- Aset 2: Kertas Krim Berbingkai Ornamen Sudut (assets/frame-ivory-*.jpg, 3-slice) -->
+      <div class="band-inner frame-ivory-bg ivory-card">
         <p class="arabic-salam gsap-up" lang="ar" dir="rtl">السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
         <p class="salam-latin gsap-up">Assalamualaikum Warahmatullahi Wabarakatuh</p>
 
@@ -306,10 +325,10 @@
       </div>
     </section>
 
-    <!-- BAND 3: TARIKH, KIRA DETIK & ATUR CARA MAJLIS (SATU TONA KERTAS WHITE BEIGE) -->
+    <!-- BAND 3: TARIKH, KIRA DETIK & ATUR CARA MAJLIS (SERAGAM KERTAS GADING BERSUDUT EMAS) -->
     <section id="majlis" class="band band-ivory gsap-section">
       <div class="band-inner majlis-climax-outer">
-        <div class="sogan-climax-card luxury-paper-card gsap-up">
+        <div class="sogan-climax-card frame-ivory-bg ivory-card gsap-up">
           <div class="sogan-card-content">
             <div class="islamic-ornament-row" aria-hidden="true">
               <span class="orn-line"></span>
@@ -360,7 +379,7 @@
           </div>
         </div>
 
-        <div class="itinerary-editorial gsap-up">
+        <div class="itinerary-editorial frame-ivory-bg ivory-card gsap-up">
           <p class="editorial-label">Susunan Masa</p>
           <h4 class="itinerary-heading">Atur Cara Majlis</h4>
           <div class="itinerary-wrap">
@@ -371,15 +390,10 @@
       </div>
     </section>
 
-    <!-- BAND 4: LOKASI & PETA (SATU TONA KERTAS WHITE BEIGE) -->
+    <!-- BAND 4: LOKASI & PETA (SERAGAM KERTAS GADING BERSUDUT EMAS) -->
     <section id="lokasi" class="band band-ivory gsap-section">
       <div class="band-inner lokasi-framed-outer">
-        <div class="frame-lokasi-card luxury-paper-card">
-          <div class="islamic-ornament-row gsap-up" aria-hidden="true">
-            <span class="orn-line"></span>
-            <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
-            <span class="orn-line"></span>
-          </div>
+        <div class="frame-lokasi-card frame-ivory-bg ivory-card">
           <p class="editorial-label gsap-up">Panduan Arah</p>
           <h3 class="band-heading gsap-up">Lokasi Dewan</h3>
 
@@ -421,15 +435,21 @@
       </div>
     </section>
 
-    <!-- BAND 5: SURAH AR-RUM & DOA PENGANTIN NABAWI (SATU TONA KERTAS WHITE BEIGE TANPA BATIK) -->
-    <section class="band band-batik-doa gsap-section" aria-label="Ayat Suci Al-Quran dan Doa Pengantin">
+      <svg class="wb-curve wb-curve-bottom" viewBox="0 0 430 72" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wb-curve-fill" d="M0 72 L0 40 C 70 10, 150 4, 222 28 S 352 66, 430 24 L430 72 Z" />
+        <path class="wb-curve-gold" d="M0 49 C 70 19, 150 13, 222 37 S 352 75, 430 33" />
+        <g class="wb-curve-beads"></g>
+      </svg>
+      <img class="orn-paisley orn-bridge-br orn-float" src="assets/orn-paisley.webp" width="520" height="780" alt="" aria-hidden="true" loading="lazy" />
+    </div>
+    <!-- /ZON WHITE BEACH 1 -->
+
+    <!-- BAND 5 (ZON GELAP): SURAH AR-RUM & DOA PENGANTIN NABAWI di atas kanvas Batik Sogan -->
+    <section class="band band-batik-doa dark-zone gsap-section" aria-label="Ayat Suci Al-Quran dan Doa Pengantin">
+      <img class="orn-embroidery orn-doa-l orn-float" src="assets/orn-embroidery.webp" width="600" height="600" alt="" aria-hidden="true" loading="lazy" />
       <div class="band-inner doa-outer-padding">
-        <div class="doa-parchment-card luxury-paper-card gsap-up">
-          <div class="islamic-ornament-row" aria-hidden="true">
-            <span class="orn-line"></span>
-            <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
-            <span class="orn-line"></span>
-          </div>
+        <!-- Aset 1: Bingkai Kubah Emas Timbul (sama seperti kad utama): tenang untuk ayat suci -->
+        <div class="doa-parchment-card frame-arch-bg gsap-up">
           <p class="arabic-verse" lang="ar" dir="rtl">
             وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
           </p>
@@ -452,7 +472,15 @@
       </div>
     </section>
 
-    <!-- BAND 6: BUKU UCAPAN & DOA (FUNGSI TAMBAHAN PILIHAN KLIEN) -->
+    <!-- ZON WHITE BEACH 2: BUKU UCAPAN & DOA (tekstur Aset 5: corak garis halus Batik krim) -->
+    <div class="wb-zone wb-zone-textured" id="wbZone2">
+      <svg class="wb-curve wb-curve-top wb-curve-flip" viewBox="0 0 430 72" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wb-curve-fill" d="M0 72 L0 40 C 70 10, 150 4, 222 28 S 352 66, 430 24 L430 72 Z" />
+        <path class="wb-curve-gold" d="M0 49 C 70 19, 150 13, 222 37 S 352 75, 430 33" />
+        <g class="wb-curve-beads"></g>
+      </svg>
+      <img class="orn-paisley orn-bridge-tr orn-float" src="assets/orn-paisley.webp" width="520" height="780" alt="" aria-hidden="true" loading="lazy" />
+
     <section id="ucapan" class="band band-ivory gsap-section">
       <div class="band-inner">
         <p class="editorial-label gsap-up">Titipan Doa</p>
@@ -498,8 +526,17 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="band band-footer">
+      <svg class="wb-curve wb-curve-bottom wb-curve-flip" viewBox="0 0 430 72" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wb-curve-fill" d="M0 72 L0 40 C 70 10, 150 4, 222 28 S 352 66, 430 24 L430 72 Z" />
+        <path class="wb-curve-gold" d="M0 49 C 70 19, 150 13, 222 37 S 352 75, 430 33" />
+        <g class="wb-curve-beads"></g>
+      </svg>
+    </div>
+    <!-- /ZON WHITE BEACH 2 -->
+
+    <!-- FOOTER (ZON GELAP PENUTUP) -->
+    <footer class="band band-footer dark-zone">
+      <img class="orn-embroidery orn-footer-r orn-float" src="assets/orn-embroidery.webp" width="600" height="600" alt="" aria-hidden="true" loading="lazy" />
       <div class="band-inner footer-inner">
         <img class="gold-divider-img footer-divider" src="assets/gold-divider.webp" width="900" height="200" alt="" aria-hidden="true" />
         <img class="footer-crest monogram-img" src="assets/monogram-ae.webp" width="1000" height="599" alt="A &amp; E" loading="lazy" />
