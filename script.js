@@ -805,6 +805,29 @@ function initCanvasMotion() {
 
   if (typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') return;
 
+  // Navigasi bawah disembunyikan semasa babak sampul (pengalaman pembuka penuh skrin),
+  // muncul semula sebaik kad dibuka. Tidak digunakan dalam mod statik (tiada animasi sampul).
+  const bottomNav = document.querySelector('.bottom-nav');
+  const heroEl = document.getElementById('hero');
+  if (bottomNav && heroEl && !heroEl.classList.contains('is-static')) {
+    const setNavHidden = (hidden) => {
+      bottomNav.classList.toggle('is-hidden', hidden);
+      document.documentElement.classList.toggle('nav-hidden', hidden);
+    };
+    // Disembunyikan selagi skrol belum melepasi hujung babak sampul (termasuk kedudukan 0,
+    // yang ScrollTrigger anggap "belum aktif").
+    const syncNav = (self) => setNavHidden(self.scroll() < self.end - 1);
+    ScrollTrigger.create({
+      trigger: heroEl,
+      start: 'top top',
+      end: () => 'bottom-=' + Math.round(window.innerHeight * 0.05) + ' bottom',
+      onUpdate: syncNav,
+      onRefresh: syncNav,
+      onLeave: () => setNavHidden(false),
+      onLeaveBack: () => setNavHidden(true)
+    });
+  }
+
   const mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', () => {
     // A. Parallax kanvas Batik gelap: bergerak lebih perlahan daripada kad di hadapannya.
@@ -876,7 +899,7 @@ function initCanvasMotion() {
     // D. Label editorial "bernafas": letter-spacing menguncup lembut ke saiz asal
     document.querySelectorAll('.editorial-label, .sogan-eyebrow').forEach((label) => {
       gsap.from(label, {
-        letterSpacing: '0.48em',
+        letterSpacing: '0.28em',
         duration: 1.2,
         ease: 'power2.out',
         clearProps: 'letterSpacing',

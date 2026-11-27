@@ -35,7 +35,7 @@
   <!-- Fonts: Royal Calligraphy (Pinyon Script), Editorial Serif, Classical Arabic Naskh, Clean Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Pra-muat 4 aset kritikal sampul 3D (atas lipatan) supaya FCP pantas di 4G -->
   <link rel="preload" as="image" href="assets/env-body.jpg" fetchpriority="high" />
@@ -330,60 +330,9 @@
       </div>
     </section>
 
-    <!-- BAND 3: TARIKH, KIRA DETIK & ATUR CARA MAJLIS (SERAGAM KERTAS GADING BERSUDUT EMAS) -->
+    <!-- BAND 3: ATUR CARA MAJLIS (KERTAS GADING BERSUDUT EMAS). Kira detik dipindah ke zon gelap penutup. -->
     <section id="majlis" class="band band-ivory gsap-section">
       <div class="band-inner majlis-climax-outer">
-        <div class="sogan-climax-card frame-ivory-bg ivory-card gsap-up">
-          <div class="sogan-card-content">
-            <div class="islamic-ornament-row" aria-hidden="true">
-              <span class="orn-line"></span>
-              <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
-              <span class="orn-line"></span>
-            </div>
-            <p class="sogan-eyebrow">Menghitung Hari Bahagia</p>
-            <p class="sogan-big-date">
-              <span class="sogan-day">14</span>
-              <span class="sogan-month">Mac 2027</span>
-            </p>
-            <p class="sogan-time-line">Ahad &nbsp;&bull;&nbsp; 10:00 Pagi – 5:00 Petang</p>
-            <p class="sogan-venue-line">Dewan SJK (C) Kung Ming, Tawau</p>
-
-            <!-- Live Countdown -->
-            <div class="countdown-sogan" aria-label="Kiraan Detik Menuju Majlis">
-              <div class="cd-tile">
-                <span id="cd-days" class="cd-value">--</span>
-                <span class="cd-caption">Hari</span>
-              </div>
-              <div class="cd-tile">
-                <span id="cd-hours" class="cd-value">--</span>
-                <span class="cd-caption">Jam</span>
-              </div>
-              <div class="cd-tile">
-                <span id="cd-mins" class="cd-value">--</span>
-                <span class="cd-caption">Minit</span>
-              </div>
-              <div class="cd-tile">
-                <span id="cd-secs" class="cd-value">--</span>
-                <span class="cd-caption">Saat</span>
-              </div>
-            </div>
-
-            <div class="action-pair sogan-cal-actions">
-              <button id="download-ics-btn" class="btn-sogan-solid" type="button">
-                Simpan Kalendar (.ics)
-              </button>
-              <a
-                class="btn-sogan-ghost"
-                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis+Kesyukuran+Perkahwinan+Alimin+%26+Erna&dates=20270314T020000Z/20270314T090000Z&details=Majlis+Kesyukuran+Perkahwinan+Alimin+Bin+Alias+%26+Erna+Hafizah+Binti+Erpian.+Masa:+10:00+Pagi+-+5:00+Petang.&location=Dewan+SJK+(C)+Kung+Ming,+Tawau,+Sabah"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Google Calendar
-              </a>
-            </div>
-          </div>
-        </div>
-
         <div class="itinerary-editorial frame-ivory-bg ivory-card gsap-up">
           <p class="editorial-label">Susunan Masa</p>
           <h4 class="itinerary-heading">Atur Cara Majlis</h4>
@@ -539,9 +488,62 @@
     </div>
     <!-- /ZON WHITE BEACH 2 -->
 
-    <!-- FOOTER (ZON GELAP PENUTUP) -->
-    <footer class="band band-footer dark-zone">
+    <!-- FOOTER (ZON GELAP PENUTUP): kira detik dalam kad baldu Sogan + penutup -->
+    <footer class="band band-footer dark-zone gsap-section">
       <img class="orn-embroidery orn-footer-r orn-float" src="assets/orn-embroidery.webp" width="600" height="600" alt="" aria-hidden="true" loading="lazy" />
+      <div class="countdown-dark-wrap gsap-up">
+        <div class="sogan-climax-card velvet-card">
+          <div class="sogan-card-content">
+            <div class="islamic-ornament-row" aria-hidden="true">
+              <span class="orn-line"></span>
+              <svg class="islamic-star-ico" width="18" height="18"><use href="#islamic-star" /></svg>
+              <span class="orn-line"></span>
+            </div>
+            <p class="sogan-eyebrow">Menghitung Hari Bahagia</p>
+            <p class="sogan-big-date">
+              <span class="sogan-day">14</span>
+              <span class="sogan-month">Mac 2027</span>
+            </p>
+            <p class="sogan-time-line">Ahad &nbsp;&bull;&nbsp; 10:00 Pagi – 5:00 Petang</p>
+            <p class="sogan-venue-line">Dewan SJK (C) Kung Ming, Tawau</p>
+
+            <!-- Live Countdown -->
+            <div class="countdown-sogan" aria-label="Kiraan Detik Menuju Majlis">
+              <div class="cd-tile">
+                <span id="cd-days" class="cd-value">--</span>
+                <span class="cd-caption">Hari</span>
+              </div>
+              <div class="cd-tile">
+                <span id="cd-hours" class="cd-value">--</span>
+                <span class="cd-caption">Jam</span>
+              </div>
+              <div class="cd-tile">
+                <span id="cd-mins" class="cd-value">--</span>
+                <span class="cd-caption">Minit</span>
+              </div>
+              <div class="cd-tile">
+                <span id="cd-secs" class="cd-value">--</span>
+                <span class="cd-caption">Saat</span>
+              </div>
+            </div>
+
+            <div class="action-pair sogan-cal-actions">
+              <button id="download-ics-btn" class="btn-sogan-solid" type="button">
+                Simpan Kalendar (.ics)
+              </button>
+              <a
+                class="btn-sogan-ghost"
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis+Kesyukuran+Perkahwinan+Alimin+%26+Erna&dates=20270314T020000Z/20270314T090000Z&details=Majlis+Kesyukuran+Perkahwinan+Alimin+Bin+Alias+%26+Erna+Hafizah+Binti+Erpian.+Masa:+10:00+Pagi+-+5:00+Petang.&location=Dewan+SJK+(C)+Kung+Ming,+Tawau,+Sabah"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Calendar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="band-inner footer-inner">
         <img class="gold-divider-img footer-divider" src="assets/gold-divider.webp" width="900" height="200" alt="" aria-hidden="true" />
         <img class="footer-crest monogram-img" src="assets/monogram-ae.webp" width="1000" height="599" alt="A &amp; E" loading="lazy" />
