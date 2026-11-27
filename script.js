@@ -1,5 +1,5 @@
 /* =====================================================================
-   DR. ALIMIN & ERNA — Pihak Lelaki Luxury Stationery
+   ALIMIN & ERNA — Pihak Lelaki Luxury Stationery
    Awwwards-Level Motion: Lenis Smooth Scroll + GSAP 3.12 + ScrollTrigger
    Techniques:
    1. Lenis Inertial Smooth Scroll synced to GSAP Ticker
@@ -978,12 +978,12 @@ function initCalendarDownload() {
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Majlis Perkahwinan Dr. Alimin & Erna//MS',
+      'PRODID:-//Majlis Perkahwinan Alimin & Erna//MS',
       'BEGIN:VEVENT',
       'DTSTART:20270314T020000Z',
       'DTEND:20270314T090000Z',
-      'SUMMARY:Majlis Kesyukuran Perkahwinan Dr. Alimin & Erna',
-      'DESCRIPTION:Majlis Kesyukuran Perkahwinan Alimin bin Alias (Dr. Alimin) & Erna Hafizah Erpian (Erna). Masa: 10:00 Pagi - 5:00 Petang.',
+      'SUMMARY:Majlis Kesyukuran Perkahwinan Alimin & Erna',
+      'DESCRIPTION:Majlis Kesyukuran Perkahwinan Alimin Bin Alias & Erna Hafizah Binti Erpian. Masa: 10:00 Pagi - 5:00 Petang.',
       'LOCATION:Dewan SJK (C) Kung Ming, Taman Megah Jaya, 91007 Tawau, Sabah',
       'END:VEVENT',
       'END:VCALENDAR'
@@ -993,7 +993,7 @@ function initCalendarDownload() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Majlis-Perkahwinan-Dr-Alimin-Erna.ics';
+    link.download = 'Majlis-Perkahwinan-Alimin-Erna.ics';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -1090,7 +1090,7 @@ function initWishesOnly() {
   function renderWishes(wishes) {
     countEl.textContent = `${wishes.length} Ucapan`;
     if (wishes.length === 0) {
-      listEl.innerHTML = '<p class="wishes-empty">Jadilah yang pertama menitipkan doa buat Dr. Alimin &amp; Erna.</p>';
+      listEl.innerHTML = '<p class="wishes-empty">Jadilah yang pertama menitipkan doa buat Alimin &amp; Erna.</p>';
     } else {
       listEl.innerHTML = wishes
         .map(

@@ -1,5 +1,5 @@
 /**
- * BUKU UCAPAN & DOA — Dr. Alimin & Erna
+ * BUKU UCAPAN & DOA — Alimin & Erna
  * Google Apps Script untuk menyimpan ucapan tetamu dalam Google Sheets milik keluarga.
  *
  * LANGKAH PEMASANGAN (sekali sahaja, ~5 minit):

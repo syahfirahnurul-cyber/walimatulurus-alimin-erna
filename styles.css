@@ -1,5 +1,5 @@
 /* =====================================================================
-   BESPOKE LUXURY STATIONERY — DR. ALIMIN & ERNA (A & E)
+   BESPOKE LUXURY STATIONERY — ALIMIN & ERNA (A & E)
    Theme: Islamic Soft Beige White with a Hint of Jawa Design
    Assets: Client Envelope (Closed + Open Batik Sogan) + Gold Filigree Card
    Motion: GSAP 3.12 + ScrollTrigger Choreography
@@ -11,14 +11,14 @@
   --sand-beige: #EDE4D5;
   --outer-desk: #E8DFD1;
 
-  --sogan-ink: #2A2018;
+  --sogan-ink: #1F1A17;      /* Deep Espresso: teks utama, kontras tinggi di atas kertas krim */
   --sogan-deep: #1E1610;
-  --sogan-body: #45382E;
-  --sogan-muted: #5F5043;
+  --sogan-body: #2E2520;
+  --sogan-muted: #45382E;
 
   --gold-champagne: #EAD4A6;
   --gold-foil: #A88446;
-  --gold-deep: #735528;
+  --gold-deep: #8C6239;      /* Rich Antique Bronze: label & tajuk kecil */
   --gold-hairline: rgba(168, 132, 70, 0.36);
 
   --font-script: 'Pinyon Script', 'Cormorant Garamond', cursive;
@@ -34,8 +34,8 @@
   --charcoal: #0B0705;
   --antique-gold: #C89D54;
   --wb-cream: #F7F3EB;
-  --ink-on-cream: #2A1D15;
-  --bronze-on-cream: #9E7632;
+  --ink-on-cream: #1F1A17;
+  --bronze-on-cream: #8C6239;
   --sand-on-dark: #F7F3EB;
   --gold-on-dark: #E5C17B;
 }
@@ -236,7 +236,7 @@ h1, h2, h3, h4,
 
 p, blockquote, li { text-wrap: pretty; }
 
-/* "Dr." sebagai gelaran small caps serif di hadapan nama skrip */
+/* Gelaran small caps serif (tidak digunakan buat masa ini) */
 .name-title {
   font-family: var(--font-serif);
   font-size: 0.34em;
@@ -1791,7 +1791,7 @@ body::after {
 /* Kad kandungan Aset 2 (kertas gading bersudut emas): seragam untuk Mempelai, Kira Detik, Atur Cara & Lokasi */
 .ivory-card {
   position: relative;
-  padding: 25% 11% 23%;
+  padding: 25% 11% 28%;   /* bawah lebih lega: nama terakhir jauh dari ornamen sudut */
 }
 #mempelai .band-inner.ivory-card { margin: 34px 16px; }
 .sogan-climax-card.ivory-card { padding: 24% 11% 22%; margin-bottom: 28px; }
@@ -1849,4 +1849,101 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   .orn-hero-tl, .orn-hero-br { animation: none; }
+}
+
+/* =====================================================================
+   KETERBACAAN UNTUK SEMUA PERINGKAT UMUR (27 Nov 2026)
+   - Teks utama Deep Espresso #1F1A17, label Rich Antique Bronze #8C6239 (token :root)
+   - Label & tajuk seksyen: berat 600+, saiz minimum ~12.5px
+   - Butiran & senarai nama keluarga: 15–20px, line-height 1.6–1.75, berat 500
+   - Pelindung keterbacaan: bayang huruf letterpress halus di atas tekstur kertas
+   ===================================================================== */
+
+/* Label & tajuk kecil */
+.editorial-label,
+.hero-kicker,
+.sogan-eyebrow,
+.verse-ref,
+.itinerary-time,
+.mempelai-role { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; }
+.mempelai-role { color: var(--gold-deep); }
+.env-card-kicker { font-size: 0.74rem; font-weight: 700; }
+
+/* Sub-tajuk Turut Mengundang (Atuk & Nenek / Adik-Beradik) sebagai label jelas */
+.turut-sub {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 22px 0 10px;
+}
+
+/* Tajuk seksyen: SemiBold supaya setiap bahagian jelas terpisah */
+.band-heading,
+.turut-title,
+.itinerary-heading,
+.venue-display-name,
+.wishes-top h4 { font-weight: 600; }
+
+/* Senarai nama keluarga: besar, lega & tidak kabur */
+.elders-editorial-list { gap: 12px; }
+.elders-editorial-list li {
+  font-size: clamp(1.12rem, 4.4vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--sogan-ink);
+}
+.elder-relation {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--sogan-body);
+}
+
+/* Teks butiran */
+.editorial-prose,
+.bride-parents-line,
+.venue-full-address,
+.itinerary-note,
+.wish-body,
+.verse-malay { line-height: 1.7; font-weight: 500; }
+.itinerary-title { font-weight: 600; }
+.bismillah-sub { color: var(--sogan-body); font-weight: 500; }
+.date-small { color: var(--sogan-ink); }
+.hero-venue { color: var(--sogan-ink); font-weight: 600; }
+.wishes-empty,
+.footer-note { font-weight: 500; }
+
+/* Nama skrip (Pinyon hanya ada berat 400): tebalkan sedikit supaya tidak tenggelam */
+.display-script,
+.mempelai-callname { -webkit-text-stroke: 0.35px currentColor; }
+
+/* Pelindung keterbacaan di atas tekstur kertas (bayang letterpress, hampir tidak kelihatan) */
+.wb-zone p, .wb-zone li, .wb-zone h3, .wb-zone h4,
+.card-frame-content p, .card-frame-content h2,
+.doa-parchment-card p, .doa-parchment-card blockquote {
+  text-shadow: 0 1px 0 rgba(255, 252, 245, 0.65);
+}
+
+/* Ornamen: garisan emas pekat & menonjol, bukan pudar */
+.gold-divider-img {
+  opacity: 1;
+  filter: saturate(1.15) contrast(1.08) drop-shadow(0 1px 1px rgba(90, 62, 25, 0.28));
+}
+.wb-curve-gold { stroke-width: 1.6; }
+
+/* Bunga sulaman di zon gelap: jauh dari blok teks supaya tidak bertindih huruf */
+.orn-footer-r { bottom: -46px; right: -66px; }
+
+@media (max-width: 440px) {
+  /* Kicker kad utama: lebih besar daripada 0.62rem; dibenarkan dua baris */
+  .card-frame-content .hero-kicker { font-size: 0.72rem; letter-spacing: 0.12em; white-space: normal; }
+  .card-frame-content .bismillah-sub { font-size: 0.86rem; }
+  .date-small { font-size: 0.88rem; }
+  .hero-venue { font-size: 0.95rem; }
 }
