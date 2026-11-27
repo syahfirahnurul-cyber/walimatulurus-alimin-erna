@@ -2063,3 +2063,73 @@ body::after {
 .band-footer .footer-meta,
 .band-batik-doa .editorial-label { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
 .footer-inner { padding-top: 26px; }
+
+/* =====================================================================
+   PENAMBAHBAIKAN AUDIT (IMPAK SEDERHANA)
+   ===================================================================== */
+
+/* 7. Zon krim 1: tekstur garis Batik krim (Aset 5) yang lebih samar daripada zon Ucapan,
+      supaya ruang antara kad tidak terasa kosong tanpa bersaing dengan bingkai gading. */
+.wb-zone-soft {
+  background-image:
+    linear-gradient(180deg, #F7F3EB 0%, rgba(247, 243, 235, 0.8) 10%, rgba(247, 243, 235, 0.76) 50%, rgba(247, 243, 235, 0.8) 90%, #F7F3EB 100%),
+    url('assets/texture-batik-cream.webp');
+}
+
+/* 8. Potret: tona hangat seragam dengan krim + bingkai gerbang emas berganda */
+.couple-portrait-img { filter: sepia(0.2) saturate(0.88) contrast(1.03) brightness(1.01); }
+.couple-mihrab-inner { background: #F3E7D5; }
+.couple-mihrab-inner::after {
+  background:
+    linear-gradient(180deg, rgba(243, 231, 213, 0) 70%, rgba(243, 231, 213, 0.35) 100%),
+    rgba(232, 205, 160, 0.12);
+  mix-blend-mode: multiply;
+}
+.couple-mihrab-arch {
+  border: 1px solid var(--antique-gold);
+  background: linear-gradient(160deg, #FBF5EA 0%, #F3E7D5 100%);
+  box-shadow:
+    0 0 0 4px #F7F3EB,
+    0 0 0 5px rgba(200, 157, 84, 0.65),
+    0 22px 44px rgba(42, 29, 21, 0.18);
+}
+
+/* 9. Borang ucapan bergaya kertas: bingkai gading, medan bergaris bawah emas, label serif */
+.paper-form {
+  position: relative;
+  padding: 28% 11% 24%;   /* label & butang jauh dari ornamen sudut */
+  border: 0;
+}
+.paper-form::before,
+.paper-form::after { display: none; }
+.paper-form .field label {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.paper-form .field input,
+.paper-form .field textarea {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;          /* > 16px: iPhone tidak zoom automatik */
+  font-weight: 500;
+  padding: 10px 4px 8px;
+  border: 0;
+  border-bottom: 1px solid rgba(140, 98, 57, 0.55);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-on-cream);
+}
+.paper-form .field textarea { resize: vertical; min-height: 96px; }
+.paper-form .field input::placeholder,
+.paper-form .field textarea::placeholder { color: rgba(69, 56, 46, 0.55); font-style: italic; }
+.paper-form .field input:focus,
+.paper-form .field textarea:focus {
+  border-bottom-color: var(--antique-gold);
+  box-shadow: 0 2px 0 -1px var(--antique-gold);
+  background: rgba(255, 252, 245, 0.45);
+}
+.paper-form .char-counter { font-family: var(--font-serif); font-size: 0.82rem; }
+.paper-form .btn-block { margin-top: 6px; }

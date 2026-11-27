@@ -21,13 +21,12 @@ Kad (3-slice: atas & bawah tidak diregang)
 
 Ornamen (lutsinar)
 - orn-paisley.webp          Aset 3: Sulur paisley, jambatan merentasi sempadan gelap ↔ krim
-- orn-batik-flower.webp     Aset 4: Bunga Batik di sudut kad krim (marun ditonasi ke Sogan dalam CSS)
-- texture-batik-cream.webp  Aset 5: Corak garis halus Batik krim, tekstur zon Ucapan
+- texture-batik-cream.webp  Aset 5: Corak garis halus Batik krim, tekstur zon krim (Mempelai–Lokasi & Ucapan)
 - orn-embroidery.webp       Aset 6: Bunga sulaman putih-emas pada zon gelap (latar hitam dibuang)
 
 Identiti & lain-lain
 - monogram-ae.webp          Monogram A&E kaligrafi
-- couple-portrait.jpg       Potret mempelai
+- couple-portrait.webp      Potret mempelai
 - gold-divider.webp         Pemisah emas
 - icon-arrival / icon-feast / icon-farewell.webp   Ikon atur cara
 - og-image.jpg              Imej pratonton WhatsApp (1200x630)
